@@ -8,15 +8,32 @@
 
 ## 🚀 開発を始めるには
 
+docker-compose up -d --build
+
 1. このリポジトリをクローンします。
 
 2. `.env.example`をコピーして`.env`ファイルを作成し、必要な環境変数を設定します。
 
-3. ターミナルで以下のコマンドを実行します。
+3. [VS Code 拡張機能「Docker」](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) をインストールします。
 
-docker-compose up -d --build
+4. VS Code のエクスプローラーで `docker-compose.yaml` ファイルを右クリックし、「Compose Up」を選択してビルド＆起動します。
 
-4. ブラウザで `http://localhost:3000` にアクセスします。
+5. ターミナルを 2 つ開きます。
+
+- 1 つ目のターミナルで以下を実行し、コンテナに入ります。
+  ```bash
+  docker-compose exec app sh
+  ```
+- このターミナルは `npm run dev` などアプリ実行用に使います。
+- もう 1 つのターミナルは、開発作業や git 操作用に使います。
+
+6. コンテナ内のターミナルで以下を実行し、Next.js アプリを起動します。
+
+```bash
+npm run dev
+```
+
+7. ブラウザで `http://localhost:3000` にアクセスします。
 
 ## 🏛️ アーキテクチャ概要
 
@@ -26,33 +43,35 @@ docker-compose up -d --build
 
 ## 📂 フォルダ構成
 
-プロジェクトの主要なフォルダ構成は以下の通りです。
+本リポジトリ（aglink-team-project-2025）の直下には、`aglink` ディレクトリ、`docker-compose.yaml`、`README.md` などの主要ファイルが配置されています。
+プロジェクトの主要なフォルダ・ファイル構成は以下の通りです。
 
 ```
-aglink/
-├── .next/
-├── node_modules/
-├── public/
-├── src/
-│   ├── app/         # ページの本体（URLと連動）
-│   │   ├── layout.tsx   # 全ページ共通のレイアウト
-│   │   └── page.tsx     # トップページ
-│   ├── components/  # 再利用可能なUI部品
-│   │   ├── ui/        # ボタンなど最小単位の部品
-│   │   ├── forms/     # フォーム関連の部品
-│   │   └── sections/  # 複数の部品を組み合わせた大きな部品
-│   ├── data/        # モックデータ（ダミーのJSONなど）
-│   ├── hooks/       # 再利用可能なロジック（カスタムフック）
-│   └── lib/         # 補助的な便利関数
-├── .env
-├── .env.example
-├── .gitignore
-├── Dockerfile
-├── docker-compose.yaml
-├── next.config.ts
-├── package.json
-├── README.md
-└── tsconfig.json
+aglink-team-project-2025/
+├── aglink/                # フロントエンドアプリ本体（Next.jsなど）
+│   ├── .next/             # Next.js が開発中に自動生成する一時ファイルやビルド成果物
+│   ├── node_modules/      # npm installでインストールされる依存ライブラリ
+│   ├── public/            # 画像やフォントなど、公開される静的ファイル
+│   ├── src/
+│   │   ├── app/         # ページの本体（URLと連動）
+│   │   │   ├── layout.tsx   # 全ページ共通のレイアウト
+│   │   │   └── page.tsx     # トップページ
+│   │   ├── components/  # 再利用可能なUI部品
+│   │   │   ├── ui/        # ボタンなど最小単位の部品
+│   │   │   ├── forms/     # フォーム関連の部品
+│   │   │   └── sections/  # 複数の部品を組み合わせた大きな部品
+│   │   ├── data/        # モックデータ（ダミーのJSONなど）
+│   │   ├── hooks/       # 再利用可能なロジック（カスタムフック）
+│   │   └── lib/         # 補助的な便利関数
+│   ├── .env
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── next.config.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── docker-compose.yaml    # aglinkの兄弟ファイル（Dockerサービス定義）
+├── README.md              # aglinkの兄弟ファイル（このファイル）
 ```
 
 ## 🛠️ 各ファイル・フォルダの解説
@@ -96,3 +115,5 @@ aglink/
   - **Next.js**プロジェクト全体の設定ファイルです。
 - **`eslint.config.mjs`**
   - コード品質チェックツール**ESLint**の設定ファイルです。
+- **`docker-compose.yaml`**
+  - **Docker**でアプリをビルド・起動するための設定ファイルです。サービス名やポート、ボリューム、環境変数などをまとめて管理します。VS Code の Docker 拡張機能とも連携できます。
