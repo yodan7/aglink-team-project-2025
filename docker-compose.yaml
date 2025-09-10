@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: ./aglink
+      dockerfile: Dockerfile
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./aglink:/app
+      - /app/node_modules
+      - ~/.gitconfig:/root/.gitconfig
+    container_name: aglink-app
+    env_file: ./aglink/.env

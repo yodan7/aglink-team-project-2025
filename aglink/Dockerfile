@@ -2,7 +2,8 @@
 FROM node:22-alpine
 
 # 2. OSのパッケージを最新版に更新して、脆弱性を解消する
-RUN apk update && apk upgrade
+#    ★★ Gitをインストールするコマンドを追加しました ★★
+RUN apk update && apk upgrade && apk add --no-cache git
 
 # 3. コンテナ内での作業場所を指定
 WORKDIR /app
