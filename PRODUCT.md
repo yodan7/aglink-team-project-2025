@@ -57,7 +57,7 @@
 
 - **フロントエンド**: React
 - **バックエンド**: Django（Next.js に変更を検討）
-- **データベース**: Firebase Firestore（SuperBase に変更を検討）
+- **データベース**: Firebase Firestore（Supabase に変更を検討）
 - **バージョン管理**: Git
 - **開発環境**: Docker
 
