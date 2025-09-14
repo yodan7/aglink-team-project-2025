@@ -11,4 +11,4 @@ services:
       - /app/node_modules
       - ~/.gitconfig:/root/.gitconfig
     container_name: aglink-app
-    env_file: ./aglink/.env
+    env_file: ./aglink/.env.local

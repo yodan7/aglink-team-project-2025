@@ -47,73 +47,176 @@ npm run dev
 プロジェクトの主要なフォルダ・ファイル構成は以下の通りです。
 
 ```
-aglink-team-project-2025/
-├── aglink/                # フロントエンドアプリ本体（Next.jsなど）
-│   ├── .next/             # Next.js が開発中に自動生成する一時ファイルやビルド成果物
-│   ├── node_modules/      # npm installでインストールされる依存ライブラリ
-│   ├── public/            # 画像やフォントなど、公開される静的ファイル
+aglink-team-project-2025/    # Gitリポジトリのルート
+├── .git/
+├── aglink/                  # Next.jsアプリケーション本体
+│   ├── public/              # 画像、フォントなどの静的ファイル
+│   │   └── images/
 │   ├── src/
-│   │   ├── app/         # ページの本体（URLと連動）
-│   │   │   ├── layout.tsx   # 全ページ共通のレイアウト
-│   │   │   └── page.tsx     # トップページ
-│   │   ├── components/  # 再利用可能なUI部品
-│   │   │   ├── ui/        # ボタンなど最小単位の部品
-│   │   │   ├── forms/     # フォーム関連の部品
-│   │   │   └── sections/  # 複数の部品を組み合わせた大きな部品
-│   │   ├── data/        # モックデータ（ダミーのJSONなど）
-│   │   ├── hooks/       # 再利用可能なロジック（カスタムフック）
-│   │   └── lib/         # 補助的な便利関数
-│   ├── .env
-│   ├── .env.example
+│   │   ├── app/               # ① ページの本体 (Routes)
+│   │   │   ├── (auth)/        # 認証関連ページ
+│   │   │   │   ├── login/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── signup/
+│   │   │   │       └── page.tsx
+│   │   │   ├── (main)/        # メイン機能ページ
+│   │   │   │   ├── bookmarks/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── diagnosis/
+│   │   │   │   │   ├── result/
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── farms/
+│   │   │   │   │   ├── [id]/
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── mypage/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── layout.tsx   # メイン機能共通のレイアウト
+│   │   │   │   └── page.tsx     # トップページ (/)
+│   │   │   └── layout.tsx       # 全体共通のルートレイアウト
+│   │   │
+│   │   ├── components/          # ② 再利用可能なコンポーネント
+│   │   │   ├── ui/              # デザインシステムの最小単位 (shadcn/uiなど)
+│   │   │   │   ├── Button.tsx
+│   │   │   │   ├── Card.tsx
+│   │   │   │   ├── Header.tsx
+│   │   │   │   ├── Footer.tsx
+│   │   │   │   └── Spinner.tsx
+│   │   │   └── domain/          # ドメインごとのコンポーネント
+│   │   │       ├── auth/
+│   │   │       │   └── AuthForm.tsx
+│   │   │       ├── diagnosis/
+│   │   │       │   ├── DiagnosisForm.tsx
+│   │   │       │   └── DiagnosisResult.tsx
+│   │   │       └── farms/
+│   │   │           ├── FarmDetail.tsx
+│   │   │           ├── FarmList.tsx
+│   │   │           └── BookmarkButton.tsx
+│   │   │
+│   │   ├── hooks/               # ③ 再利用可能なカスタムフック
+│   │   │   ├── useAuth.ts      # (Supabase Auth Helpers for Next.js などで代替するかも)
+│   │   │   ├── useBookmarks.ts # (Server Actions + SWR/React Query で代替するかも)
+│   │   │   └── useDiagnosis.ts # (useState or Jotai/Zustand で代替するかも)(診断結果のみServer Actionsで保存する)
+│   │   │
+│   │   ├── lib/                 # ④ 外部サービス連携や共通ロジック
+│   │   │   ├── supabase/
+│   │   │   │   ├── client.ts
+│   │   │   │   └── server.ts
+│   │   │   ├── actions.ts       # Server Actions
+│   │   │   └── utils.ts
+│   │   │
+│   │   ├── data/                # ⑤ モックデータ
+│   │   │   └── mock-farms.json
+│   │   │
+│   │   └── types/               # ⑥ TypeScriptの型定義
+│   │       └── index.ts         # (Farm, User, Diagnosisなど)
+│   │
+│   ├── .env.local             # SupabaseのAPIキーなどを保管
 │   ├── .gitignore
-│   ├── Dockerfile
-│   ├── next.config.ts
+│   ├── Dockerfile             # aglinkアプリをビルドするための設計図
+│   ├── next.config.mjs
 │   ├── package.json
+│   ├── postcss.config.mjs
+│   ├── tailwind.config.ts
 │   └── tsconfig.json
-├── docker-compose.yaml    # aglinkの兄弟ファイル（Dockerサービス定義）
-├── README.md              # aglinkの兄弟ファイル（このファイル）
+│
+├── docker-compose.yaml      # Dockerサービス定義
+└── README.md
 ```
 
 ## 🛠️ 各ファイル・フォルダの解説
 
-### 主要なフォルダ
+### `src/`
 
-- **`src/`**
-  - **アプリケーションのソースコード**を格納する中心的な場所です。開発作業は主にこの中で行います。
-- **`src/app/`**
-  - Next.js の**App Router**のルールに基づき、ページの URL 構造を定義します。この中の`page.tsx`が各ページの本体になります。
-- **`src/components/`**
-  - ボタンやカードなど、複数のページで**再利用する UI 部品**を格納します。
-- **`src/hooks/`**
-  - 状態管理のロジックなど、UI から独立した**再利用可能なロジック（カスタムフック）**を格納します。
-- **`src/lib/`**
-  - 日付のフォーマット変換など、プロジェクト全体で使える**補助的な便利関数**を格納します。
-- **`src/data/`**
-  - バックエンド API が完成する前に開発を進めるための、**ダミーデータ（モックデータ）**を格納します。
-- **`public/`**
-  - 画像やフォントなど、公開される静的ファイルを格納します。この中のファイルは加工されずにそのまま利用できます。
-- **`node_modules/`**
-  - `npm install`によってインストールされた、プロジェクトの依存ライブラリがすべて格納されています。
-- **`.next/`**
-  - Next.js が開発中に自動生成する**一時ファイルやビルド成果物**が格納されます。直接編集することはありません。
+アプリケーションのソースコード全体を格納する中心的なディレクトリです。開発作業は主にこの中で行います。
 
-### 設定ファイル
+---
 
-- **`Dockerfile`**
-  - Docker コンテナの**設計図**です。OS や Node.js のバージョン、必要なコマンドなどを定義します。
-- **`docker-compose.yaml`**
-  - Docker コンテナを管理・起動するための**司令塔**です。ポート設定やフォルダ同期などを定義します。
-- **`package.json`**
-  - プロジェクトの**最も重要な管理ファイル**。プロジェクト名、依存ライブラリのリスト、スクリプト（`npm run dev`など）を定義します。
-- **`.gitignore`**
-  - Git のバージョン管理から**無視（除外）するファイル**を指定します。`node_modules`や`.env`などが含まれます。
-- **`.env` / `.env.example`**
-  - API キーなどの**環境変数**を管理します。`.env`は Git で共有せず、`.env.example`をテンプレートとして共有します。
-- **`tsconfig.json`**
-  - **TypeScript**の設定ファイル。コードのチェックルールなどを定義します。
-- **`next.config.ts`**
-  - **Next.js**プロジェクト全体の設定ファイルです。
-- **`eslint.config.mjs`**
-  - コード品質チェックツール**ESLint**の設定ファイルです。
-- **`docker-compose.yaml`**
-  - **Docker**でアプリをビルド・起動するための設定ファイルです。サービス名やポート、ボリューム、環境変数などをまとめて管理します。VS Code の Docker 拡張機能とも連携できます。
+### `src/app/`
+
+Next.js の **App Router** に基づいて、アプリケーションのURL（ルーティング）と各ページの内容を定義します。
+
+- **`(auth)` / `(main)`**: ルートグループです。URLのパスに影響を与えずに、特定のセクション（例：認証ページ、メイン機能ページ）のレイアウトを共通化するために使用します。
+- **`layout.tsx`**: 全ページで共通の骨格となるルートレイアウトです。HTMLの`<html>`や`<body>`タグを定義します。
+- **`page.tsx`**: アプリケーションのトップページ（`/`）です。
+- **`**/page.tsx`**: 各URLに対応するページのUIを定義するファイルです。
+- **`[id]/`**: 動的ルートです。例えば、`farms/[id]/page.tsx` は `/farms/1`, `/farms/2` のような個別の農地詳細ページに対応します。
+
+---
+
+### `src/components/`
+
+複数のページで再利用するReactコンポーネントを格納します。
+
+- **`ui/`**: **デザインシステムの最小単位**となる汎用的なコンポーネントを配置します。特定の機能やドメイン知識に依存しません。
+  - (例) `Button.tsx`, `Card.tsx`, `Header.tsx`
+- **`domain/`**: **特定の機能（ドメイン）** に関連するコンポーネントを配置します。
+  - **`auth/`**: ユーザー認証（ログイン、新規登録）に関連するコンポーネント。
+  - **`diagnosis/`**: 農業スタイル診断に関連するコンポーネント。
+  - **`farms/`**: 農地情報（一覧、詳細、ブックマーク）に関連するコンポーネント。
+
+---
+
+### `src/hooks/`
+
+UIからロジックを分離し、再利用可能にするためのカスタムフックを格納します。
+
+- **`useAuth.ts`**: ユーザー認証状態の管理や、ログイン・ログアウト処理などを行います。
+- **`useBookmarks.ts`**: ブックマークの追加・削除・一覧取得などのロジックをカプセル化します。
+- **`useDiagnosis.ts`**: 診断の質問への回答や、診断結果の計算・保持などのロジックを管理します。
+
+---
+
+### `src/lib/`
+
+外部サービスとの連携や、プロジェクト全体で使われる共通ロジック・便利関数を格納します。
+
+- **`supabase/`**: データベース・認証サービスであるSupabaseと連携するためのクライアントを定義します。
+- **`actions.ts`**: 主にフォームの送信など、クライアントからの操作をトリガーにサーバー側で実行される処理（**Server Actions**）を定義します。
+- **`utils.ts`**: 日付のフォーマットや、テキストの加工など、特定の機能に依存しない便利関数を配置します。
+
+---
+
+### `src/data/`
+
+開発初期段階で、バックエンドAPIの代わりとなる**モックデータ（ダミーデータ）** を格納します。
+
+- **`mock-farms.json`**: 農地一覧のダミーデータなど、JSON形式で定義します。
+
+---
+
+### `src/types/`
+
+TypeScriptの**型定義**を格納します。
+
+- **`index.ts`**: `Farm`（農地）、`User`（ユーザー）、`Diagnosis`（診断結果）など、アプリケーション全体で使われるデータ構造の型を定義します。
+
+---
+
+### `public/`
+
+画像、フォント、`favicon.ico`など、ビルド時に加工されずにそのままのパスで公開される静的ファイルを格納します。
+
+---
+
+### 主要な設定ファイル
+
+- **`package.json`**: プロジェクト名、バージョン、依存ライブラリ（`dependencies`）、スクリプト（`scripts`）などを定義する、Node.jsプロジェクトの最も重要な管理ファイルです。
+- **`next.config.mjs`**: Next.jsの動作をカスタマイズするための設定ファイルです。
+- **`tailwind.config.ts`**: CSSフレームワークであるTailwind CSSのテーマ（色、フォントサイズなど）や設定をカスタマイズします。
+- **`tsconfig.json`**: TypeScriptコンパイラの設定ファイルです。コードのチェックルールや、どのファイルをコンパイル対象とするかを定義します。
+- **`.env.local`**: SupabaseのAPIキーなど、**公開してはいけない**環境変数を定義します。`.gitignore`に含まれており、Gitリポジトリには共有されません。
+- **`Dockerfile` / `docker-compose.yaml`**: 開発環境をコンテナ化するためのDocker関連ファイルです。
+
+---
+
+### その他のファイル
+
+プロジェクトの動作を支える、その他の設定ファイルです。通常、頻繁に編集する必要はありません。
+
+- **`.gitignore`**: Gitのバージョン管理から除外するファイルやフォルダ（`node_modules`、`.env.local`など）を指定します。
+- **`next-env.d.ts`**: Next.jsが自動生成するTypeScriptの型定義ファイルです。直接編集はしません。
+- **`postcss.config.mjs`**: Tailwind CSSなどのPostCSSプラグインを動作させるための設定ファイルです。
+- **`eslint.config.mjs`**: コードの品質とスタイルをチェックするESLintの設定ファイルです。
+- **`.github/`**: GitHub ActionsによるCI/CD（継続的インテグレーション/継続的デリバリー）のワークフロー定義を格納します。
