@@ -54,6 +54,7 @@ aglink-team-project-2025/    # Gitリポジトリのルート
 │   │   └── images/
 │   ├── src/
 │   │   ├── app/               # ① ページの本体 (Routes)
+│   │   │   ├── globals.css      # 全体的なスタイル
 │   │   │   ├── (auth)/        # 認証関連ページ
 │   │   │   │   ├── login/
 │   │   │   │   │   └── page.tsx
