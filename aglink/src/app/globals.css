@@ -1,28 +1,60 @@
-@import "tailwindcss";
+/* ================================================================================
+  1. Tailwind CSSの基本設定 (必須)
+  ================================================================================
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* ================================================================================
+  2. アプリ全体の基本スタイルとテーマ設定
+  ================================================================================
+  Figmaのデザイン（緑と青を基調としたナチュラルなテーマ）を反映したカラーパレットです。
+*/
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* カラーパレットの定義 */
+    --background: 240 10% 98%; /* 背景色 (ほぼ白に近いごく薄いグレー) */
+    --foreground: 240 10% 3.9%; /* 文字色 (黒に近いグレー) */
+
+    --card: 240 10% 100%; /* カードの背景色 (白) */
+    --card-foreground: 240 10% 3.9%;
+
+    /* Aglinkのテーマカラー */
+    --primary: 100 50% 60%; /* メインカラー (Figmaの優しい緑) */
+    --primary-foreground: 100 25% 15%; /* 緑の上の濃い文字色 */
+
+    --secondary: 210 70% 55%; /* サブカラー (Figmaの落ち着いた青) */
+    --secondary-foreground: 0 0% 100%; /* 青の上の白い文字色 */
+
+    --muted: 240 5% 96.1%; /* 控えめな要素の色 (薄いグレー) */
+    --muted-foreground: 240 4% 46.1%;
+
+    --accent: 240 5% 96.1%; /* アクセントカラー */
+    --accent-foreground: 240 6% 10%;
+
+    --destructive: 0 84.2% 60.2%; /* 警告色 (赤) */
+    --destructive-foreground: 0 0% 100%;
+
+    /* UI要素の色 */
+    --border: 240 6% 90%; /* ボーダー色 */
+    --input: 240 6% 90%; /* 入力欄のボーダー色 */
+    --ring: 210 70% 55%; /* フォーカス時のリング色 (青) */
+
+    --radius: 0.75rem; /* 角の丸み (少し大きめにして柔らかい印象に) */
+  }
+
+  /* ダークモード (今回は未定義ですが、将来的に設定できます) */
+  .dark {
+    /* ... */
+  }
+
+  /* bodyタグへの基本設定 */
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    /* 必要であれば、ここでWebフォントを指定します */
+    /* font-family: 'YourWebFont', sans-serif; */
   }
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* 全部消してOK */
