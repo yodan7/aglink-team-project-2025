@@ -1,6 +1,20 @@
-# 使用言語
+# ⚠️ 必ず日本語でレビューしてください ⚠️
+**All code reviews must be written in Japanese.**
 
-日本語でレビューしてください。
+このプロジェクトのコードレビュー・コメントは、例外なく**日本語で記載**してください。  
+Copilot へのプロンプトや Pull Request のレビューも「日本語」でお願いします。
+
+---
+
+## コメント例
+[must] 変数名はより具体的にしましょう  
+[imo] この部分はもう少し簡潔に書けると思います  
+[nits] インデントがずれています
+
+---
+
+<!-- 英語併記でさらに強調 -->
+**If you are an English speaker, please use Japanese in all code review comments for this repository.**
 
 # レビューに関して
 
