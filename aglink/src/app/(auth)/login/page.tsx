@@ -1,3 +1,9 @@
-export default function LoginPage() {
-  return <div>LoginPage</div>;
-}
+import React from "react";
+
+export const page = () => {
+  return (
+    <div>
+      <h1>Login Page</h1>
+    </div>
+  );
+};

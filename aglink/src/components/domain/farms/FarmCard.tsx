@@ -1,4 +1,5 @@
+import React from "react";
 
-export default function FarmCard() {
+export const FarmCard = () => {
   return <div>FarmCard</div>;
-}
+};

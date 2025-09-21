@@ -2,6 +2,8 @@
   {
     "id": "farm-01",
     "name": "はじめての週末農園",
+    "diagnosis": "週末農業タイプ",
+    "location": "東京都渋谷区",
     "description": "都心からアクセス抜群の農園です。",
     "imageUrl": "/images/farm-sample.jpg"
   }
