@@ -1,4 +1,5 @@
+import React from "react";
 
-export default function DiagnosisPage() {
+export const DiagnosisPage = () => {
   return <div>DiagnosisPage</div>;
-}
+};

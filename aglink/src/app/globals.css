@@ -14,17 +14,20 @@
 @layer base {
   :root {
     /* カラーパレットの定義 */
-    --background: 240 10% 98%; /* 背景色 (ほぼ白に近いごく薄いグレー) */
+    --background: 0 0% 95%; /* 背景色 (stone-100) */
     --foreground: 240 10% 3.9%; /* 文字色 (黒に近いグレー) */
 
     --card: 240 10% 100%; /* カードの背景色 (白) */
     --card-foreground: 240 10% 3.9%;
 
-    /* Aglinkのテーマカラー */
-    --primary: 100 50% 60%; /* メインカラー (Figmaの優しい緑) */
-    --primary-foreground: 100 25% 15%; /* 緑の上の濃い文字色 */
+    --popover: 240 10% 100%;
+    --popover-foreground: 240 10% 3.9%;
 
-    --secondary: 210 70% 55%; /* サブカラー (Figmaの落ち着いた青) */
+    /* Aglinkのテーマカラー */
+    --primary: 123 25% 58%; /* メインカラー (/sampleページの緑) */
+    --primary-foreground: 0 0% 100%; /* 緑の上の白い文字色 */
+
+    --secondary: 217 91% 60%; /* サブカラー (/sampleページの青) */
     --secondary-foreground: 0 0% 100%; /* 青の上の白い文字色 */
 
     --muted: 240 5% 96.1%; /* 控えめな要素の色 (薄いグレー) */
@@ -46,15 +49,17 @@
 
   /* ダークモード (今回は未定義ですが、将来的に設定できます) */
   .dark {
-    /* ... */
+    /* ここにダークモード用の変数を定義します */
+    /* 例: --background: 240 10% 3.9%; */
   }
 
   /* bodyタグへの基本設定 */
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-    /* 必要であれば、ここでWebフォントを指定します */
-    /* font-family: 'YourWebFont', sans-serif; */
+  }
+
+  * {
+    @apply border-border;
   }
 }
