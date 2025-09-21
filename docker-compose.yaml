@@ -12,3 +12,4 @@ services:
       - ~/.gitconfig:/root/.gitconfig
     container_name: aglink-app
     env_file: ./aglink/.env.local
+# commandの指定がない場合、Dockerfileで指定
