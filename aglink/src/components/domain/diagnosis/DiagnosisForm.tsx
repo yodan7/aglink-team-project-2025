@@ -1,4 +1,5 @@
+import React from "react";
 
-export default function DiagnosisForm() {
+export const DiagnosisForm = () => {
   return <div>DiagnosisForm</div>;
-}
+};
