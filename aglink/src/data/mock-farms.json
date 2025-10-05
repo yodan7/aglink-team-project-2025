@@ -2,7 +2,8 @@
   {
     "id": "farm-01",
     "name": "はじめての週末農園",
-    "type": "AFHP - のんびり家庭菜園タイプ",
+    "code": "AFHP",
+    "type": "のんびり家庭菜園タイプ",
     "location": "東京都渋谷区",
     "description": "都心からアクセス抜群の農園です。",
     "imageUrl": "/images/farm-sample.jpg"
@@ -10,7 +11,8 @@
   {
     "id": "farm-02",
     "name": "ガチ農家への道",
-    "type": "SCHP - プロフェッショナル農家タイプ",
+    "code": "SCHP",
+    "type": "プロフェッショナル農家タイプ",
     "location": "千葉県香取市",
     "description": "本格的に農業を学びたい方向け。宿泊施設も完備しています。",
     "imageUrl": "/images/farm-pro.jpg"
@@ -18,14 +20,16 @@
   {
     "id": "farm-03",
     "name": "都会のスマート菜園",
-    "type": "ACIP - アーバンファーマータイプ",
+    "code": "ACIP",
+    "type": "アーバンファーマータイプ",
     "description": "自宅のベランダで気軽に始められる水耕栽培キットを提供します。※場所は任意なので省略",
     "imageUrl": "/images/farm-urban.jpg"
   },
   {
     "id": "farm-04",
     "name": "みんなのコミュニティファーム",
-    "type": "SFHO - ソーシャルアグリタイプ",
+    "code": "SFHO",
+    "type": "ソーシャルアグリタイプ",
     "location": "神奈川県横浜市",
     "description": "地域の仲間と一緒に、楽しみながら野菜を育てる共同農園です。",
     "imageUrl": "/images/farm-community.jpg"
