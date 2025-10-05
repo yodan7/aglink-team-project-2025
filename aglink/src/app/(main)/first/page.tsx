@@ -29,7 +29,7 @@ export default function DiagnosisStartPage() {
 
         {/* キャッチコピー */}
         <p className="text-3xl font-extrabold mb-2" style={{ color: AG_BROWN }}>
-          #あなたの農活、覗いてみよう。
+          #あなただけの農業スタイル
         </p>
         <p className="text-lg mb-8" style={{ color: AG_BROWN }}>
           20の質問で、ぴったりの農業スタイルを診断！
@@ -57,14 +57,9 @@ export default function DiagnosisStartPage() {
               background: `linear-gradient(to right, ${AG_GREEN} 0%, ${AG_DARK_GREEN} 100%)`,
             }}
           >
-            診断スタート
+            はじめる
           </Button>
         </Link>
-        
-        {/* 補足情報 */}
-        <p className="text-sm mt-4" style={{ color: AG_BROWN }}>
-          完全無料・登録不要
-        </p>
 
       </div>
     </div>
