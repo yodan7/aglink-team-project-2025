@@ -1,22 +1,36 @@
-export type Farm = {
+export type AgriTypePair =
+  | { code: "AFHO"; type: "週末ガーデナータイプ" }
+  | { code: "AFHP"; type: "のんびり家庭菜園タイプ" }
+  | { code: "AFIO"; type: "ロマンティックファーマータイプ" }
+  | { code: "AFIP"; type: "週末研究家タイプ" }
+  | { code: "ACHO"; type: "アグリインフルエンサータイプ" }
+  | { code: "ACHP"; type: "職人気質ガーデナータイプ" }
+  | { code: "ACIO"; type: "企業家アグリタイプ" }
+  | { code: "ACIP"; type: "アーバンファーマータイプ" }
+  | { code: "SFHO"; type: "ソーシャルアグリタイプ" }
+  | { code: "SFHP"; type: "堅実な家庭菜園タイプ" }
+  | { code: "SFIO"; type: "理系アグリタイプ" }
+  | { code: "SFIP"; type: "ロジカル農家タイプ" }
+  | { code: "SCHO"; type: "週末チャレンジファーマータイプ" }
+  | { code: "SCHP"; type: "プロフェッショナル農家タイプ" }
+  | { code: "SCIO"; type: "テクノロジー農家タイプ" }
+  | { code: "SCIP"; type: "職人ファーマータイプ" };
+
+export type BaseFarm = {
   id: string;
   name: string;
-  type: "AFHO - 週末ガーデナータイプ" | "AFHP - のんびり家庭菜園タイプ" | "AFIO - ロマンティックファーマータイプ" | "AFIP - 週末研究家タイプ" |
-        "ACHO - アグリインフルエンサータイプ" | "ACHP - 職人気質ガーデナータイプ" | "ACIO - 企業家アグリタイプ" | "ACIP - アーバンファーマータイプ" |
-        "SFHO - ソーシャルアグリタイプ" | "SFHP - 堅実な家庭菜園タイプ" | "SFIO - 理系アグリタイプ" | "SFIP - ロジカル農家タイプ" |
-        "SCHO - 週末チャレンジファーマータイプ" | "SCHP - プロフェッショナル農家タイプ" | "SCIO - テクノロジー農家タイプ" | "SCIP - 職人ファーマータイプ";
   location?: string;
   description: string;
   imageUrl: string;
 };
 
-export type Diagnosis = {
-  type: "AFHO - 週末ガーデナータイプ" | "AFHP - のんびり家庭菜園タイプ" | "AFIO - ロマンティックファーマータイプ" | "AFIP - 週末研究家タイプ" |
-        "ACHO - アグリインフルエンサータイプ" | "ACHP - 職人気質ガーデナータイプ" | "ACIO - 企業家アグリタイプ" | "ACIP - アーバンファーマータイプ" |
-        "SFHO - ソーシャルアグリタイプ" | "SFHP - 堅実な家庭菜園タイプ" | "SFIO - 理系アグリタイプ" | "SFIP - ロジカル農家タイプ" |
-        "SCHO - 週末チャレンジファーマータイプ" | "SCHP - プロフェッショナル農家タイプ" | "SCIO - テクノロジー農家タイプ" | "SCIP - 職人ファーマータイプ";
+export type Farm = BaseFarm & AgriTypePair;
+
+export type BaseDiagnosis = {
   description: string;
 };
+
+export type Diagnosis = BaseDiagnosis & AgriTypePair;
 
 export type Profile = {
   id: string; //DBから提供されるID
