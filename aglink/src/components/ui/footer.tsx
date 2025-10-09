@@ -17,7 +17,7 @@ export function Footer() {
           <Link href="/" className="transition-opacity hover:opacity-80">
             {/* ロゴ画像を配置 */}
             <Image
-              src="/images/aglink-logo.pmg" 
+              src="/images/aglink-logo.png" 
               alt="Aglink ロゴ"
               width={130} // ヘッダーより少し大きめに
               height={35}
