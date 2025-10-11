@@ -23,7 +23,7 @@ export default function DiagnosisStartPage() {
         
         {/* ロゴとヘッダー要素 (デザインを再現するため、簡略化して配置) */}
         <div className="flex items-center space-x-2 mb-4">
-          <span className="text-3xl" style={{ color: AG_GREEN }}>🌿</span>
+          
           <h1 className="text-3xl font-bold" style={{ color: AG_BROWN }}>Aglink</h1>
         </div>
 
