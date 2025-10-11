@@ -1,13 +1,15 @@
+export type FarmType = "週末農業タイプ" | "家庭菜園タイプ";
+
 export type Farm = {
   id: string;
   name: string;
-  type: "週末農業タイプ" | "家庭菜園タイプ";
+  farmType: FarmType;
   location?: string;
   description: string;
   imageUrl: string;
 };
 
 export type Diagnosis = {
-  type: "週末農業タイプ" | "家庭菜園タイプ";
+  farmType: FarmType;
   description: string;
 };

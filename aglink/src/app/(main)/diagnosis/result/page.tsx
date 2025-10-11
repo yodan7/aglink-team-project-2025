@@ -8,11 +8,11 @@ export default async function DiagnosisResultPage() {
   // 1. サーバーサイドでデータを取得する
   // (実際には、前のページから診断IDを受け取って、それを元にデータを取得します)
   const diagnosis: Diagnosis = {
-    type: "週末農業タイプ",
+    farmType: "週末農業タイプ",
     description: "週末に農業を楽しみたい方向けのタイプです。",
   };
   const recommendedFarms: Farm[] | undefined = await getFarmsByDiagnosis(
-    diagnosis.type
+    diagnosis.farmType
   );
 
   // 2. 取得したデータを、表示担当のドメインコンポーネントにPropsとして渡す
