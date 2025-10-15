@@ -62,7 +62,7 @@ export default function Page() {
       </div>
       <div>
         <div>
-          ユーザーの選択によりtypeCodeを生成し、それをもとにalgi_typesからデータを検索し取得する
+          ユーザーの選択によりtypeCodeを生成し、それをもとにagli_typesからデータを検索し取得する
         </div>
         <fieldset>
           <legend>A/S</legend>
