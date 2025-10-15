@@ -24,7 +24,7 @@ export type BaseFarm = {
   imageUrl: string;
 };
 
-export type Farm = BaseFarm & AgriTypePair;
+export type Farm = BaseFarm & AgriTypePair; // FarmにAgriTypePairのプロパティが追加された型となる
 
 export type BaseDiagnosis = {
   description: string;

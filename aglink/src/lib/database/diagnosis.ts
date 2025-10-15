@@ -13,10 +13,10 @@ export const saveDiagnosis = async (
 ): Promise<Diagnosis | null> => {
   try {
     const { data, error } = await supabase
-      .from("diagnoses")
+      .from("diagnoses_results")
       .insert([diagnosisData])
       .select()
-      .single();
+      .single(); // 追加したデータを一件返す（すぐに使いたい場合のみ）
 
     if (error) {
       console.error("Error saving diagnosis:", error);
@@ -38,7 +38,7 @@ export const getUserDiagnosisHistory = async (
 ): Promise<Diagnosis[] | null> => {
   try {
     const { data, error } = await supabase
-      .from("diagnoses")
+      .from("diagnoses_results")
       .select("*")
       .eq("user_id", userId)
       .order("created_at", { ascending: false });
@@ -56,7 +56,7 @@ export const getUserDiagnosisHistory = async (
 };
 
 /**
- * 診断統計を取得
+ * 診断統計を取得（件数を取得するなどの目的）
  */
 export const getDiagnosisStats = async (): Promise<Record<
   string,
@@ -64,7 +64,7 @@ export const getDiagnosisStats = async (): Promise<Record<
 > | null> => {
   try {
     const { data, error } = await supabase
-      .from("diagnoses")
+      .from("diagnoses_results")
       .select("farm_type")
       .not("farm_type", "is", null);
 
@@ -74,7 +74,7 @@ export const getDiagnosisStats = async (): Promise<Record<
     }
 
     // 統計を集計
-    const stats: Record<string, number> = {};
+    const stats: Record<string, number> = {}; //この例では"農業タイプ" : 件数のオブジェクトが生成
     data.forEach((diagnosis) => {
       const type = diagnosis.farm_type;
       stats[type] = (stats[type] || 0) + 1;
