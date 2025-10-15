@@ -33,6 +33,10 @@
     --muted: 240 5% 96.1%; /* 控えめな要素の色 (薄いグレー) */
     --muted-foreground: 240 4% 46.1%;
 
+    /* ★ 追加: Aglinkの茶色 (土の色) を専用で追加 */
+    --aglink-brown: 30 20% 40%; 
+    --aglink-brown-dark: 30 20% 25%;
+
     --accent: 240 5% 96.1%; /* アクセントカラー */
     --accent-foreground: 240 6% 10%;
 
