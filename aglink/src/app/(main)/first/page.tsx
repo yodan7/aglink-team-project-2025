@@ -92,7 +92,7 @@ export default function DiagnosisStartPage() {
                 </h1>
 
                 {/* --- ② はじめるボタン (葉っぱ型アニメーション) --- */}
-                <Link href="/login" >
+                <Link href="/diagnosis" >
                     <Button
                         className={`
                             relative text-2xl font-bold py-6 px-16 h-auto 
