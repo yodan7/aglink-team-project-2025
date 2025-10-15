@@ -23,7 +23,7 @@ const bookmarks: Bookmark[] = [
 const homeIcons = [
   { src: '/images/farmer.png', alt: '農家' },
   { src: '/images/tractor.png', alt: 'トラクター' },
-  { src: '/images/leaf.png', alt: '牛' },
+  { src: '/images/leaf-and-nuts.png', alt: '牛' },
   { src: '/images/planting.png', alt: '稲' },
 ];
 
