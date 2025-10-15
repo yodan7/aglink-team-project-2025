@@ -1,42 +1,44 @@
-'use client'; 
-
-import React from 'react';
-import AuthForm from '@/components/domain/auth/AuthForm'; 
-import Link from 'next/link'; 
-import { useRouter } from 'next/navigation'; // 👈 useRouterをインポート
-
-export default function LoginPage() {
-  const router = useRouter(); // 👈 useRouterフックを呼び出し
-
-  // 認証処理を定義
-  const handleLogin = (data: { email: string; password: string }) => { 
-    console.log('認証リクエスト:', data);
-    
-    // 実際のログインAPI呼び出しをここで行う
-    
-    // 処理が成功したと仮定して...
-    
-    // ❌ この alert() が画面遷移をブロックしていました！これを削除またはコメントアウトします。
-    // alert(`ログイン試行中: ${data.email}`); 
-    
-    // ✅ ログイン成功後、メインの診断ページへ遷移
-    router.push('/diagnosis'); 
-  };
-
+// login.tsx
+export default function Login() {
   return (
-    <div className="auth-page-wrapper"> 
-      <div className="login-container">
-        
-        <h1 className="app-title">🌾 農業診断</h1>
+    <div className="flex justify-center items-center min-h-screen bg-green-50 p-5">
+      <div className="w-full max-w-md text-center">
+        {/* アプリタイトル */}
+        <h1 className="text-3xl font-bold text-green-700 mb-8">Aglink</h1>
 
-        <AuthForm 
-          formType="login" 
-          onAuthenticate={handleLogin} 
-        />
+        {/* ログインフォームボックス */}
+        <div className="bg-white p-8 rounded-xl shadow-md mb-6">
+          <h2 className="text-2xl font-bold text-green-700 mb-6">ログイン</h2>
 
-        <Link href="/signup" className="btn secondary-btn">
-          新規会員登録はこちら
-        </Link>
+          <form className="flex flex-col">
+            <input
+              type="text"
+              placeholder="メールアドレス"
+              className="w-full p-3 mb-4 border rounded text-center text-lg"
+            />
+            <input
+              type="password"
+              placeholder="パスワード"
+              className="w-full p-3 mb-4 border rounded text-center text-lg"
+            />
+            <button
+              type="submit"
+              className="w-full py-3 px-4 rounded-lg bg-green-500 text-white font-bold hover:bg-green-600 mb-2"
+            >
+              ログイン
+            </button>
+            <button
+              type="button"
+              className="w-full py-3 px-4 rounded-lg border-2 border-green-500 text-green-700 font-bold hover:bg-green-100"
+            >
+              会員登録
+            </button>
+          </form>
+
+          <a href="#" className="block text-gray-600 text-sm mt-4 hover:underline hover:text-green-600">
+            パスワードを忘れた場合
+          </a>
+        </div>
       </div>
     </div>
   );

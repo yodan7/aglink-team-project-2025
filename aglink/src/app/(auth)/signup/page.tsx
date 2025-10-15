@@ -12,28 +12,30 @@ export default function SignupPage() {
     console.log('新規登録リクエスト:', data);
     
     // 実際の登録API呼び出しをここで行う
-    
     // 処理が成功したと仮定して...
     
-    // ❌ この alert() が画面遷移をブロックしていました！これを削除またはコメントアウトします。
-    // alert(`新規登録: ${data.name} 様、登録成功！`); 
-
-    // ✅ 登録成功後、すぐに登録完了ページへ遷移
+    // 登録成功後、登録完了ページへ遷移
     router.push('/signup/success'); 
   };
 
   return (
-    <div className="auth-page-wrapper"> 
-      <div className="login-container">
+    <div className="flex justify-center items-center min-h-screen bg-green-50 p-5">
+      <div className="w-full max-w-md text-center">
         
-        <h1 className="app-title">🌱 農業診断</h1>
+        {/* アプリタイトル */}
+        <h1 className="text-3xl font-bold text-green-700 mb-8">🌱 農業診断</h1>
 
+        {/* AuthForm コンポーネント */}
         <AuthForm 
           formType="signup" 
           onAuthenticate={handleSignup}
         />
 
-        <Link href="/login" className="btn secondary-btn">
+        {/* ログインへのリンク */}
+        <Link 
+          href="/login" 
+          className="w-full py-3 px-4 rounded-lg border-2 border-green-500 text-green-700 font-bold hover:bg-green-100 block mt-4"
+        >
           既にアカウントをお持ちの方はこちら
         </Link>
       </div>

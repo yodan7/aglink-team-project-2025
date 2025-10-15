@@ -1,51 +1,45 @@
-'use client'; // router.pushを使用するためクライアントコンポーネントとします
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; // Next.jsのルーターを使用
+import { useRouter } from 'next/navigation';
 
-/**
- * 新規登録完了ページのコンポーネント
- */
 export default function SignupSuccessPage() {
   const router = useRouter();
 
-  // メイン画面（例: トップページやマイページ）への遷移処理
   const handleGoToMain = () => {
-    // ユーザーは登録済みなので、メインの診断ページやマイページへ誘導します
     router.push('/diagnosis'); 
   };
 
   return (
-    // これまでの認証画面と同じCSSクラスを使用
-    <div className="auth-page-wrapper"> 
-      <div className="login-container">
-        
-        {/* アプリのロゴ/タイトル */}
-        <h1 className="app-title">🎉 農業診断</h1>
+    <div className="flex justify-center items-center min-h-screen bg-green-50 p-5">
+      <div className="w-full max-w-md text-center">
+        {/* アプリタイトル */}
+        <h1 className="text-3xl font-bold text-green-700 mb-8">🎉 農業診断</h1>
 
-        <div className="login-box success-box">
-          
-          {/* 完了アイコンとメッセージ */}
-          <div className="success-icon">✅</div>
-          <h2>ご登録ありがとうございます！</h2>
-          <p>これで、すべての機能をご利用いただけます。</p>
-          <p>早速、あなたの農園を診断してみましょう！</p>
+        {/* 成功メッセージボックス */}
+        <div className="bg-white p-8 rounded-xl shadow-md mb-6">
+          <div className="text-6xl mb-4">✅</div>
+          <h2 className="text-2xl font-bold text-green-700 mb-2">ご登録ありがとうございます！</h2>
+          <p className="text-gray-700 mb-1">これで、すべての機能をご利用いただけます。</p>
+          <p className="text-gray-700 mb-4">早速、あなたの農園を診断してみましょう！</p>
 
-          {/* メイン画面へ進むボタン (メインアクション) */}
-          <button 
-            onClick={handleGoToMain} 
-            className="btn primary-btn" 
-            style={{ marginTop: '30px' }} // 見た目を調整
+          {/* メイン画面へ進むボタン */}
+          <button
+            onClick={handleGoToMain}
+            className="w-full py-3 px-4 rounded-lg bg-green-500 text-white font-bold hover:bg-green-600 mb-3"
           >
             さっそく診断を始める
           </button>
-        </div>
 
-        {/* 必要であれば、マイページへのリンクなどを配置 */}
-        <Link href="/mypage" className="btn secondary-btn">
-          マイページへ移動
-        </Link>
+          {/* マイページへのリンク */}
+          <Link
+            href="/mypage"
+            className="w-full py-3 px-4 rounded-lg border-2 border-green-500 text-green-700 font-bold hover:bg-green-100 block"
+          >
+            マイページへ移動
+          </Link>
+        </div>
       </div>
     </div>
   );
