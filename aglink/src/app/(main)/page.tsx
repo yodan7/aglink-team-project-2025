@@ -72,6 +72,25 @@ export default function Page() {
           </section>
         </main>
       </div>
+      
+      {/* アクションボタン群 */}
+      <div className="action-buttons-container">
+        {/* 診断をはじめるボタン (メインアクション) */}
+        <Link href="/diagnosis" className="btn primary-action-btn">
+          診断をはじめる
+        </Link>
+        
+        {/* 履歴ボタン (サブアクション) */}
+        <Link href="/diagnosis/history" className="btn secondary-action-btn">
+          履歴
+        </Link>
+      </div>
+
+      {/* ブックマーク/お気に入りセクション */}
+      <section className="bookmark-section">
+        <DummyBookmarkList />
+      </section>
+
     </div>
   );
 }
