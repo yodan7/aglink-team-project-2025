@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabaseClient";
-import type { AgriTypePair, Diagnosis } from "@/types";
+import type { Diagnosis } from "@/types";
 
 /**
  * codeから診断結果を取得
