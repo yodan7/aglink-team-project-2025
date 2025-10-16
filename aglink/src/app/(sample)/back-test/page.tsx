@@ -89,7 +89,7 @@ export default function SupabaseTestPage() {
 
     const newFarm = await createFarm(farmData);
     if (newFarm) {
-      addResult(`✅ 新しい農地を作成: ${newFarm.name})`);
+      addResult(`✅ 新しい農地を作成: ${newFarm.name}`);
     } else {
       addResult("❌ 農地の作成に失敗しました");
     }
