@@ -13,7 +13,7 @@ export const getAllFarms = async (): Promise<Farm[] | null> => {
     const { data, error } = await supabase
       .from("farms")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("id", { ascending: false });
 
     if (error) {
       console.error("Error fetching farms:", error);
@@ -28,7 +28,7 @@ export const getAllFarms = async (): Promise<Farm[] | null> => {
 };
 
 /**
- * 特定の農地を取得
+ * 特定の農地を取得（1個）
  */
 export const getFarmById = async (id: string): Promise<Farm | null> => {
   try {
@@ -51,20 +51,20 @@ export const getFarmById = async (id: string): Promise<Farm | null> => {
 };
 
 /**
- * 農業タイプでフィルタリング
+ * 農業codeでフィルタリング
  */
-export const getFarmsByType = async (
-  farmType: string
+export const getFarmsByCode = async (
+  farmCode: string
 ): Promise<Farm[] | null> => {
   try {
     const { data, error } = await supabase
       .from("farms")
       .select("*")
-      .eq("farm_type", farmType)
-      .order("created_at", { ascending: false });
+      .eq("code", farmCode)
+      .order("id", { ascending: false });
 
     if (error) {
-      console.error("Error fetching farms by type:", error);
+      console.error("Error fetching farms by code:", error);
       return null;
     }
 
@@ -84,7 +84,7 @@ export const createFarm = async (
   try {
     const { data, error } = await supabase
       .from("farms")
-      .insert([farmData])
+      .insert(farmData)
       .select()
       .single();
 
