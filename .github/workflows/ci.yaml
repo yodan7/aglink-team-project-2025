@@ -1,52 +1,60 @@
-# This is the name of the workflow, which will be displayed on GitHub's "Actions" tab.
+# これはワークフローの名前で、GitHubの「Actions」タブに表示されます。
 name: Next.js CI
 
-# This section defines when the workflow should be triggered.
-# In this case, it runs whenever a pull request is created or updated.
+# このセクションは、ワークフローがいつトリガーされるかを定義します。
+# この場合、プルリクエストが作成または更新されるたびに実行されます。
 on:
   pull_request:
-    branches: ["main"] # It targets pull requests aimed at the 'main' branch.
+    branches: ["main", "develop"] # 'main'や'develop'ブランチを対象とするプルリクエストでトリガーされます。
 
-# This section defines the jobs to be executed.
+# このセクションは、実行されるジョブを定義します。
 jobs:
-  # 'check-and-build' is the unique ID for this job.
+  # 'check-and-build'は、このジョブの一意のIDです。
   check-and-build:
-    # This specifies the type of machine the job will run on. 'ubuntu-latest' is a standard choice.
+    # ジョブが実行されるマシンのタイプを指定します。'ubuntu-latest'は標準的な選択です。
     runs-on: ubuntu-latest
 
-    # 'steps' are the sequence of tasks that will be executed in this job.
+    # 'steps'は、このジョブで実行されるタスクの順序です。
     steps:
-      # Step 1: Check out the repository's code
-      # This allows the workflow to access your source code.
+      # ステップ1: リポジトリのコードをチェックアウト
+      # これにより、ワークフローがソースコードにアクセスできるようになります。
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up the Node.js environment
-      # This installs a specific version of Node.js for the workflow to use.
+      # ステップ2: Node.js環境をセットアップ
+      # ワークフローが使用する特定のバージョンのNode.jsをインストールします。
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          # It's important to match this with your team's development environment version.
+          # チームの開発環境のバージョンと一致させることが重要です。
           node-version: "22"
-          cache: "npm" # Enable caching for npm dependencies to speed up future runs.
+          cache: "npm" # 今後の実行を高速化するためにnpm依存関係のキャッシュを有効にします。
+          cache-dependency-path: "aglink/package-lock.json"
 
-      # Step 3: Install project dependencies
-      # 'npm ci' is recommended for CI environments as it provides faster and more reliable installs.
+      # ステップ3: プロジェクトの依存関係をインストール
+      # 'npm ci'は、より高速で信頼性の高いインストールを提供するため、CI環境で推奨されます。
       - name: Install dependencies
+        working-directory: ./aglink
         run: npm ci
 
-      # Step 4: Run the linter to check code quality
-      # This command should be defined in your 'package.json' scripts.
+      # ステップ4: リンターを実行してコード品質をチェック
+      # このコマンドは'package.json'のscriptsで定義されている必要があります。
       - name: Run linter
+        working-directory: ./aglink
         run: npm run lint
 
-      # Step 5: Run tests (if you have them)
-      # This command should also be defined in your 'package.json'.
-      # If you don't have tests yet, you can comment out or remove this step for now.
-      - name: Run tests
-        run: npm run test
+      # ステップ5: テストを実行（テストがある場合）
+      # このコマンドも'package.json'で定義されている必要があります。
+      # まだテストがない場合は、今のところこのステップをコメントアウトまたは削除してください。
+      # - name: Run tests
+      #   working-directory: ./aglink
+      #   run: npm run test
 
-      # Step 6: Run the build process to ensure the application builds successfully
-      # This is a critical check to catch build errors before merging.
+      # ステップ6: ビルドプロセスを実行してアプリケーションが正常にビルドされることを確認
+      # これは、マージ前にビルドエラーをキャッチするための重要なチェックです。
       - name: Build project
+        working-directory: ./aglink
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY }}
         run: npm run build
