@@ -104,8 +104,9 @@ export default function SupabaseTestPage() {
       type: "職人ファーマータイプ",
       description: `テスト診断結果 ${Date.now()}`,
     };
+    const user_id = "test-user-id"; // テスト用のユーザーID
 
-    const diagnosis = await saveDiagnosis(diagnosisData);
+    const diagnosis = await saveDiagnosis(user_id, diagnosisData);
     if (diagnosis) {
       addResult(`✅ 診断結果を保存: ${diagnosis.type}`);
     } else {
