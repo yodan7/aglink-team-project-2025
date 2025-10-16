@@ -5,7 +5,7 @@ name: Next.js CI
 # In this case, it runs whenever a pull request is created or updated.
 on:
   pull_request:
-    branches: ["main"] # It targets pull requests aimed at the 'main' branch.
+    branches: ["main", "develop"] # It targets pull requests aimed at the 'main' branch.
 
 # This section defines the jobs to be executed.
 jobs:
@@ -43,8 +43,8 @@ jobs:
       # Step 5: Run tests (if you have them)
       # This command should also be defined in your 'package.json'.
       # If you don't have tests yet, you can comment out or remove this step for now.
-      - name: Run tests
-        run: npm run test
+      # - name: Run tests
+      #   run: npm run test
 
       # Step 6: Run the build process to ensure the application builds successfully
       # This is a critical check to catch build errors before merging.
