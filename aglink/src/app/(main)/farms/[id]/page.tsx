@@ -1,5 +1,7 @@
 import React from "react";
 
-export const FarmIdPage = () => {
+const FarmIdPage = () => {
   return <div>FarmIdPage</div>;
 };
+
+export default FarmIdPage;
