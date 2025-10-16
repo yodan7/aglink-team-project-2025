@@ -48,9 +48,15 @@ export default function Page() {
 
   //typeCodeを使ってagli-typesからデータを取得する関数
   const fetchByTypeCode = async (typeCode: string) => {
-    const (data, error) = await supabase
-    .from("agli_types")
-    
+    const { data, error } = await supabase
+      .from("agli_types")
+      .select("*")
+      .eq("type_code", typeCode);
+    if (error) {
+      console.error("Error fetching by typeCode:", error);
+    } else {
+      console.log("Data fetched by typeCode:", data);
+    }
   };
 
   return (
@@ -62,7 +68,7 @@ export default function Page() {
       </div>
       <div>
         <div>
-          ユーザーの選択によりtypeCodeを生成し、それをもとにalgi_typesからデータを検索し取得する
+          ユーザーの選択によりtypeCodeを生成し、それをもとにagli_typesからデータを検索し取得する
         </div>
         <fieldset>
           <legend>A/S</legend>
