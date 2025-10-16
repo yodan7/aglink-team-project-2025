@@ -22,7 +22,7 @@ import {
   sendPasswordResetEmail,
   updatePassword,
 } from "@/lib/database/auth";
-import { Diagnosis, Farm } from "@/types";
+import { Diagnosis, Farm, NewFarmInput } from "@/types";
 
 export default function SupabaseTestPage() {
   const [results, setResults] = useState<string[]>([]);
@@ -78,14 +78,14 @@ export default function SupabaseTestPage() {
 
   const testCreateFarm = async () => {
     addResult("🌾 新しい農地を作成中...");
-    const farmData: Omit<Farm, "id"> = {
-      name: `テスト農地 ${Date.now()}`,
-      location: "東京都",
-      description: "テスト用に作成された農地です",
-      imageUrl: "https://example.com/farm.jpg",
-      code: "SCIP",
-      type: "職人ファーマータイプ",
-    };
+    const farmData: NewFarmInput = [
+      { name: `テスト農地 ${Date.now()}` },
+      { location: "東京都" },
+      { description: "テスト用に作成された農地です" },
+      { imageUrl: "https://example.com/farm.jpg" },
+      { code: "SCIP" },
+      { type: "職人ファーマータイプ" },
+    ];
 
     const newFarm = await createFarm(farmData);
     if (newFarm) {

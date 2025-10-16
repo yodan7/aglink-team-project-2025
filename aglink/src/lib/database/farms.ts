@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabaseClient";
-import type { Farm } from "@/types";
+import type { Farm, NewFarmInput } from "@/types";
 
 /**
  * 農地データベース操作の関数群
@@ -79,7 +79,7 @@ export const getFarmsByCode = async (
  * 新しい農地を作成
  */
 export const createFarm = async (
-  farmData: Omit<Farm, "id">
+  farmData: NewFarmInput
 ): Promise<Farm | null> => {
   try {
     const { data, error } = await supabase

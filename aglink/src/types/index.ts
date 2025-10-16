@@ -26,6 +26,15 @@ export type BaseFarm = {
 
 export type Farm = BaseFarm & AgriTypePair;
 
+export type NewFarmInput = Array<
+  | { name: string }
+  | { location: string }
+  | { description: string }
+  | { imageUrl: string }
+  | { code: AgriTypePair["code"] }
+  | { type: AgriTypePair["type"] }
+>;
+
 export type BaseDiagnosis = {
   description: string;
 };
@@ -58,6 +67,6 @@ export type DiagnosisQuestion = {
   questionText: string; // "育てる野菜は、個性的な品種に魅力を感じる。"
   axis: "Motivation" | "Scale" | "Approach" | "Stance"; // どの軸か
 
-// poleプロパティを追加
+  // poleプロパティを追加
   pole: MotivationAxis | ScaleAxis | ApproachAxis | StanceAxis; // "A", "S", "F", "C"など
 };
