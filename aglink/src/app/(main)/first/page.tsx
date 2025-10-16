@@ -54,7 +54,7 @@ export default function DiagnosisStartPage() {
         <div className="relative w-full min-h-[calc(100vh-80px)] overflow-hidden">
             {/* 1. 背景画像とオーバーレイ (省略) */}
             <div className="absolute inset-0 z-0">
-                <Image src="/images/farm.jpg" alt="豊かな農場の風景" fill style={{ objectFit: 'cover' }} priority />
+                <Image src="/images/syugo-character/syugo-picture1.png" alt="豊かな農場の風景" fill style={{ objectFit: 'cover' }} priority />
                 <div className="absolute inset-0 bg-white opacity-40"></div>
             </div>
 
