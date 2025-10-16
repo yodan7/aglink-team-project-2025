@@ -9,12 +9,14 @@ import type { Diagnosis } from "@/types";
  * 診断結果を保存
  */
 export const saveDiagnosis = async (
-  diagnosisData: Omit<Diagnosis, "id">
+  userId: string,
+  diagnosisData: Omit<Diagnosis, "id" | "user_id">
 ): Promise<Diagnosis | null> => {
   try {
+    const payload = { ...diagnosisData, user_id: userId };
     const { data, error } = await supabase
       .from("diagnoses_results")
-      .insert([diagnosisData])
+      .insert([payload])
       .select()
       .single(); // 追加したデータを一件返す（すぐに使いたい場合のみ）
 
