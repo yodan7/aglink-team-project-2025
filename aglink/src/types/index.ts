@@ -24,7 +24,7 @@ export type BaseFarm = {
   imageUrl: string;
 };
 
-export type Farm = BaseFarm & AgriTypePair; // FarmにAgriTypePairのプロパティが追加された型となる
+export type Farm = BaseFarm & AgriTypePair;
 
 export type BaseDiagnosis = {
   description: string;
@@ -55,12 +55,9 @@ export type StanceAxis = "O" | "P";
 // 診断で使う「質問」の型を定義
 export type DiagnosisQuestion = {
   id: string; // "q1", "q2" など
-  questionText: string; // "収穫した野菜は、主にどうしたいですか？"
-  axis: "Motivation" | "Scale" | "Approach" | "Stance"; // この質問がどの軸に関するものか
-  // options はリスト
-  // 現在は質問に対する回答は複数の選択肢から選ぶスタイルになっているけどSD法とかになるかもしれない？
-  options: {
-    text: string; // "自分で食べたり、おすそ分けして喜んでもらいたい。"
-    value: MotivationAxis | ScaleAxis | ApproachAxis | StanceAxis; // "A", "F", "H", "P" など
-  }[];
+  questionText: string; // "育てる野菜は、個性的な品種に魅力を感じる。"
+  axis: "Motivation" | "Scale" | "Approach" | "Stance"; // どの軸か
+
+// poleプロパティを追加
+  pole: MotivationAxis | ScaleAxis | ApproachAxis | StanceAxis; // "A", "S", "F", "C"など
 };

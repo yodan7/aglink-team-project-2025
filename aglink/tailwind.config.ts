@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 const config = {
@@ -53,6 +52,12 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        
+        // ★★★ 修正箇所: Aglink カスタムカラーを追加 ★★★
+        'aglink-brown-dark': {
+          DEFAULT: 'hsl(var(--aglink-brown-dark))',
+        },
+        // ★★★ 修正箇所 終わり ★★★
       },
       borderRadius: {
         lg: "var(--radius)",
