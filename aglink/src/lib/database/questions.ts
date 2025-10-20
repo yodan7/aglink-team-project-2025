@@ -15,7 +15,7 @@ export const getAllQuestions = async (): Promise<GroupedQuestions | null> => {
       return null;
     }
 
-    //コピーした新配列を、1/2の確立で正負に分けてソートしシャッフル
+    // 取得した質問データを軸(Motivation, Scale, Approach, Stance)ごとにグループ化
     // dataがnullの場合は空配列を使用
     const safeData = data || [];
 
