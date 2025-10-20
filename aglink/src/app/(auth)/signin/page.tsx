@@ -35,7 +35,10 @@ export default function Login() {
             </button>
           </form>
 
-          <a href="#" className="block text-gray-600 text-sm mt-4 hover:underline hover:text-green-600">
+          <a
+            href="#"
+            className="block text-gray-600 text-sm mt-4 hover:underline hover:text-green-600"
+          >
             パスワードを忘れた場合
           </a>
         </div>

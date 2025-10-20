@@ -153,13 +153,14 @@ export default function SupabaseTestPage() {
     addResult("❓ 全ての質問をランダム順で取得中...");
     const questions = await getAllQuestions();
     if (questions) {
-      addResult(`✅ 質問を${questions.length}件取得しました（ランダム順）`);
+      addResult(`✅ 質問を取得しました`);
       // 最初の質問の詳細を表示
-      if (questions[0]) {
+      if (questions) {
         addResult(
-          `　　最初の質問: "${questions[0].questionText}" (ID: ${questions[0].id})`
+          `軸: ${questions["Motivation"]}, 極: ${
+            questions["Motivation"]
+          }, 長さ: ${Object.keys(questions).length}`
         );
-        addResult(`　　軸: ${questions[0].axis}, 極: ${questions[0].pole}`);
       }
     } else {
       addResult("❌ 質問の取得に失敗しました");
