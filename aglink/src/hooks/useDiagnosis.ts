@@ -20,7 +20,7 @@ export const useDiagnosis = () => {
     Approach: "HI",
     Stance: "OP",
   });
-  const [axisNum, setAxisNum] = useState(0); //5問ごとに軸が変わるセクション数
+  const [axisNum, setAxisNum] = useState(0); // 現在表示中の軸のインデックス(0: Motivation, 1: Scale, 2: Approach, 3: Stance)
   const [error, setError] = useState<string | null>(null);
   const axisList: QuestionAxis[] = Object.keys(questions ?? {}).map(
     (question) => question as QuestionAxis
