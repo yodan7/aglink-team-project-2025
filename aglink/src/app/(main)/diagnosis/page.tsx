@@ -212,7 +212,9 @@ export default function DiagnosisPageUI() {
             className={`px-6 py-2 rounded-md shadow-md text-white transition-all duration-200 bg-primary hover:bg-primary/90 hover:shadow-lg hover:scale-[1.02]`}
             asChild
           >
-            <Link href="/diagnosis/result">
+            <Link
+              href={`/diagnosis/result?type=${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`}
+            >
               結果を見る <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </Button>
