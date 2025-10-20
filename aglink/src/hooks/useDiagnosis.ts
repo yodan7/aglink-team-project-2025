@@ -29,7 +29,7 @@ export const useDiagnosis = () => {
   // 現在の軸を取得
   const currentAxis = axisList[axisNum];
 
-  //　質問データを取得
+  // 質問データを取得
   useEffect(() => {
     const fetchData = async () => {
       try {
