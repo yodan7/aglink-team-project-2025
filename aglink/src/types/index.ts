@@ -55,6 +55,7 @@ export type SignUpInput = {
   username: string;
   password: string;
 };
+export type QuestionAxis = "Motivation" | "Scale" | "Approach" | "Stance";
 
 export type MotivationAxis = "A" | "S";
 export type ScaleAxis = "F" | "C";
@@ -63,10 +64,24 @@ export type StanceAxis = "O" | "P";
 
 // 診断で使う「質問」の型を定義
 export type DiagnosisQuestion = {
-  id: string; // "q1", "q2" など
+  id: number; // 1, 2 など
   questionText: string; // "育てる野菜は、個性的な品種に魅力を感じる。"
   axis: "Motivation" | "Scale" | "Approach" | "Stance"; // どの軸か
 
   // poleプロパティを追加
   pole: MotivationAxis | ScaleAxis | ApproachAxis | StanceAxis; // "A", "S", "F", "C"など
+};
+
+export type GroupedQuestions = {
+  [K in QuestionAxis]: DiagnosisQuestion[];
+};
+
+// ✅ より厳密な型定義
+export type AnswerValue = 2 | 1 | 0 | -1 | -2;
+export type AxisAnswers = Record<string, AnswerValue>; //オブジェクト形式
+export type AnswerObjectType = {
+  Motivation: AxisAnswers; // オブジェクト形式に変更
+  Scale: AxisAnswers;
+  Approach: AxisAnswers;
+  Stance: AxisAnswers;
 };
