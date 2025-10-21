@@ -220,7 +220,7 @@ export default function DiagnosisPageUI() {
               </Link>
             ) : (
               <>
-                結果を見る <ArrowRight className="w-4 h-4 ml-2" />{" "}
+                結果を見る <ArrowRight className="w-4 h-4 ml-2" />
               </>
             )}
           </Button>
