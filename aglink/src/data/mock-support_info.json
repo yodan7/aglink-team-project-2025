@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "farming_type_code": "ALL",
+    "category": "補助金",
+    "title": "農業次世代人材投資事業（新規就農支援）",
+    "description": "新規就農者や就農準備者に対する研修・生活支援や準備金の助成。就農前後の研修や経営学習を支援し、若手就農者の定着を図る制度。",
+    "url": "https://www.maff.go.jp/j/new_farmer/n_syunou/roudou.html"
+  },
+  {
+    "id": 2,
+    "farming_type_code": "ALL",
+    "category": "補助金",
+    "title": "施設園芸・スマート農業導入支援（設備導入補助）",
+    "description": "ハウスや自動化設備、センサー等の導入費用の一部を補助。省力化・省エネやICTを活用した生産性向上を目的とした設備投資向けの支援。",
+    "url": "https://www.maff.go.jp/j/kanbo/smart/"
+  },
+  {
+    "id": 3,
+    "farming_type_code": "ACIP",
+    "category": "助成金",
+    "title": "都市型農業支援（都市農業・ベランダ栽培支援）",
+    "description": "都市部での小規模栽培や水耕栽培、都市型農業プロジェクトに対する補助・助成。設備導入や実証実験を支援し、都市での持続可能な農業を促進。",
+    "url": "https://www.maff.go.jp/j/nousin/kouryu/tosi_nougyo/index.html"
+  },
+  {
+    "id": 4,
+    "farming_type_code": "SFIH",
+    "category": "研修・人材支援",
+    "title": "スマート農業実践研修プログラム",
+    "description": "センサー、IoT、データ解析を使った栽培管理の研修や実地実験を支援。機器の使い方やデータ利活用を学べる公的研修プログラム。",
+    "url": "https://www.maff.go.jp/j/keiei/nougyou_jinzaiikusei_kakuho/smart_kyoiku.html"
+  },
+  {
+    "id": 5,
+    "farming_type_code": "SCHO",
+    "category": "融資・資金",
+    "title": "日本政策金融公庫 農業経営資金（創業・設備投資）",
+    "description": "新規就農や兼業農家のための創業資金、設備投資ローン。低利の長期融資や運転資金の相談が可能で、事業計画作成支援も提供。",
+    "url": "https://www.jfc.go.jp/n/finance/search/index_a_n02.html"
+  },
+  {
+    "id": 6,
+    "farming_type_code": "SCHP",
+    "category": "販路支援",
+    "title": "直売所・販路開拓支援（地域連携・販売補助）",
+    "description": "直売所運営支援や物流改善、販路開拓のための補助。パッケージ改善やブランディング、イベント出展費用の一部支援を含む。",
+    "url": "https://www.maff.go.jp/j/nousin/inobe/chisan_chisyo/index.html"
+  },
+  {
+    "id": 7,
+    "farming_type_code": "ACIO",
+    "category": "事業化支援",
+    "title": "農商工連携・6次産業化支援",
+    "description": "加工・販売を含む6次産業化や農商工連携による新事業創出を支援。加工設備導入や商品開発、販路開拓費用の補助。",
+    "url": "https://www.maff.go.jp/j/nousin/inobe/6jika/index.html"
+  },
+  {
+    "id": 8,
+    "farming_type_code": "SFHP",
+    "category": "技術支援",
+    "title": "土壌改良・栽培技術相談（地域農業改良普及）",
+    "description": "地方自治体や普及指導センターによる土壌診断や栽培技術相談。病害虫対策や施肥設計など、現場に即した技術支援を受けられる。",
+    "url": "https://www.maff.go.jp/j/seisan/gizyutu/hukyu/h_about/index.html"
+  },
+  {
+    "id": 9,
+    "farming_type_code": "SFHO",
+    "category": "社会的支援",
+    "title": "地域おこし・農地利活用支援（地域連携プログラム）",
+    "description": "地域おこし協力隊や地域振興基金など、地域と連携した農地活用やコミュニティ農園立ち上げのための支援。移住支援や住居補助なども含まれる場合あり。",
+    "url": "https://www.soumu.go.jp/kyouryokutai-network/"
+  },
+  {
+    "id": 10,
+    "farming_type_code": "ACHO",
+    "category": "広報・販促支援",
+    "title": "SNS/コンテンツ活用支援（発信支援）",
+    "description": "農業体験や商品の魅力を伝えるためのSNS活用講座や撮影補助。販売促進や集客のためのコンテンツ制作費用の一部支援。地域のPR事業と連携しやすい。",
+    "url": "https://www.maff.go.jp/j/nousin/inobe/6jika/index.html"
+  },
+  {
+    "id": 11,
+    "farming_type_code": "ALL",
+    "category": "保険・リスク対策",
+    "title": "農作物共済（収入保険等）",
+    "description": "自然災害や価格変動に備える共済制度や収入保険。被害発生時の補償により、リスクを軽減して事業の継続性を確保するための制度。",
+    "url": "https://www.maff.go.jp/j/keiei/nogyohoken/index.html"
+  },
+  {
+    "id": 12,
+    "farming_type_code": "AFHO",
+    "category": "教育・体験",
+    "title": "体験農業・ワークショップ助成",
+    "description": "地域の体験農業プログラムやワークショップ開催に対する助成。観光連携や教育プログラムの実施費用を補助し、参加者募集や運営の負担を軽減。",
+    "url": "https://www.maff.go.jp/j/nousin/kouryu/nouhakusuishin/nouhaku_top.html"
+  }
+]
