@@ -55,8 +55,7 @@ jobs:
                 '- レビュー結果を確認し、必要に応じて修正を行ってください',
                 '- 自動レビューは補助的なものです。人間のレビューも重要です',
                 '',
-                '詳細は以下を参照:',
-                'https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review'
+                '詳細は [GitHub Copilot Code Review ドキュメント](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review) を参照してください。'
               ].join('\n');
 
               await github.rest.issues.createComment({
