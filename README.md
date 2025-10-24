@@ -239,3 +239,23 @@ TypeScript の**型定義**を格納します。
 - **`postcss.config.mjs`**: Tailwind CSS などの PostCSS プラグインを動作させるための設定ファイルです。
 - **`eslint.config.mjs`**: コードの品質とスタイルをチェックする ESLint の設定ファイルです。
 - **`.github/`**: GitHub Actions による CI/CD（継続的インテグレーション/継続的デリバリー）のワークフロー定義を格納します。
+
+---
+
+## 🤖 GitHub Copilot によるコードレビュー
+
+このプロジェクトでは、GitHub Copilot を使用した自動コードレビューを導入しています。
+
+### 設定ファイル
+
+- **`.github/CODEOWNERS`**: コードオーナーシップを定義し、自動的にレビュアーを割り当てます。
+- **`.github/workflows/copilot-review.yaml`**: PR作成時にCopilotレビューのリマインダーを自動投稿します。
+- **`.github/COPILOT_REVIEW_GUIDE.md`**: Copilotレビュー機能の詳細な設定方法と使用方法を記載しています。
+
+### 使用方法
+
+1. プルリクエストを作成
+2. 「Reviewers」セクションで「Copilot」を選択
+3. Copilotが自動的にコードを分析し、日本語でレビューコメントを投稿
+
+詳細は `.github/COPILOT_REVIEW_GUIDE.md` を参照してください。
