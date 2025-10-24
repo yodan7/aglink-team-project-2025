@@ -1,37 +1,355 @@
 [
   {
-    "id": "farm-01",
-    "name": "はじめての週末農園",
+    "id": "farm-00",
+    "name": "農場1234",
+    "code": "AFHO",
+    "type": "週末ガーデナータイプ",
+    "location": "千葉県船橋市",
+    "imageUrl": "/images/farm-1234.jpg",
+
+    "planDetails": {
+      "planName" : "栗拾いとサツマイモ掘りプラン",
+      "description" : "【栗拾いとサツマイモ掘りプラン】ファミリー・グループにお勧め♪\n【栗拾い 】\n期間 9月7日~10月13日(予定)\n収穫した栗は1kg500円で販売いたします。\nゆで栗試食サービス付きです。\n【サツマイモ掘り】\n期間 10月11日~11月30日 (予定)\n種類は種類は紅はるか\n収穫したサツマイモは1kg500円で販売いたします。(3本~4本程度)\n焼き芋サービス付き\nその他の野菜\nキューイフルーツ、かぼちゃ、 空心菜などが収穫できます。 延滞のため、極端に野菜の数が減っています。 ご承ください。\n動物とのふれあい\n烏骨鶏、岡崎黄斑、 アローカナなどの卵採取ができます。 卵1個200円で販売しています。 仔ヤギにえさやり体験ができます。 【薪割、焚火体験】\n希望者には薪割、 火気を使わない着火、 焚火体験などができます。\n【虫取り歓迎】\n有機無農薬農園のためバッタ、トンボなどの虫がたくさんいます。 網と虫かごを持参して、 広い農園で虫取りを楽しんでください。\n\n",
+      "startDate" : "2025-09-02",
+      "endDate" : "2026-01-31",
+      "durationMinutes" : 90,
+      "price" : 3500,
+      "capacityMin" : 1,
+      "capacityMax" : 30
+    }
+  },
+  {
+    "id": "farm-001",
+    "name": "AFHO ガーデン",
+    "code": "AFHO",
+    "type": "週末ガーデンタイプ",
+    "location": "東京都世田谷区",
+    "description": "都市の中の癒し空間。週末に土に触れ、アートな野菜作りを。",
+    "imageUrl": "/images/farm-afho.jpg",
+    "planDetails": {
+      "planName": "癒しのハーブ摘み取り体験",
+      "description": "数種類のハーブを自由に摘み取り、オリジナルのハーブティーを作れます。",
+      "startDate": "2026-05-01",
+      "endDate": "2026-10-31",
+      "durationMinutes": 60,
+      "price": 1500,
+      "capacityMin": 1,
+      "capacityMax": 5
+    }
+  },
+  {
+    "id": "farm-002",
+    "name": "AFHP のんびり畑",
     "code": "AFHP",
     "type": "のんびり家庭菜園タイプ",
-    "location": "東京都渋谷区",
-    "description": "都心からアクセス抜群の農園です。",
-    "imageUrl": "/images/farm-sample.jpg"
+    "location": "神奈川県鎌倉市",
+    "description": "海辺の畑で、家族と一緒に定番野菜をマイペースに育てましょう。",
+    "imageUrl": "/images/farm-afhp.jpg",
+    "planDetails": {
+      "planName": "家族で野菜収穫（夏野菜）",
+      "description": "トマト、ナス、きゅうりなど、旬の夏野菜をご家族で収穫体験。\n採れたて野菜の試食付き。",
+      "startDate": "2026-07-01",
+      "endDate": "2026-08-31",
+      "durationMinutes": 90,
+      "price": 3000,
+      "capacityMin": 2,
+      "capacityMax": 6
+    }
   },
   {
-    "id": "farm-02",
-    "name": "ガチ農家への道",
-    "code": "SCHP",
-    "type": "プロフェッショナル農家タイプ",
-    "location": "千葉県香取市",
-    "description": "本格的に農業を学びたい方向け。宿泊施設も完備しています。",
-    "imageUrl": "/images/farm-pro.jpg"
+    "id": "farm-003",
+    "name": "AFIO ロマン農園",
+    "code": "AFIO",
+    "type": "ロマンティックファーマータイプ",
+    "location": "山梨県北杜市",
+    "description": "星空の下、自然との対話を楽しみながら、物語のある作物を育てる。",
+    "imageUrl": "/images/farm-afio.jpg",
+    "planDetails": {
+      "planName": "星降る畑の収穫体験＆ジャム作り",
+      "description": "満天の星空の下で特別な野菜を収穫し、採れたて果実でジャム作り体験も。",
+      "startDate": "2026-08-01",
+      "endDate": "2026-08-31",
+      "durationMinutes": 180,
+      "price": 5000,
+      "capacityMin": 2,
+      "capacityMax": 8
+    }
   },
   {
-    "id": "farm-03",
-    "name": "都会のスマート菜園",
+    "id": "farm-004",
+    "name": "AFIP 週末ラボ",
+    "code": "AFIP",
+    "type": "週末研究家タイプ",
+    "location": "埼玉県川越市",
+    "description": "最新の栽培技術や品種改良を、趣味の範囲でとことん追求。",
+    "imageUrl": "/images/farm-afip.jpg",
+     "planDetails": {
+        "planName": "最新トマト品種 育て比べ講座",
+        "description": "話題の新品種トマトを数種類栽培し、味や育てやすさを比較研究します。\n月1回の講習会形式。",
+        "startDate": "2026-04-01",
+        "endDate": "2026-07-31",
+        "durationMinutes": 120,
+        "price": 8000,
+        "capacityMax": 10
+    }
+  },
+  {
+    "id": "farm-005",
+    "name": "ACHO 発信ファーム",
+    "code": "ACHO",
+    "type": "アグリインフルエンサータイプ",
+    "location": "千葉県いすみ市",
+    "description": "育てた野菜や農ライフをSNSで発信！仲間と繋がるオープンな農園。",
+    "imageUrl": "/images/farm-acho.jpg",
+    "planDetails": {
+      "planName": "畑で映え写真＆収穫ランチ",
+      "description": "カラフルな野菜畑で写真撮影と収穫体験、採れたて野菜を使ったランチ付き。\nSNS投稿で割引あり！",
+      "durationMinutes": 150,
+      "price": 4500,
+      "capacityMin": 2,
+      "capacityMax": 10
+    }
+  },
+  {
+    "id": "farm-006",
+    "name": "ACHP こだわりガーデン",
+    "code": "ACHP",
+    "type": "職人気質ガーデンタイプ",
+    "location": "京都府京都市",
+    "description": "京野菜を中心に、見た目と味に徹底的にこだわった野菜作り。",
+    "imageUrl": "/images/farm-achp.jpg",
+     "planDetails": {
+      "planName": "京野菜の育て方マンツーマン指導",
+      "description": "伝統的な京野菜の栽培方法を、職人が１対１で丁寧に指導します。\nご自身の畑への出張も可能（別途料金）。",
+      "durationMinutes": 120,
+      "price": 10000,
+      "capacityMax": 1
+    }
+  },
+  {
+    "id": "farm-007",
+    "name": "ACIO アグリテック・ラボ",
+    "code": "ACIO",
+    "type": "企業家アグリタイプ",
+    "description": "IoTとAIを活用した次世代農業モデルを研究・実践。※場所非公開",
+    "imageUrl": "/images/farm-acio.jpg",
+    "planDetails": {
+        "planName": "アグリテック起業オンラインセミナー",
+        "description": "農業分野での起業を目指す方向けのオンラインセミナー。最新技術動向とビジネスモデル。",
+        "durationMinutes": 90,
+        "price": 5000,
+        "capacityMax": 50
+    }
+  },
+  {
+    "id": "farm-008",
+    "name": "ACIP TOKYO菜園",
     "code": "ACIP",
     "type": "アーバンファーマータイプ",
-    "description": "自宅のベランダで気軽に始められる水耕栽培キットを提供します。※場所は任意なので省略",
-    "imageUrl": "/images/farm-urban.jpg"
+    "location": "東京都港区",
+    "description": "ビルの屋上を利用した最先端の水耕栽培ファーム。",
+    "imageUrl": "/images/farm-acip.jpg",
+    "planDetails": {
+        "planName": "屋上水耕栽培システム導入コンサル",
+        "description": "ビルの屋上やベランダに、最新の水耕栽培システムを設置・導入するためのコンサルティング。",
+        "price": 50000
+    }
   },
   {
-    "id": "farm-04",
-    "name": "みんなのコミュニティファーム",
+    "id": "farm-009",
+    "name": "SFHO つながる農園",
     "code": "SFHO",
     "type": "ソーシャルアグリタイプ",
-    "location": "神奈川県横浜市",
-    "description": "地域の仲間と一緒に、楽しみながら野菜を育てる共同農園です。",
-    "imageUrl": "/images/farm-community.jpg"
+    "location": "大阪府豊能町",
+    "description": "耕作放棄地を活用し、地域住民と共に食育や交流イベントを実施。",
+    "imageUrl": "/images/farm-sfho.jpg",
+    "planDetails": {
+      "planName": "こども農業体験教室（収穫編）",
+      "description": "親子で参加できる、秋野菜の収穫体験教室です。サツマイモ掘りなど。\n食育にも最適。",
+      "startDate": "2026-10-01",
+      "endDate": "2026-11-30",
+      "durationMinutes": 90,
+      "price": 2000,
+      "capacityMin": 5,
+      "capacityMax": 15
+    }
+  },
+  {
+    "id": "farm-010",
+    "name": "SFHP きっちり畑",
+    "code": "SFHP",
+    "type": "堅実な家庭菜園タイプ",
+    "location": "愛知県豊田市",
+    "description": "年間計画に基づき、家族が必要な野菜を安定的に栽培。",
+    "imageUrl": "/images/farm-sfhp.jpg",
+     "planDetails": {
+      "planName": "年間野菜作りサポートプラン",
+      "description": "ご家族の人数や好みに合わせた、年間の栽培計画作成と、月1回のオンライン栽培サポート。",
+      "price": 20000,
+      "capacityMax": 1
+    }
+  },
+  {
+    "id": "farm-011",
+    "name": "SFIO データ農場",
+    "code": "SFIO",
+    "type": "理系アグリタイプ",
+    "location": "茨城県つくば市",
+    "description": "センサーデータを活用し、科学的根拠に基づいた栽培方法を探求。",
+    "imageUrl": "/images/farm-sfio.jpg",
+     "planDetails": {
+      "planName": "センサーデータ活用ワークショップ（実践編）",
+      "description": "土壌センサーや環境センサーのデータを実際に分析し、栽培改善計画を作成します。",
+      "durationMinutes": 180,
+      "price": 6000,
+      "capacityMax": 8
+    }
+  },
+  {
+    "id": "farm-012",
+    "name": "SFIP 合理ファーム",
+    "code": "SFIP",
+    "type": "ロジカル農家タイプ",
+    "location": "新潟県新潟市",
+    "description": "コストと収量を最適化。効率的な栽培マニュアルを構築・実践。",
+    "imageUrl": "/images/farm-sfip.jpg",
+     "planDetails": {
+      "planName": "稲作コスト削減 個別コンサルティング",
+      "description": "あなたの圃場のデータ分析に基づき、稲作のコスト削減と収量最大化のための具体的な改善提案を行います。",
+      "price": 30000
+    }
+  },
+  {
+    "id": "farm-013",
+    "name": "SCHO 副業チャレンジ畑",
+    "code": "SCHO",
+    "type": "週末チャレンジファーマータイプ",
+    "location": "福岡県糸島市",
+    "description": "週末農業で育てたこだわりの野菜を、地域のマルシェで販売。",
+    "imageUrl": "/images/farm-scho.jpg",
+    "planDetails": {
+      "planName": "マルシェ出品野菜の栽培＆販売体験",
+      "description": "実際にマルシェで販売する野菜の栽培から、販売までを体験してみませんか？\n売上の一部は参加者に還元！",
+      "durationMinutes": 240,
+      "price": 3000,
+      "capacityMin": 3,
+      "capacityMax": 8
+    }
+  },
+  {
+    "id": "farm-014",
+    "name": "SCHP プロ農家への道ファーム",
+    "code": "SCHP",
+    "type": "プロフェッショナル農家タイプ",
+    "location": "北海道帯広市",
+    "description": "大規模農業経営を目指す方向け。最新の農業機械研修も実施。",
+    "imageUrl": "/images/farm-schp.jpg",
+     "planDetails": {
+      "planName": "最新トラクター運転＆メンテナンス講習",
+      "description": "大規模農業経営に必須の、最新トラクターの操作方法と基本的なメンテナンスを実践的に学びます。",
+      "durationMinutes": 180,
+      "price": 12000,
+      "capacityMax": 3
+    }
+  },
+  {
+    "id": "farm-015",
+    "name": "SCIO スマートファクトリー",
+    "code": "SCIO",
+    "type": "テクノロジー農家タイプ",
+    "location": "静岡県磐田市",
+    "description": "完全自動化された植物工場で、高品質な野菜を通年生産。",
+    "imageUrl": "/images/farm-scio.jpg",
+     "planDetails": {
+      "planName": "植物工場見学＆栽培セミナー",
+      "description": "専門スタッフが、最新技術を導入した植物工場をご案内し、栽培技術のセミナーも開催。",
+      "durationMinutes": 120,
+      "price": 3000,
+      "capacityMax": 20
+    }
+  },
+  {
+    "id": "farm-016",
+    "name": "SCIP 極み農園",
+    "code": "SCIP",
+    "type": "職人ファーマータイプ",
+    "location": "宮崎県宮崎市",
+    "description": "最高級マンゴー「太陽のタマゴ」専門。直売所併設。",
+    "imageUrl": "/images/farm-scip.jpg",
+    "planDetails": {
+        "planName": "最高級マンゴー収穫体験（1玉お土産付き）",
+        "description": "「太陽のタマゴ」の収穫を体験し、最高級マンゴーを1玉お持ち帰りいただけます。\n贈答用梱包も可能。",
+        "startDate": "2026-06-01",
+        "endDate": "2026-07-31",
+        "durationMinutes": 60,
+        "price": 8000,
+        "capacityMin": 1,
+        "capacityMax": 4
+    }
+  },
+  {
+    "id": "farm-017",
+    "name": "森の中の隠れ家ファーム",
+    "code": "AFIO",
+    "type": "ロマンティックファーマータイプ",
+    "location": "長野県軽井沢町",
+    "description": "静かな森の中で、ハーブや山菜を自然に近い形で栽培。小規模なカフェも併設。",
+    "imageUrl": "/images/farm-afio-2.jpg",
+    "planDetails": {
+        "planName": "森のハーブ摘みとアロマオイル作り体験",
+        "description": "森で育てた数種類のハーブを摘み取り、蒸留器を使ってオリジナルのアロマオイルを作成します。",
+        "durationMinutes": 120,
+        "price": 4500,
+        "capacityMin": 2,
+        "capacityMax": 6
+    }
+  },
+  {
+    "id": "farm-018",
+    "name": "シェア畑プロジェクト Y G K",
+    "code": "SFHO",
+    "type": "ソーシャルアグリタイプ",
+    "location": "兵庫県神戸市",
+    "description": "都市部の遊休地を活用した会員制シェア畑。メンバー募集中！農具レンタル、指導あり。",
+    "imageUrl": "/images/farm-sfho-2.jpg",
+    "planDetails": {
+        "planName": "シェア畑 見学＆体験説明会",
+        "description": "シェア畑の仕組みや利用方法についてご説明します。簡単な種まき体験も可能。",
+        "durationMinutes": 90,
+        "price": 500,
+        "capacityMax": 10
+    }
+  },
+  {
+    "id": "farm-019",
+    "name": "データで育てる高糖度トマト農園",
+    "code": "SFIO",
+    "type": "理系アグリタイプ",
+    "location": "栃木県宇都宮市",
+    "description": "環境データを徹底管理し、科学的に糖度と栄養価を最大限に引き出したトマトを栽培・販売。",
+    "imageUrl": "/images/farm-sfio-2.jpg",
+     "planDetails": {
+        "planName": "高糖度トマト食べ比べ＆栽培データ解説会",
+        "description": "科学的に育てられた数種類の高糖度トマトを食べ比べ。栽培データについても詳しく解説します。",
+        "durationMinutes": 60,
+        "price": 2000,
+        "capacityMax": 12
+    }
+  },
+  {
+    "id": "farm-020",
+    "name": "週末プチ起業ファーム甲州",
+    "code": "SCHO",
+    "type": "週末チャレンジファーマータイプ",
+    "location": "山梨県甲州市",
+    "description": "週末だけで高収益を目指す！ぶどう栽培とネット販売のノウハウを実践中。",
+    "imageUrl": "/images/farm-scho-2.jpg",
+    "planDetails": {
+        "planName": "ぶどう栽培＆ネット販売 1日集中講座",
+        "description": "週末農業で高収益を目指す方向け！ぶどう栽培の基礎から、効果的なネット販売のノウハウまでを1日で学びます。",
+        "durationMinutes": 360,
+        "price": 15000,
+        "capacityMax": 5
+    }
   }
 ]
