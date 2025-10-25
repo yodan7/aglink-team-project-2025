@@ -175,7 +175,7 @@ export default function DiagnosisResultPage() {
                         {/* 4つの軸の詳細セクション (右側に画像2を配置) */}
                         <section className="bg-card p-6 rounded-lg shadow-md relative">
                             {/* ★★★ 画像2: 診断結果の詳細 (右側) ★★★ */}
-                            <div className="hidden lg:block absolute w-28 h-28 -right-40 top-1/2 transform -translate-y-1/2">
+                            <div className="hidden lg:block absolute w-28 h-28 right-0 top-1/2 transform -translate-y-1/2 translate-x-1/3">
                                 <Image src="/images/agli-types/AFHO2.png" alt="キャラクターイメージ2" fill className="object-contain" />
                             </div>
 
