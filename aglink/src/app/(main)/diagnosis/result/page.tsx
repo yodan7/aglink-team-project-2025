@@ -199,7 +199,7 @@ export default function DiagnosisResultPage() {
                         {/* 支援情報セクション (左側に画像3を配置) */}
                         <section className="bg-card p-6 rounded-lg shadow-md relative">
                             {/* ★★★ 画像3: 支援制度の提案 (左側) ★★★ */}
-                            <div className="hidden lg:block absolute w-24 h-24 -left-36 top-1/2 transform -translate-y-1/2">
+                            <div className="hidden lg:block absolute w-24 h-24 -left-1/4 top-1/2 transform -translate-y-1/2">
                                 <Image src="/images/agli-types/AFHO3.png" alt="キャラクターイメージ3" fill className="object-contain" />
                             </div>
 
