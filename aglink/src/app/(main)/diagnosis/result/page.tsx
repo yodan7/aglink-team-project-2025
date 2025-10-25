@@ -90,9 +90,11 @@ export default function DiagnosisResultPage() {
 
     return (
         <main className="w-full min-h-screen bg-background">
-            {/* 全体コンテナ: mt-[-80px]を適用してlayout.tsxのpadding-topを打ち消す */}
-            <div className={`flex flex-col items-center w-full mt-[-80px] relative z-0`}>
-                
+            {/* 全体コンテナ: layout.tsxのpadding-topを打ち消すため、CSS変数を利用 */}
+            <div
+                className="flex flex-col items-center w-full relative z-0"
+                style={{ marginTop: 'calc(-1 * var(--layout-padding-top))' }}
+            >
                 <div className="w-full max-w-5xl flex flex-col items-center pt-8 pb-12">
                     
                     {/* ★★★ 1. トップセクション (キャラクター＆タイプ名) ★★★ */}
