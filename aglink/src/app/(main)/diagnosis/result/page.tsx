@@ -155,7 +155,7 @@ export default function DiagnosisResultPage() {
                         {/* スタイルの特徴と作物 (左側に画像1を配置) */}
                         <section className="bg-card p-6 rounded-lg shadow-md relative">
                             {/* ★★★ 画像1: 週末ガーデナーの特徴 (左側) ★★★ */}
-                            <div className="hidden lg:block absolute w-24 h-24 -left-32 -top-1/4">
+                            <div className="hidden lg:block absolute w-24 h-24 -left-[8vw] -top-1/4">
                                 <Image src="/images/agli-types/AFHO1.png" alt="キャラクターイメージ1" fill className="object-contain" />
                             </div>
                             
