@@ -125,8 +125,7 @@ export default function DiagnosisResultPage() {
                                     style={{ color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.4)' }}>
                                     {result.name}
                                 </h1>
-                                <p className="text-2xl md:text-3xl font-mono mt-2"
-                                    style={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}>
+                                <p className="text-2xl md:text-3xl font-mono mt-2 text-white drop-shadow-md">
                                     ({result.code})
                                 </p>
                             </div>
