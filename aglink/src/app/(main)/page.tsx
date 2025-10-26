@@ -2,12 +2,13 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   SearchIcon,
   BookmarkIcon,
   BookmarkItem,
 } from "@/components/domain/home";
-import Link from "next/link";
+
 interface Bookmark {
   id: number;
   image: string;
@@ -55,10 +56,7 @@ const bookmarks: Bookmark[] = [
 ];
 
 const homeIcons = [
-  { src: "/images/farmer.png", alt: "農家" },
-  { src: "/images/tractor.png", alt: "トラクター" },
-  { src: "/images/leaf-and-nuts.png", alt: "牛" },
-  { src: "/images/planting.png", alt: "稲" },
+  { src: "/images/group.jpg", alt: "集合写真" },
 ];
 
 export default function Page() {
@@ -69,7 +67,8 @@ export default function Page() {
   return (
     <div className="bg-gray-50 min-h-screen font-sans p-4 sm:p-6 lg:p-8">
       <div className="max-w-5xl mx-auto">
-        <header className="flex justify-between items-center mb-6">
+        {/* ヘッダー */}
+        <header className="flex justify-between items-center mb-4 sm:mb-6">
           <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
             ようこそ、usernameさん！
           </h1>
@@ -82,29 +81,44 @@ export default function Page() {
           </button>
         </header>
 
-        <main className="space-y-6">
-          <section className="bg-green-100/60 rounded-2xl p-4 flex justify-around items-center">
+        <main className="space-y-5 sm:space-y-6">
+          {/* 上部アイコン群 */}
+          <section className="m-0 p-0 flex justify-center items-center">
             {homeIcons.map((icon, index) => (
               <img
                 key={index}
                 src={icon.src}
                 alt={icon.alt}
-                className="h-14 w-14 sm:h-16 sm:w-16 opacity-70"
+                className="w-full h-auto block"
               />
             ))}
           </section>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 py-4">
-            <button className="w-full sm:w-auto bg-[#3A6B41] hover:bg-[#315a37] text-white font-bold py-3 px-12 text-lg rounded-lg shadow-md transition-all duration-300">
+
+          {/* ボタン群 */}
+          <div className="relative flex items-center justify-center py-2 sm:py-4 mt-2 sm:mt-3">
+            {/* 中央の「診断をはじめる」ボタン */}
+            <Link
+              href="/diagnosis"
+              className="btn primary-action-btn absolute left-1/2 -translate-x-1/2 
+                        px-16 py-5 text-xl rounded-full shadow-lg scale-110
+                        transition-transform duration-300 hover:scale-115"
+            >
               診断をはじめる
-            </button>
-            <button className="w-full sm:w-auto bg-[#4A6EAF] hover:bg-[#42619c] text-white font-bold py-3 px-12 text-lg rounded-lg shadow-md transition-all duration-300">
+            </Link>
+
+            {/* 右端の「履歴」ボタン */}
+            <Link
+              href="/diagnosis/history"
+              className="btn secondary-action-btn ml-auto px-8 py-3 text-base rounded-full"
+            >
               履歴
-            </button>
+            </Link>
           </div>
 
+          {/* ブックマークセクション */}
           <section className="bg-[#8CB389] w-full p-4 sm:p-6 rounded-2xl shadow-md flex flex-col">
-            <div className="flex justify-between items-center mb-4 flex-shrink-0">
+            <div className="flex justify-between items-center mb-4">
               <div className="flex items-center space-x-3">
                 <BookmarkIcon />
                 <h2 className="text-white font-bold text-2xl sm:text-3xl">
@@ -132,24 +146,6 @@ export default function Page() {
           </section>
         </main>
       </div>
-
-      {/* アクションボタン群 */}
-      <div className="action-buttons-container">
-        {/* 診断をはじめるボタン (メインアクション) */}
-        <Link href="/diagnosis" className="btn primary-action-btn">
-          診断をはじめる
-        </Link>
-
-        {/* 履歴ボタン (サブアクション) */}
-        <Link href="/diagnosis/history" className="btn secondary-action-btn">
-          履歴
-        </Link>
-      </div>
-
-      {/* ブックマーク/お気に入りセクション */}
-      <section className="bookmark-section">
-        {/* <DummyBookmarkList /> 存在しないcomponent だったので一旦コメントアウト。できたら編集してください。*/}
-      </section>
     </div>
   );
 }
