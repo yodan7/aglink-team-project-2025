@@ -8,7 +8,6 @@ interface BookmarkItemProps {
 
 export const BookmarkItem: React.FC<BookmarkItemProps> = ({ image, title, description }) => {
   return (
-    // 白い背景のカードデザインに変更
     <div className="bg-white/95 p-3 rounded-lg flex items-center space-x-4 shadow hover:shadow-md hover:bg-white transition-all duration-300 cursor-pointer">
       <img
         src={image}
@@ -16,7 +15,6 @@ export const BookmarkItem: React.FC<BookmarkItemProps> = ({ image, title, descri
         className="w-16 h-16 bg-gray-200 rounded-md flex-shrink-0 object-cover"
       />
       <div className="flex-grow">
-        {/* テキストの色を黒ベースに変更 */}
         <h3 className="font-bold text-gray-800 text-base sm:text-lg">{title}</h3>
         <p className="text-gray-600 text-sm">{description}</p>
       </div>

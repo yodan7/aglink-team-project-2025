@@ -1,11 +1,20 @@
-// aglink/src/components/domain/home/SearchIcon.tsx
 import React from "react";
 
 export const SearchIcon: React.FC = () => (
-  // 白い背景と黒い枠を削除し、シンプルなアイコンに変更
   <div className="p-2 rounded-full hover:bg-gray-200/80 transition-colors">
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="h-10 w-10 text-gray-700"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
     </svg>
   </div>
 );
