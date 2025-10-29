@@ -1,10 +1,15 @@
-// src/app/farm/[id]/page.tsx (Server Component/Wrapper)
+// src/app/farm/[id]/page.tsx (Server Component)
 
+// Client Componentをインポート
 import FarmApplicationClient from './FarmApplicationClient'; 
 
-// asyncではない同期関数として定義。paramsは受け取らない。
-export default function FarmApplicationPage() {
+// async関数として定義し、paramsのPromiseを解決
+export default async function FarmApplicationPage({ params }: { params: Promise<{ id: string }> }) {
     
-    // Client Componentにレンダリングを委譲
-    return <FarmApplicationClient />;
+    // サーバー側で await を使用し、Promiseを解決
+    const resolvedParams = await params;
+    const farmId = resolvedParams.id;
+    
+    // Hookを使用するClient Componentを呼び出し、必要な値 (farmId) をPropsとして渡す
+    return <FarmApplicationClient farmId={farmId} />;
 }

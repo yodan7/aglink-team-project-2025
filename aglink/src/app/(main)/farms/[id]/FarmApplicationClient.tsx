@@ -3,8 +3,6 @@
 'use client'; 
 
 import React, { useState } from 'react';
-// Next.jsのナビゲーションHookをインポート
-import { useParams } from 'next/navigation';
 // ⚠️ Card, Button コンポーネントのインポートパスを修正してください
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -47,12 +45,12 @@ interface FormData {
     date: string;
 }
 
-// Client Component: propsから farmId を受け取る必要がなくなる
-export default function FarmApplicationClient() {
-    
-    // ★修正: useParams Hookを使用してIDを直接取得
-    const params = useParams();
-    const farmId = Array.isArray(params.id) ? params.id[0] : params.id; // idは文字列または文字列の配列の可能性があるため安全に取得
+interface FarmApplicationClientProps {
+    farmId: string; // page.tsx から props として受け取る
+}
+
+// Client Component: asyncではない同期関数として定義
+export default function FarmApplicationClient({ farmId }: FarmApplicationClientProps) {
     
     const farm = FARM_DETAIL_DATA;
 
@@ -194,10 +192,10 @@ export default function FarmApplicationClient() {
                     </CardTitle>
                     <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm leading-relaxed">
                         <p>
-                            <strong className="text-aglink-brown mr-2"> 開催期間</strong>: <span>{farm.summary.period}</span>
+                            <strong className="text-aglink-brown mr-2">開催期間</strong>: <span>{farm.summary.period}</span>
                         </p>
                         <p>
-                            <strong className="text-aglink-brown mr-2"> 所要時間</strong>: <span>{farm.summary.duration}</span>
+                            <strong className="text-aglink-brown mr-2">所要時間</strong>: <span>{farm.summary.duration}</span>
                         </p>
                         <p>
                             <strong className="text-aglink-brown mr-2">料金に含まれるもの</strong>: <span>{farm.summary.included}</span>
