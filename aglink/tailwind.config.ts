@@ -52,10 +52,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        
+
         // ★★★ 修正箇所: Aglink カスタムカラーを追加 ★★★
-        'aglink-brown-dark': {
-          DEFAULT: 'hsl(var(--aglink-brown-dark))',
+        "aglink-brown-dark": {
+          DEFAULT: "hsl(var(--aglink-brown-dark))",
         },
         // ★★★ 修正箇所 終わり ★★★
       },
@@ -80,7 +80,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  // plugins: [require("tailwindcss-animate")],
 } satisfies Config;
 
 export default config;
