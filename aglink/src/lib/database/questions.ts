@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabaseClient";
 import type {
   DiagnosisQuestion,
-  QuestionAxis,
+  AxisCategory,
   GroupedQuestions,
 } from "@/types";
 
@@ -27,7 +27,7 @@ export const getAllQuestions = async (): Promise<GroupedQuestions | null> => {
     };
 
     safeData.forEach((question: DiagnosisQuestion) => {
-      const axis = question.axis as QuestionAxis;
+      const axis = question.axis as AxisCategory;
       if (axis in grouped) {
         grouped[axis].push(question);
       }

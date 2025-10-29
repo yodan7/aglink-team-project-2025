@@ -1,10 +1,10 @@
-import { AnswerObjectType, GroupedQuestions, QuestionAxis } from "@/types";
+import { AnswerObjectType, GroupedQuestions, AxisCategory } from "@/types";
 import { useMemo } from "react";
 
 // src/hooks/useDiagnosisProgress.ts
-export const useDiagnosisProgress = (
+export const useQuestionsProgress = (
   questions: GroupedQuestions | null,
-  currentAxis: QuestionAxis,
+  currentAxis: AxisCategory,
   currentAnswerValue: AnswerObjectType
 ) => {
   //未回答の質問を抽出

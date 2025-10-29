@@ -1,7 +1,7 @@
 import { DiagnosisQuestion } from "@/types";
 import { useCallback } from "react";
 
-export const useDiagnosisNavigation = (
+export const useQuestionsNavigation = (
   axisNum: number,
   setAxisNum: (value: number | ((prevState: number) => number)) => void,
   isAllSelect: boolean,

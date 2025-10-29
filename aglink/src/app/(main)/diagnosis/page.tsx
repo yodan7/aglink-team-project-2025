@@ -5,9 +5,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import type { AnswerValue } from "@/types";
-import { useDiagnosis } from "@/hooks/useDiagnosis";
-import { useDiagnosisNavigation } from "@/hooks/useDiagnosisNavigation";
-import { useDiagnosisProgress } from "@/hooks/useDiagnosisProgress";
+import { useQuestions } from "@/hooks/useQuestions";
+import { useQuestionsNavigation } from "@/hooks/useQuestionsNavigation";
+import { useQuestionsProgress } from "@/hooks/useQuestionsProgress";
 
 // 定数も型安全に
 const ANSWER_VALUES: AnswerValue[] = [2, 1, 0, -1, -2] as const;
@@ -30,15 +30,15 @@ export default function DiagnosisPageUI() {
     handleAnswer,
     axisList,
     currentAxis,
-  } = useDiagnosis();
+  } = useQuestions();
 
-  const { unSelected, isAllSelect, axisValue } = useDiagnosisProgress(
+  const { unSelected, isAllSelect, axisValue } = useQuestionsProgress(
     questions,
     currentAxis!,
     currentAnswerValue
   );
 
-  const { handlePrev, handleNext } = useDiagnosisNavigation(
+  const { handlePrev, handleNext } = useQuestionsNavigation(
     axisNum,
     setAxisNum,
     isAllSelect,
