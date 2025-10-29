@@ -24,21 +24,20 @@ export type BaseFarm = {
 };
 
 export type PlanDetails = {
-  planName: string; // プラン名 (例: "美味しいサツマイモ掘りプラン")
-  description: string; // プランの具体的な説明
-
-  //概要の部分
-  startDate?: string;
-  endDate?: string;
-  durationMinutes?: number;
+  plan_name: string; // Supabase のスネークケースに対応
+  description: string;
+  start_date?: string;
+  end_date?: string;
+  duration_minutes?: number;
   price?: number;
-  capacityMin?: number;
-  capacityMax?: number;
-}
-
-export type Farm = BaseFarm & AgriTypePair & {
-  planDetails : PlanDetails;
+  capacity_min?: number;
+  capacity_max?: number;
 };
+
+export type Farm = BaseFarm &
+  AgriTypePair & {
+    plans: PlanDetails[]; // Supabase のクエリ結果に直接対応
+  };
 
 export type NewFarmInput = Array<
   | { name: string }
@@ -53,7 +52,7 @@ export type NewFarmInput = Array<
 export type BookingFormInput = {
   desiredDate: string; // "YYYY-MM-DD"形式
   participants: number; //参加人数
-  representativeName: string;  //代表者氏名
+  representativeName: string; //代表者氏名
   // 必要であれば farmId や planId も追加
 };
 

@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabaseClient";
 import type { AxisDetail, Diagnosis, SupportInfo } from "@/types";
 import { get } from "http";
+import { supabaseToCamelCase } from "../utils";
 
 /**
  * codeから診断結果を取得
@@ -62,7 +63,7 @@ export const getDiagnosisByCode = async (
       return null;
     }
 
-    return data || [];
+    return supabaseToCamelCase(data) || [];
   } catch (error) {
     console.error("予期しないエラーが発生しました", error);
     return null;
@@ -90,7 +91,7 @@ export const getAxisDetailByCode = async (
       return null;
     }
 
-    return data as AxisDetail[];
+    return supabaseToCamelCase(data) as AxisDetail[];
   } catch (error) {
     console.error("予期しないエラーが発生しました", error);
     return null;
@@ -119,7 +120,7 @@ export const getSupportInfoByCode = async (
       return null;
     }
 
-    return data as SupportInfo[];
+    return supabaseToCamelCase(data) as SupportInfo[];
   } catch (error) {
     console.error("予期しないエラーが発生しました", error);
     return null;

@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabaseClient";
 import type { Farm, NewFarmInput } from "@/types";
+import { supabaseToCamelCase } from "../utils";
 
 /**
  * 農地データベース操作の関数群
@@ -20,7 +21,7 @@ export const getAllFarms = async (): Promise<Farm[] | null> => {
       return null;
     }
 
-    return data;
+    return supabaseToCamelCase(data) as Farm[];
   } catch (error) {
     console.error("Unexpected error:", error);
     return null;
@@ -43,7 +44,7 @@ export const getFarmById = async (id: string): Promise<Farm | null> => {
       return null;
     }
 
-    return data;
+    return supabaseToCamelCase(data) as Farm;
   } catch (error) {
     console.error("Unexpected error:", error);
     return null;
@@ -53,14 +54,31 @@ export const getFarmById = async (id: string): Promise<Farm | null> => {
 /**
  * 農業codeでフィルタリング
  */
-export const getFarmsByCode = async (
-  farmCode: string
-): Promise<Farm[] | null> => {
+export const getFarmsByCode = async (code: string): Promise<Farm[] | null> => {
   try {
     const { data, error } = await supabase
       .from("farms")
-      .select("*")
-      .eq("code", farmCode)
+      .select(
+        `
+        id,
+        name,
+        code,
+        type,
+        location,
+        imageUrl,
+        plans (
+          plan_name,
+          description,
+          start_date,
+          end_date,
+          duration_minutes,
+          price,
+          capacity_min,
+          capacity_max
+        )
+      `
+      )
+      .eq("code", code)
       .order("id", { ascending: false });
 
     if (error) {
@@ -68,7 +86,8 @@ export const getFarmsByCode = async (
       return null;
     }
 
-    return data;
+    // supabaseToCamelCase を適用してキャメルケースに変換
+    return supabaseToCamelCase(data) as Farm[];
   } catch (error) {
     console.error("Unexpected error:", error);
     return null;
@@ -93,7 +112,7 @@ export const createFarm = async (
       return null;
     }
 
-    return data;
+    return supabaseToCamelCase(data) as Farm;
   } catch (error) {
     console.error("Unexpected error:", error);
     return null;

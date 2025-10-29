@@ -4,6 +4,7 @@ import type {
   AxisCategory,
   GroupedQuestions,
 } from "@/types";
+import { supabaseToCamelCase } from "../utils";
 
 export const getAllQuestions = async (): Promise<GroupedQuestions | null> => {
   try {
@@ -17,7 +18,7 @@ export const getAllQuestions = async (): Promise<GroupedQuestions | null> => {
 
     // 取得した質問データを軸(Motivation, Scale, Approach, Stance)ごとにグループ化
     // dataがnullの場合は空配列を使用
-    const safeData = data || [];
+    const safeData = supabaseToCamelCase(data) || [];
 
     const grouped: GroupedQuestions = {
       Motivation: [] as DiagnosisQuestion[],

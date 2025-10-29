@@ -23,6 +23,7 @@ import {
 import { useDiagnosis } from "@/hooks/useDiagnosis";
 import { AgriTypePair } from "@/types";
 import { useCode } from "@/hooks/useCode";
+import { useFarms } from "@/hooks/useFarms";
 
 // UI表示に必要な型 (ローカル定義)
 interface Farm {
@@ -174,13 +175,16 @@ export default function DiagnosisResultPage({
     diagnosisError,
     diagnosisLoading,
   ] = useDiagnosis(code as AgriTypePair["code"]);
+  const [farms, farmsError, farmsLoading] = useFarms(
+    code as AgriTypePair["code"]
+  );
 
-  if (codeLoading || diagnosisLoading) {
+  if (codeLoading || diagnosisLoading || farmsLoading) {
     return <div>読み込み中...</div>;
   }
 
-  if (codeError || diagnosisError) {
-    return <div>エラー: {codeError || diagnosisError}</div>;
+  if (codeError || diagnosisError || farmsError) {
+    return <div>エラー: {codeError || diagnosisError || farmsError}</div>;
   }
 
   return (
@@ -363,18 +367,18 @@ export default function DiagnosisResultPage({
             <section className="bg-card p-6 rounded-lg shadow-md">
               <h2 className="text-2xl font-bold text-primary mb-6 flex items-center">
                 <MapPin className="w-6 h-6 mr-2" />
-                {result.name} のあなたにお勧めの農地
+                {diagnosis?.type} のあなたにお勧めの農地
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {result.farmProposals.map((farm) => (
+                {farms?.map((farm) => (
                   <Dialog key={farm.id}>
                     <Card className="overflow-hidden shadow-md hover:shadow-xl transition duration-300 p-0">
                       {/* 画像エリア (7割を占める) */}
                       <CardHeader className="p-0 border-b border-border">
                         <div className="relative h-40 md:h-48 w-full">
                           <Image
-                            src={farm.imagePath} // 農地画像パス
+                            src={farm.imageUrl} // 農地画像パス
                             alt={farm.name}
                             fill
                             className="object-cover"
@@ -390,7 +394,7 @@ export default function DiagnosisResultPage({
                         </CardTitle>
                         <CardDescription className="text-xs text-gray-600 line-clamp-2">
                           <MapPin className="w-3 h-3 mr-1 inline" />
-                          {farm.location} | {farm.area} - {farm.plantTypes}
+                          {farm.location} | {farm.location} - {farm.type}
                         </CardDescription>
 
                         {/* モーダルを起動するトリガー */}
@@ -412,33 +416,31 @@ export default function DiagnosisResultPage({
                         <DialogTitle className="text-xl text-primary">
                           {farm.name}
                         </DialogTitle>
-                        <DialogDescription
-                          className="text-sm text-gray-700 font-semibold flex items-center"
-                        >
+                        <DialogDescription className="text-sm text-gray-700 font-semibold flex items-center">
                           <MapPin className="w-4 h-4 mr-2 text-muted-foreground" />
-                          {farm.location} ({farm.area})
+                          {farm.location} ({farm.location})
                         </DialogDescription>
                       </DialogHeader>
                       <div className="space-y-4">
                         <div className="relative h-40 w-full rounded-md overflow-hidden">
                           <Image
-                            src={farm.imagePath}
+                            src={farm.imageUrl}
                             alt={farm.name}
                             fill
                             className="object-cover"
                           />
                         </div>
-                        <p className="text-sm text-gray-600 border-t pt-3">
+                        {/* <p className="text-sm text-gray-600 border-t pt-3">
                           特徴: {farm.features} / 育てられる作物:{" "}
                           {farm.plantTypes}
-                        </p>
+                        </p> */}
                       </div>
                       <DialogFooter>
                         <Button
                           className="w-full bg-primary hover:bg-primary/90 text-white"
                           asChild
                         >
-                          <Link href={`${farm.url}/reserve`}>
+                          <Link href={`farms/${farm.id}`}>
                             農業体験を予約する
                             <Clock className="w-4 h-4 ml-2" />
                           </Link>
@@ -457,7 +459,7 @@ export default function DiagnosisResultPage({
                   className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-200"
                   asChild
                 >
-                  <Link href="/farms">すべての農地を見る</Link>
+                  <Link href="#farms">すべての農地を見る</Link>
                 </Button>
               </div>
             </section>

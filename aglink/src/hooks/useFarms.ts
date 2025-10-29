@@ -1,53 +1,60 @@
 "use client";
+import { getFarmsByCode } from "@/lib/database/farms";
+import { AgriTypePair, Farm } from "@/types";
+import { useEffect, useState } from "react";
 
-import { useState, useEffect, useCallback } from "react";
-import { getAllFarms, getFarmsByCode } from "@/lib/database/farms";
-import type { Farm } from "@/types";
-
-/**
- * 農地データを管理するカスタムフック
- * codeが指定された場合はそのコードでフィルタリング、指定されなければ全件取得
- * @return {Object} { farms, loading, error, refetch }
- * - farms: 取得した農地データの配列
- * - loading: データ取得中かどうかの状態
- * - error: エラーメッセージ（エラーが発生した場合）
- * - refetch: データを再取得するための関数
- * 上記を一元管理し、コンポーネントでの利用を簡素化
- * 例: const { farms, loading, error, refetch } = useFarms(code);
- * codeが変わるたびに自動でデータを再取得
- */
-export const useFarms = (code: string) => {
-  const [farms, setFarms] = useState<Farm[]>([]);
-  const [loading, setLoading] = useState(true);
+export const useFarms = (code: AgriTypePair["code"]) => {
+  const [farms, setFarms] = useState<Farm[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  const fetchFarms = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const data = code ? await getFarmsByCode(code) : await getAllFarms();
-
-      if (data) {
-        setFarms(data);
-      } else {
-        setError("農地データの取得に失敗しました");
-      }
-    } catch {
-      setError("予期しないエラーが発生しました");
-    } finally {
-      setLoading(false);
-    }
-  }, [code]);
+  const [loading, setLoading] = useState<boolean>(true); // ローディング状態を追加
 
   useEffect(() => {
-    fetchFarms();
-  }, [fetchFarms]);
+    // 無効なコードの場合は処理をスキップ
+    console.log(code);
 
-  return {
+    if (!code) {
+      // codeがまだ渡されていない場合は、ローディング中のまま待機
+      setLoading(true);
+      return;
+    }
+
+    let isMounted = true; // コンポーネントがマウントされているかを追跡
+
+    const fetchData = async () => {
+      setLoading(true); // ローディング開始
+      try {
+        const farm = await getFarmsByCode(code);
+
+        if (isMounted) {
+          if (!farm) {
+            setError("農地データが見つかりませんでした。");
+          } else {
+            setFarms(farm);
+          }
+        }
+      } catch (error) {
+        console.error("農地データの取得に失敗:", error);
+        if (isMounted) {
+          setError("農地データの読み込みに失敗しました。");
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false); // ローディング終了
+        }
+      }
+    };
+
+    fetchData();
+
+    // クリーンアップ関数でアンマウント時の処理を防止
+    return () => {
+      isMounted = false;
+    };
+  }, [code]);
+
+  return [
     farms,
-    loading,
     error,
-    refetch: fetchFarms,
-  };
+    loading, // ローディング状態を返す
+  ] as const;
 };
