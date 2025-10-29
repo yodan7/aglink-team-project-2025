@@ -1,0 +1,60 @@
+# これはワークフローの名前で、GitHubの「Actions」タブに表示されます。
+name: Next.js CI
+
+# このセクションは、ワークフローがいつトリガーされるかを定義します。
+# この場合、プルリクエストが作成または更新されるたびに実行されます。
+on:
+  pull_request:
+    branches: ["main", "develop"] # 'main'や'develop'ブランチを対象とするプルリクエストでトリガーされます。
+
+# このセクションは、実行されるジョブを定義します。
+jobs:
+  # 'check-and-build'は、このジョブの一意のIDです。
+  check-and-build:
+    # ジョブが実行されるマシンのタイプを指定します。'ubuntu-latest'は標準的な選択です。
+    runs-on: ubuntu-latest
+
+    # 'steps'は、このジョブで実行されるタスクの順序です。
+    steps:
+      # ステップ1: リポジトリのコードをチェックアウト
+      # これにより、ワークフローがソースコードにアクセスできるようになります。
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ステップ2: Node.js環境をセットアップ
+      # ワークフローが使用する特定のバージョンのNode.jsをインストールします。
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          # チームの開発環境のバージョンと一致させることが重要です。
+          node-version: "22"
+          cache: "npm" # 今後の実行を高速化するためにnpm依存関係のキャッシュを有効にします。
+          cache-dependency-path: "aglink/package-lock.json"
+
+      # ステップ3: プロジェクトの依存関係をインストール
+      # 'npm ci'は、より高速で信頼性の高いインストールを提供するため、CI環境で推奨されます。
+      - name: Install dependencies
+        working-directory: ./aglink
+        run: npm ci
+
+      # ステップ4: リンターを実行してコード品質をチェック
+      # このコマンドは'package.json'のscriptsで定義されている必要があります。
+      - name: Run linter
+        working-directory: ./aglink
+        run: npm run lint
+
+      # ステップ5: テストを実行（テストがある場合）
+      # このコマンドも'package.json'で定義されている必要があります。
+      # まだテストがない場合は、今のところこのステップをコメントアウトまたは削除してください。
+      # - name: Run tests
+      #   working-directory: ./aglink
+      #   run: npm run test
+
+      # ステップ6: ビルドプロセスを実行してアプリケーションが正常にビルドされることを確認
+      # これは、マージ前にビルドエラーをキャッチするための重要なチェックです。
+      - name: Build project
+        working-directory: ./aglink
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY }}
+        run: npm run build

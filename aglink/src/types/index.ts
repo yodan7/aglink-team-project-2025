@@ -20,11 +20,42 @@ export type BaseFarm = {
   id: string;
   name: string;
   location?: string;
-  description: string;
   imageUrl: string;
 };
 
-export type Farm = BaseFarm & AgriTypePair;
+export type PlanDetails = {
+  planName: string; // プラン名 (例: "美味しいサツマイモ掘りプラン")
+  description: string; // プランの具体的な説明
+
+  //概要の部分
+  startDate?: string;
+  endDate?: string;
+  durationMinutes?: number;
+  price?: number;
+  capacityMin?: number;
+  capacityMax?: number;
+}
+
+export type Farm = BaseFarm & AgriTypePair & {
+  planDetails : PlanDetails;
+};
+
+export type NewFarmInput = Array<
+  | { name: string }
+  | { location: string }
+  | { description: string }
+  | { imageUrl: string }
+  | { code: AgriTypePair["code"] }
+  | { type: AgriTypePair["type"] }
+>;
+
+//申し込みフォーム型
+export type BookingFormInput = {
+  desiredDate: string; // "YYYY-MM-DD"形式
+  participants: number; //参加人数
+  representativeName: string;  //代表者氏名
+  // 必要であれば farmId や planId も追加
+};
 
 export type BaseDiagnosis = {
   description: string;
@@ -46,6 +77,7 @@ export type SignUpInput = {
   username: string;
   password: string;
 };
+export type QuestionAxis = "Motivation" | "Scale" | "Approach" | "Stance";
 
 export type MotivationAxis = "A" | "S";
 export type ScaleAxis = "F" | "C";
@@ -54,13 +86,24 @@ export type StanceAxis = "O" | "P";
 
 // 診断で使う「質問」の型を定義
 export type DiagnosisQuestion = {
-  id: string; // "q1", "q2" など
-  questionText: string; // "収穫した野菜は、主にどうしたいですか？"
-  axis: "Motivation" | "Scale" | "Approach" | "Stance"; // この質問がどの軸に関するものか
-  // options はリスト
-  // 現在は質問に対する回答は複数の選択肢から選ぶスタイルになっているけどSD法とかになるかもしれない？
-  options: {
-    text: string; // "自分で食べたり、おすそ分けして喜んでもらいたい。"
-    value: MotivationAxis | ScaleAxis | ApproachAxis | StanceAxis; // "A", "F", "H", "P" など
-  }[];
+  id: number; // 1, 2 など
+  questionText: string; // "育てる野菜は、個性的な品種に魅力を感じる。"
+  axis: "Motivation" | "Scale" | "Approach" | "Stance"; // どの軸か
+
+  // poleプロパティを追加
+  pole: MotivationAxis | ScaleAxis | ApproachAxis | StanceAxis; // "A", "S", "F", "C"など
+};
+
+export type GroupedQuestions = {
+  [K in QuestionAxis]: DiagnosisQuestion[];
+};
+
+// ✅ より厳密な型定義
+export type AnswerValue = 2 | 1 | 0 | -1 | -2;
+export type AxisAnswers = Record<string, AnswerValue>; //オブジェクト形式
+export type AnswerObjectType = {
+  Motivation: AxisAnswers; // オブジェクト形式に変更
+  Scale: AxisAnswers;
+  Approach: AxisAnswers;
+  Stance: AxisAnswers;
 };
