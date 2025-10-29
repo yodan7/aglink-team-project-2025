@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 // ⚠️ Card, Button コンポーネントのインポートパスを修正してください
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 // --- データの再定義 ---
 const FARM_DETAIL_DATA = {
@@ -211,7 +212,7 @@ export default function FarmApplicationClient({ farmId }: FarmApplicationClientP
                 </Card>
                 
                 {/* --- 3. 画像 (Call to Action) --- */}
-                <img 
+                <Image 
                     src="/images/image_4359dc.png" 
                     alt="農業体験の様子" 
                     className="w-full h-auto my-8 rounded-lg border-2 border-primary shadow-xl object-cover"
