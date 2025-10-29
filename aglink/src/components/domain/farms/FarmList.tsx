@@ -23,7 +23,9 @@ export default function FarmList({ farms }: Props) {
                 <CardTitle>{farm.name}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">{farm.description}</p>
+                <p className="text-muted-foreground">
+                  {farm.planDetails.description}
+                </p>
               </CardContent>
             </Card>
           </Link>
