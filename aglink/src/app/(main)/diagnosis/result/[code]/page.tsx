@@ -14,6 +14,8 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -410,6 +412,12 @@ export default function DiagnosisResultPage({
                         <DialogTitle className="text-xl text-primary">
                           {farm.name}
                         </DialogTitle>
+                        <DialogDescription
+                          className="text-sm text-gray-700 font-semibold flex items-center"
+                        >
+                          <MapPin className="w-4 h-4 mr-2 text-muted-foreground" />
+                          {farm.location} ({farm.area})
+                        </DialogDescription>
                       </DialogHeader>
                       <div className="space-y-4">
                         <div className="relative h-40 w-full rounded-md overflow-hidden">
@@ -420,16 +428,14 @@ export default function DiagnosisResultPage({
                             className="object-cover"
                           />
                         </div>
-                        <p className="text-sm text-gray-700 font-semibold mb-2 flex items-center">
-                          <MapPin className="w-4 h-4 mr-2 text-muted-foreground" />
-                          {farm.location} ({farm.area})
-                        </p>
                         <p className="text-sm text-gray-600 border-t pt-3">
                           特徴: {farm.features} / 育てられる作物:{" "}
                           {farm.plantTypes}
                         </p>
+                      </div>
+                      <DialogFooter>
                         <Button
-                          className="w-full bg-primary hover:bg-primary/90 text-white mt-4"
+                          className="w-full bg-primary hover:bg-primary/90 text-white"
                           asChild
                         >
                           <Link href={`${farm.url}/reserve`}>
@@ -437,7 +443,7 @@ export default function DiagnosisResultPage({
                             <Clock className="w-4 h-4 ml-2" />
                           </Link>
                         </Button>
-                      </div>
+                      </DialogFooter>
                     </DialogContent>
                   </Dialog>
                 ))}
