@@ -267,12 +267,12 @@ export default function DiagnosisResultPage({
               <p className="text-base text-gray-700 mb-4">
                 {diagnosis?.description}
               </p>
-              <p className="text-base font-semibold text-foreground border-t border-dashed pt-4">
+              {/* <p className="text-base font-semibold text-foreground border-t border-dashed pt-4">
                 🌿 向いている作物:{" "}
                 <span className="font-normal text-green-700">
                   {diagnosis?.description}
                 </span>
-              </p>
+              </p> */}
             </section>
 
             {/* 4つの軸の詳細セクション (右側に画像2を配置) */}

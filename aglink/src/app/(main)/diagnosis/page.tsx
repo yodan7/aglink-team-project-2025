@@ -214,7 +214,7 @@ export default function DiagnosisPageUI() {
           >
             {isAllSelect ? (
               <Link
-                href={`/diagnosis/result?type=${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`}
+                href={`/diagnosis/result/${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`}
               >
                 結果を見る <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
