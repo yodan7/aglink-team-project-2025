@@ -13,7 +13,26 @@ export const getAllFarms = async (): Promise<Farm[] | null> => {
   try {
     const { data, error } = await supabase
       .from("farms")
-      .select("*")
+      .select(
+        `
+        id,
+        name,
+        code,
+        type,
+        location,
+        image_url,
+        plans (
+          plan_name,
+          description,
+          start_date,
+          end_date,
+          duration_minutes,
+          price,
+          capacity_min,
+          capacity_max
+        )
+      `
+      )
       .order("id", { ascending: false });
 
     if (error) {
@@ -21,7 +40,8 @@ export const getAllFarms = async (): Promise<Farm[] | null> => {
       return null;
     }
 
-    return supabaseToCamelCase(data) as Farm[];
+    const camelCasedData = supabaseToCamelCase(data);
+    return camelCasedData as Farm[];
   } catch (error) {
     console.error("Unexpected error:", error);
     return null;
@@ -35,7 +55,26 @@ export const getFarmById = async (id: string): Promise<Farm | null> => {
   try {
     const { data, error } = await supabase
       .from("farms")
-      .select("*")
+      .select(
+        `
+        id,
+        name,
+        code,
+        type,
+        location,
+        image_url,
+        plans (
+          plan_name,
+          description,
+          start_date,
+          end_date,
+          duration_minutes,
+          price,
+          capacity_min,
+          capacity_max
+        )
+      `
+      )
       .eq("id", id)
       .single();
 
@@ -65,7 +104,7 @@ export const getFarmsByCode = async (code: string): Promise<Farm[] | null> => {
         code,
         type,
         location,
-        imageUrl,
+        image_url,
         plans (
           plan_name,
           description,
@@ -86,8 +125,8 @@ export const getFarmsByCode = async (code: string): Promise<Farm[] | null> => {
       return null;
     }
 
-    // supabaseToCamelCase を適用してキャメルケースに変換
-    return supabaseToCamelCase(data) as Farm[];
+    const camelCasedData = supabaseToCamelCase(data); //一度unknown型にする
+    return camelCasedData as Farm[]; //その後明示的にFarm型の配列に変換
   } catch (error) {
     console.error("Unexpected error:", error);
     return null;

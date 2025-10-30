@@ -18,7 +18,7 @@ export const getAllQuestions = async (): Promise<GroupedQuestions | null> => {
 
     // 取得した質問データを軸(Motivation, Scale, Approach, Stance)ごとにグループ化
     // dataがnullの場合は空配列を使用
-    const safeData = supabaseToCamelCase(data) || [];
+    const safeData = (supabaseToCamelCase(data) as DiagnosisQuestion[]) || [];
 
     const grouped: GroupedQuestions = {
       Motivation: [] as DiagnosisQuestion[],
@@ -26,6 +26,8 @@ export const getAllQuestions = async (): Promise<GroupedQuestions | null> => {
       Approach: [] as DiagnosisQuestion[],
       Stance: [] as DiagnosisQuestion[],
     };
+
+    console.log(safeData);
 
     safeData.forEach((question: DiagnosisQuestion) => {
       const axis = question.axis as AxisCategory;

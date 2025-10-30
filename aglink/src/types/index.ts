@@ -20,23 +20,23 @@ export type BaseFarm = {
   id: string;
   name: string;
   location?: string;
-  imageUrl: string;
+  imageUrl: string; // キャメルケースに変更
 };
 
 export type PlanDetails = {
-  plan_name: string; // Supabase のスネークケースに対応
+  planName: string; // キャメルケースに変更
   description: string;
-  start_date?: string;
-  end_date?: string;
-  duration_minutes?: number;
+  startDate?: string;
+  endDate?: string;
+  durationMinutes?: number;
   price?: number;
-  capacity_min?: number;
-  capacity_max?: number;
+  capacityMin?: number;
+  capacityMax?: number;
 };
 
 export type Farm = BaseFarm &
   AgriTypePair & {
-    plans: PlanDetails[]; // Supabase のクエリ結果に直接対応
+    plans: PlanDetails[]; // キャメルケースに変更
   };
 
 export type NewFarmInput = Array<

@@ -23,6 +23,7 @@ import {
   updatePassword,
 } from "@/lib/database/auth";
 import { Diagnosis, Farm, NewFarmInput } from "@/types";
+import Image from "next/image";
 
 export default function SupabaseTestPage() {
   const [results, setResults] = useState<string[]>([]);
@@ -69,6 +70,8 @@ export default function SupabaseTestPage() {
   const testGetFarmsByCode = async () => {
     addResult("🌾 コード別農地を取得中...");
     const farms = await getFarmsByCode("AFHP");
+    console.log("farms", farms);
+
     if (farms) {
       addResult(`✅ コードAFHPの農地を${farms.length}件取得しました`);
     } else {
@@ -240,6 +243,12 @@ export default function SupabaseTestPage() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
+      <Image
+        src="/images/mock-farms/farm-03.jpg"
+        alt="Description"
+        width={500}
+        height={300}
+      />
       <h1 className="text-3xl font-bold mb-6">Supabase 関数テストページ</h1>
       <p className="text-gray-600 mb-8">
         libフォルダで定義された全ての関数をテストできます。結果はコンソールと画面に表示されます。

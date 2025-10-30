@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // オブジェクトのキーをスネークケースからキャメルケースに変換するユーティリティ関数
-export function supabaseToCamelCase<T>(obj: T): T {
+export function supabaseToCamelCase<T>(obj: unknown): T {
   if (Array.isArray(obj)) {
     return obj.map(supabaseToCamelCase) as T;
   } else if (obj !== null && typeof obj === "object") {
@@ -18,5 +18,5 @@ export function supabaseToCamelCase<T>(obj: T): T {
       return acc;
     }, {} as Record<string, unknown>) as T;
   }
-  return obj;
+  return obj as T;
 }
