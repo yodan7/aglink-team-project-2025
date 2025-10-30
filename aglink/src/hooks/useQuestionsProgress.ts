@@ -1,10 +1,10 @@
-import { AnswerObjectType, GroupedQuestions, QuestionAxis } from "@/types";
+import { AnswerObjectType, GroupedQuestions, AxisCategory } from "@/types";
 import { useMemo } from "react";
 
 // src/hooks/useDiagnosisProgress.ts
-export const useDiagnosisProgress = (
+export const useQuestionsProgress = (
   questions: GroupedQuestions | null,
-  currentAxis: QuestionAxis,
+  currentAxis: AxisCategory,
   currentAnswerValue: AnswerObjectType
 ) => {
   //未回答の質問を抽出
@@ -20,7 +20,15 @@ export const useDiagnosisProgress = (
     [questions, currentAxis, currentAnswerValue]
   );
 
-  const isAllSelect = useMemo(() => unSelected.length === 0, [unSelected]);
+  const isAllSelect = useMemo(() => {
+    if (!questions || !currentAxis) {
+      console.warn(
+        "questions or currentAxis is undefined. Returning false for isAllSelect."
+      );
+      return false;
+    }
+    return unSelected.length === 0;
+  }, [unSelected, questions, currentAxis]);
 
   const axisValue = useMemo(
     () =>

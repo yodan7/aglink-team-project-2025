@@ -1,19 +1,19 @@
 "use client";
-import { getFarmsByCode } from "@/lib/database/farms";
-import { AgriTypePair, Farm } from "@/types";
+import { getFarmById } from "@/lib/database/farms";
+import { Farm } from "@/types";
 import { useEffect, useState } from "react";
 
-export const useFarms = (code: AgriTypePair["code"]) => {
-  const [farms, setFarms] = useState<Farm[] | null>(null);
+export const useFarmById = (id: Farm["id"]) => {
+  const [farm, setFarm] = useState<Farm | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true); // ローディング状態を追加
 
   useEffect(() => {
-    // 無効なコードの場合は処理をスキップ
-    console.log(code);
+    // 無効なIDの場合は処理をスキップ
+    console.log(id);
 
-    if (!code) {
-      // codeがまだ渡されていない場合は、ローディング中のまま待機
+    if (!id) {
+      // idがまだ渡されていない場合は、ローディング中のまま待機
       setLoading(true);
       return;
     }
@@ -23,12 +23,13 @@ export const useFarms = (code: AgriTypePair["code"]) => {
     const fetchData = async () => {
       setLoading(true); // ローディング開始
       try {
-        const farm = await getFarmsByCode(code);
+        const farm = await getFarmById(id);
+
         if (isMounted) {
           if (!farm) {
             setError("農地データが見つかりませんでした。");
           } else {
-            setFarms(farm);
+            setFarm(farm);
           }
         }
       } catch (error) {
@@ -49,10 +50,10 @@ export const useFarms = (code: AgriTypePair["code"]) => {
     return () => {
       isMounted = false;
     };
-  }, [code]);
+  }, [id]);
 
   return [
-    farms,
+    farm,
     error,
     loading, // ローディング状態を返す
   ] as const;

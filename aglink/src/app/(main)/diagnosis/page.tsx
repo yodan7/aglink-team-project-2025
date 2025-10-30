@@ -5,9 +5,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import type { AnswerValue } from "@/types";
-import { useDiagnosis } from "@/hooks/useDiagnosis";
-import { useDiagnosisNavigation } from "@/hooks/useDiagnosisNavigation";
-import { useDiagnosisProgress } from "@/hooks/useDiagnosisProgress";
+import { useQuestions } from "@/hooks/useQuestions";
+import { useQuestionsNavigation } from "@/hooks/useQuestionsNavigation";
+import { useQuestionsProgress } from "@/hooks/useQuestionsProgress";
 
 // 定数も型安全に
 const ANSWER_VALUES: AnswerValue[] = [2, 1, 0, -1, -2] as const;
@@ -30,15 +30,15 @@ export default function DiagnosisPageUI() {
     handleAnswer,
     axisList,
     currentAxis,
-  } = useDiagnosis();
+  } = useQuestions();
 
-  const { unSelected, isAllSelect, axisValue } = useDiagnosisProgress(
+  const { unSelected, isAllSelect } = useQuestionsProgress(
     questions,
     currentAxis!,
     currentAnswerValue
   );
 
-  const { handlePrev, handleNext } = useDiagnosisNavigation(
+  const { handlePrev, handleNext } = useQuestionsNavigation(
     axisNum,
     setAxisNum,
     isAllSelect,
@@ -49,6 +49,10 @@ export default function DiagnosisPageUI() {
   if (error) {
     return <div className="text-red-500 text-center">{error}</div>;
   }
+
+  // デバッグ用のログを追加
+  console.log("isAllSelect:", isAllSelect);
+  console.log("typeCode:", typeCode);
 
   return (
     // ★ 修正1: 垂直方向のパディングを大幅に削減 (p-4 md:p-6 に変更)
@@ -212,9 +216,13 @@ export default function DiagnosisPageUI() {
             className={`px-6 py-2 rounded-md shadow-md text-white transition-all duration-200 bg-primary hover:bg-primary/90 hover:shadow-lg hover:scale-[1.02]`}
             {...(isAllSelect ? { asChild: true } : { onClick: handleNext })}
           >
-            {isAllSelect ? (
+            {isAllSelect &&
+            typeCode.Motivation &&
+            typeCode.Scale &&
+            typeCode.Approach &&
+            typeCode.Stance ? (
               <Link
-                href={`/diagnosis/result?type=${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`}
+                href={`/diagnosis/result/${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`}
               >
                 結果を見る <ArrowRight className="w-4 h-4 ml-2" />
               </Link>

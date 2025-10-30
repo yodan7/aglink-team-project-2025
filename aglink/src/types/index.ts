@@ -20,25 +20,24 @@ export type BaseFarm = {
   id: string;
   name: string;
   location?: string;
-  imageUrl: string;
+  imageUrl: string; // キャメルケースに変更
 };
 
 export type PlanDetails = {
-  planName: string; // プラン名 (例: "美味しいサツマイモ掘りプラン")
-  description: string; // プランの具体的な説明
-
-  //概要の部分
+  planName: string; // キャメルケースに変更
+  description: string;
   startDate?: string;
   endDate?: string;
   durationMinutes?: number;
   price?: number;
   capacityMin?: number;
   capacityMax?: number;
-}
-
-export type Farm = BaseFarm & AgriTypePair & {
-  planDetails : PlanDetails;
 };
+
+export type Farm = BaseFarm &
+  AgriTypePair & {
+    plans: PlanDetails[]; // キャメルケースに変更
+  };
 
 export type NewFarmInput = Array<
   | { name: string }
@@ -53,7 +52,8 @@ export type NewFarmInput = Array<
 export type BookingFormInput = {
   desiredDate: string; // "YYYY-MM-DD"形式
   participants: number; //参加人数
-  representativeName: string;  //代表者氏名
+  representativeName: string; //代表者氏名
+  farmId?: Farm["id"];
   // 必要であれば farmId や planId も追加
 };
 
@@ -77,12 +77,12 @@ export type SignUpInput = {
   username: string;
   password: string;
 };
-export type QuestionAxis = "Motivation" | "Scale" | "Approach" | "Stance";
+export type AxisCategory = "Motivation" | "Scale" | "Approach" | "Stance";
 
-export type MotivationAxis = "A" | "S";
-export type ScaleAxis = "F" | "C";
-export type ApproachAxis = "H" | "I";
-export type StanceAxis = "O" | "P";
+export type MotivationAxisValue = "A" | "S";
+export type ScaleAxisValue = "F" | "C";
+export type ApproachAxisValue = "H" | "I";
+export type StanceAxisValue = "O" | "P";
 
 // 診断で使う「質問」の型を定義
 export type DiagnosisQuestion = {
@@ -91,11 +91,15 @@ export type DiagnosisQuestion = {
   axis: "Motivation" | "Scale" | "Approach" | "Stance"; // どの軸か
 
   // poleプロパティを追加
-  pole: MotivationAxis | ScaleAxis | ApproachAxis | StanceAxis; // "A", "S", "F", "C"など
+  pole:
+    | MotivationAxisValue
+    | ScaleAxisValue
+    | ApproachAxisValue
+    | StanceAxisValue; // "A", "S", "F", "C"など
 };
 
 export type GroupedQuestions = {
-  [K in QuestionAxis]: DiagnosisQuestion[];
+  [K in AxisCategory]: DiagnosisQuestion[];
 };
 
 // ✅ より厳密な型定義
@@ -106,4 +110,22 @@ export type AnswerObjectType = {
   Scale: AxisAnswers;
   Approach: AxisAnswers;
   Stance: AxisAnswers;
+};
+
+//　診断結果画面で使う型定義
+// 軸の詳細情報
+export type AxisDetail = {
+  axisValue: "A" | "S" | "F" | "C" | "H" | "I" | "O" | "P";
+  axisCategory: AxisCategory;
+  name: string;
+  description: string;
+};
+
+// サポート情報
+export type SupportInfo = {
+  code: AgriTypePair["code"];
+  category: string;
+  title: string;
+  description: string;
+  resourceLinks: string;
 };
