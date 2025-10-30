@@ -1,11 +1,11 @@
 [
   {
     "id": "farm-000",
-    "name": "農場1234",
+    "name": "船橋農場ふれあいパーク",
     "code": "AFHP",
     "type": "のんびり家庭菜園タイプ",
     "location": "千葉県船橋市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-00.jpg",
+    "imageUrl": "/images/mock-farms/farm-00.jpg",
     "planDetails": {
       "planName": "栗拾いとサツマイモ掘りプラン",
       "sections": [
@@ -36,11 +36,11 @@
   },
   {
     "id": "farm-001",
-    "name": "AFHO ガーデン",
+    "name": "世田谷癒しのハーブ園",
     "code": "AFHO",
     "type": "週末ガーデンタイプ",
     "location": "東京都世田谷区",
-    "imageUrl": "aglink/public/images/mock-farms/farm-01.jpg",
+    "imageUrl": "/images/mock-farms/farm-01.jpg",
     "planDetails": {
       "planName": "癒しのハーブ摘み取り体験",
       "sections": [
@@ -71,11 +71,11 @@
   },
   {
     "id": "farm-002",
-    "name": "AFHP のんびり畑",
+    "name": "鎌倉オーシャンファーム",
     "code": "AFHP",
     "type": "のんびり家庭菜園タイプ",
     "location": "神奈川県鎌倉市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-02.jpg",
+    "imageUrl": "/images/mock-farms/farm-02.jpg",
     "planDetails": {
       "planName": "家族で野菜収穫（夏野菜）",
       "sections": [
@@ -106,11 +106,11 @@
   },
   {
     "id": "farm-003",
-    "name": "AFIO ロマン農園",
+    "name": "八ヶ岳星降る農園",
     "code": "AFIO",
     "type": "ロマンティックファーマータイプ",
     "location": "山梨県北杜市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-03.jpg",
+    "imageUrl": "/images/mock-farms/farm-03.jpg",
     "planDetails": {
       "planName": "星降る畑の収穫＆ジャム作り",
       "sections": [
@@ -141,11 +141,11 @@
   },
   {
     "id": "farm-004",
-    "name": "AFIP 週末ラボ",
+    "name": "関東 土壌診断ラボ",
     "code": "AFIP",
     "type": "週末研究家タイプ",
     "location": "埼玉県川越市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-04.jpg",
+    "imageUrl": "/images/mock-farms/farm-04.jpg",
     "planDetails": {
       "planName": "最新トマト品種 育て比べ講座",
       "sections": [
@@ -175,11 +175,11 @@
   },
   {
     "id": "farm-005",
-    "name": "ACHO 発信ファーム",
+    "name": "いすみ映え映えファーム",
     "code": "ACHO",
     "type": "アグリインフルエンサータイプ",
     "location": "千葉県いすみ市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-05.jpg",
+    "imageUrl": "/images/mock-farms/farm-05.jpg",
     "planDetails": {
       "planName": "畑で映え写真＆収穫ランチ",
       "sections": [
@@ -210,11 +210,11 @@
   },
   {
     "id": "farm-006",
-    "name": "ACHP こだわりガーデン",
+    "name": "京都伝統京野菜の匠",
     "code": "ACHP",
     "type": "職人気質ガーデンタイプ",
     "location": "京都府京都市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-06.jpg",
+    "imageUrl": "/images/mock-farms/farm-06.jpg",
     "planDetails": {
       "planName": "京野菜の育て方マンツーマン指導",
       "sections": [
@@ -245,11 +245,11 @@
   },
   {
     "id": "farm-007",
-    "name": "ACIO アグリテック・ラボ",
+    "name": "農業経営イノベーションセンター",
     "code": "ACIO",
     "type": "企業家アグリタイプ",
     "location": "オンライン",
-    "imageUrl": "aglink/public/images/mock-farms/farm-07.jpg",
+    "imageUrl": "/images/mock-farms/farm-07.jpg",
     "planDetails": {
       "planName": "アグリテック起業オンラインセミナー",
       "sections": [
@@ -280,11 +280,11 @@
   },
   {
     "id": "farm-008",
-    "name": "ACIP TOKYO菜園",
+    "name": "TOKYOアーバンファーム",
     "code": "ACIP",
     "type": "アーバンファーマータイプ",
     "location": "東京都港区",
-    "imageUrl": "aglink/public/images/mock-farms/farm-08.jpg",
+    "imageUrl": "/images/mock-farms/farm-08.jpg",
     "planDetails": {
       "planName": "屋上水耕栽培システム導入コンサル",
       "sections": [
@@ -315,11 +315,11 @@
   },
   {
     "id": "farm-009",
-    "name": "SFHO つながる農園",
+    "name": "大阪コミュニティファーム",
     "code": "SFHO",
     "type": "ソーシャルアグリタイプ",
     "location": "大阪府豊能町",
-    "imageUrl": "aglink/public/images/mock-farms/farm-09.jpg",
+    "imageUrl": "/images/mock-farms/farm-09.jpg",
     "planDetails": {
       "planName": "こども農業体験教室（収穫編）",
       "sections": [
@@ -350,11 +350,11 @@
   },
   {
     "id": "farm-010",
-    "name": "SFHP きっちり畑",
+    "name": "豊田堅実菜園アドバイザー",
     "code": "SFHP",
     "type": "堅実な家庭菜園タイプ",
     "location": "愛知県豊田市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-10.jpg",
+    "imageUrl": "/images/mock-farms/farm-10.jpg",
     "planDetails": {
       "planName": "年間野菜作りサポートプラン",
       "sections": [
@@ -385,11 +385,11 @@
   },
   {
     "id": "farm-011",
-    "name": "SFIO データ農場",
+    "name": "つくばアグリデータラボ",
     "code": "SFIO",
     "type": "理系アグリタイプ",
     "location": "茨城県つくば市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-11.jpg",
+    "imageUrl": "/images/mock-farms/farm-11.jpg",
     "planDetails": {
       "planName": "センサーデータ活用ワークショップ",
       "sections": [
@@ -420,11 +420,11 @@
   },
   {
     "id": "farm-012",
-    "name": "SFIP 合理ファーム",
+    "name": "新潟稲作経営コンサルティング",
     "code": "SFIP",
     "type": "ロジカル農家タイプ",
     "location": "新潟県新潟市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-12.jpg",
+    "imageUrl": "/images/mock-farms/farm-12.jpg",
     "planDetails": {
       "planName": "稲作コスト削減 個別コンサル",
       "sections": [
@@ -455,11 +455,11 @@
   },
   {
     "id": "farm-013",
-    "name": "SCHO 副業チャレンジ畑",
+    "name": "糸島マルシェチャレンジ畑",
     "code": "SCHO",
     "type": "週末チャレンジファーマータイプ",
     "location": "福岡県糸島市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-13.jpg",
+    "imageUrl": "/images/mock-farms/farm-13.jpg",
     "planDetails": {
       "planName": "マルシェ出品野菜 栽培＆販売体験",
       "sections": [
@@ -486,11 +486,11 @@
   },
   {
     "id": "farm-014",
-    "name": "SCHP プロ農家への道ファーム",
+    "name": "十勝プロ農業研修センター",
     "code": "SCHP",
     "type": "プロフェッショナル農家タイプ",
     "location": "北海道帯広市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-14.jpg",
+    "imageUrl": "/images/mock-farms/farm-14.jpg",
     "planDetails": {
       "planName": "最新トラクター運転＆メンテ講習",
       "sections": [
@@ -517,11 +517,11 @@
   },
   {
     "id": "farm-015",
-    "name": "SCIO スマートファクトリー",
+    "name": "静岡スマートファクトリー",
     "code": "SCIO",
     "type": "テクノロジー農家タイプ",
     "location": "静岡県磐田市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-15.jpg",
+    "imageUrl": "/images/mock-farms/farm-15.jpg",
     "planDetails": {
       "planName": "植物工場見学＆栽培セミナー",
       "sections": [
@@ -552,11 +552,11 @@
   },
   {
     "id": "farm-016",
-    "name": "SCIP 極み農園",
+    "name": "宮崎極みマンゴー農園",
     "code": "SCIP",
     "type": "職人ファーマータイプ",
     "location": "宮崎県宮崎市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-16.jpg",
+    "imageUrl": "/images/mock-farms/farm-16.jpg",
     "planDetails": {
       "planName": "最高級マンゴー収穫体験",
       "sections": [
@@ -587,11 +587,11 @@
   },
   {
     "id": "farm-017",
-    "name": "森の中の隠れ家ファーム",
+    "name": "軽井沢フォレストファーム",
     "code": "AFIO",
     "type": "ロマンティックファーマータイプ",
     "location": "長野県軽井沢町",
-    "imageUrl": "aglink/public/images/mock-farms/farm-17.jpg",
+    "imageUrl": "/images/mock-farms/farm-17.jpg",
     "planDetails": {
       "planName": "森のハーブ摘みとアロマオイル作り",
       "sections": [
@@ -622,11 +622,11 @@
   },
   {
     "id": "farm-018",
-    "name": "シェア畑プロジェクト Y G K",
+    "name": "神戸シェア畑 YGK",
     "code": "SFHO",
     "type": "ソーシャルアグリタイプ",
     "location": "兵庫県神戸市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-18.jpg",
+    "imageUrl": "/images/mock-farms/farm-18.jpg",
     "planDetails": {
       "planName": "シェア畑 見学＆体験説明会",
       "sections": [
@@ -653,11 +653,11 @@
   },
   {
     "id": "farm-019",
-    "name": "データで育てる高糖度トマト農園",
+    "name": "宇都宮トマト研究所",
     "code": "SFIO",
     "type": "理系アグリタイプ",
     "location": "栃木県宇都宮市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-19.jpg",
+    "imageUrl": "/images/mock-farms/farm-19.jpg",
     "planDetails": {
       "planName": "高糖度トマト食べ比べ＆データ解説会",
       "sections": [
@@ -688,11 +688,11 @@
   },
   {
     "id": "farm-020",
-    "name": "週末プチ起業ファーム甲州",
+    "name": "甲州ぶどう販売戦略塾",
     "code": "SCHO",
     "type": "週末チャレンジファーマータイプ",
     "location": "山梨県甲州市",
-    "imageUrl": "aglink/public/images/mock-farms/farm-20.jpg",
+    "imageUrl": "/images/mock-farms/farm-20.jpg",
     "planDetails": {
       "planName": "ぶどう栽培＆ネット販売 1日集中講座",
       "sections": [
@@ -723,11 +723,11 @@
   },
   {
     "id": "farm-021",
-    "name": "AFHP ポットファーム",
+    "name": "名古屋ベランダ菜園アカデミー",
     "code": "AFHP",
     "type": "のんびり家庭菜園タイプ",
     "location": "愛知県名古屋市",
-    "imageUrl": "/images/farm-afhp-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-21.jpg",
     "planDetails": {
       "planName": "ベランダ菜園スターターキット講座",
       "sections": [
@@ -754,11 +754,11 @@
   },
   {
     "id": "farm-022",
-    "name": "AFHO 癒やしの森",
+    "name": "奥多摩ネイチャーピクニック",
     "code": "AFHO",
     "type": "週末ガーデンタイプ",
     "location": "東京都奥多摩町",
-    "imageUrl": "/images/farm-afho-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-22.jpg",
     "planDetails": {
       "planName": "きのこ観察と山菜収穫ピクニック",
       "sections": [
@@ -789,11 +789,11 @@
   },
   {
     "id": "farm-023",
-    "name": "AFIO サステナブル農園",
+    "name": "伊豆ロマンコーヒー農園",
     "code": "AFIO",
     "type": "ロマンティックファーマータイプ",
     "location": "静岡県伊豆市",
-    "imageUrl": "/images/farm-afio-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-23.jpg",
     "planDetails": {
       "planName": "オーガニックコーヒー栽培と焙煎体験",
       "sections": [
@@ -824,11 +824,11 @@
   },
   {
     "id": "farm-024",
-    "name": "AFIP 土壌分析センター",
+    "name": "酒田土壌分析センター",
     "code": "AFIP",
     "type": "週末研究家タイプ",
     "location": "山形県酒田市",
-    "imageUrl": "/images/farm-afip-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-24.jpg",
     "planDetails": {
       "planName": "あなたの畑の土壌診断とレシピ作成",
       "sections": [
@@ -859,11 +859,11 @@
   },
   {
     "id": "farm-025",
-    "name": "ACHO 畑カフェ",
+    "name": "札幌フォトジェニックファーム",
     "code": "ACHO",
     "type": "アグリインフルエンサータイプ",
     "location": "北海道札幌市",
-    "imageUrl": "/images/farm-acho-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-25.jpg",
     "planDetails": {
       "planName": "インスタ映え！野菜タワー作り＆ランチ",
       "sections": [
@@ -894,11 +894,11 @@
   },
   {
     "id": "farm-026",
-    "name": "ACHP 剪定塾",
+    "name": "弘前りんご剪定塾",
     "code": "ACHP",
     "type": "職人気質ガーデンタイプ",
     "location": "青森県弘前市",
-    "imageUrl": "/images/farm-achp-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-26.jpg",
     "planDetails": {
       "planName": "プロが教えるりんごの木の剪定技術",
       "sections": [
@@ -929,11 +929,11 @@
   },
   {
     "id": "farm-027",
-    "name": "ACIO アグリスタートアップ",
+    "name": "ドローンアグリサポート",
     "code": "ACIO",
     "type": "企業家アグリタイプ",
     "location": "オンライン",
-    "imageUrl": "/images/farm-acio-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-27.jpg",
     "planDetails": {
       "planName": "農業ドローン活用ライセンス取得支援",
       "sections": [
@@ -964,11 +964,11 @@
   },
   {
     "id": "farm-028",
-    "name": "ACIP ルーフトップファーム",
+    "name": "大阪壁面緑化システム",
     "code": "ACIP",
     "type": "アーバンファーマータイプ",
     "location": "大阪府大阪市",
-    "imageUrl": "/images/farm-acip-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-28.jpg",
     "planDetails": {
       "planName": "都会のコンクリート壁面緑化コンサル",
       "sections": [
@@ -999,11 +999,11 @@
   },
   {
     "id": "farm-029",
-    "name": "SFHO 古民家再生農園",
+    "name": "出雲古民家農泊",
     "code": "SFHO",
     "type": "ソーシャルアグリタイプ",
     "location": "島根県出雲市",
-    "imageUrl": "/images/farm-sfho-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-29.jpg",
     "planDetails": {
       "planName": "古民家での味噌作りと農泊体験",
       "sections": [
@@ -1034,11 +1034,11 @@
   },
   {
     "id": "farm-030",
-    "name": "SFHP 伝統農法研究会",
+    "name": "下仁田ネギ伝統栽培指導",
     "code": "SFHP",
     "type": "堅実な家庭菜園タイプ",
     "location": "群馬県下仁田町",
-    "imageUrl": "/images/farm-sfhp-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-30.jpg",
     "planDetails": {
       "planName": "下仁田ネギの伝統栽培技術講座",
       "sections": [
@@ -1069,34 +1069,34 @@
   },
   {
     "id": "farm-031",
-    "name": "SFIO 藻類バイオテックラボ",
+    "name": "つくば植物病理学研究所",
     "code": "SFIO",
     "type": "理系アグリタイプ",
-    "location": "沖縄県石垣市",
-    "imageUrl": "/images/farm-sfio-3.jpg",
+    "location": "茨城県つくば市",
+    "imageUrl": "/images/mock-farms/farm-31.jpg",
     "planDetails": {
-      "planName": "ミドリムシ（ユーグレナ）培養体験と研究見学",
+      "planName": "土壌病害の遺伝子診断ワークショップ",
       "sections": [
         {
           "title": "プラン概要",
-          "content": "農業の枠を超えた、理系バイオ分野に興味がある方向け。光合成を行う微細藻類（ユーグレナ）の培養技術と、その食料・エネルギーへの応用を学びます。"
+          "content": "作物の生育を阻害する土壌病害の原因菌を、最新の遺伝子診断（PCR法）で特定するワークショップです。科学的な根拠に基づいて病害対策を行いたい理系アグリの方に。"
         },
         {
           "title": "体験内容",
-          "content": "ラボ内で、ユーグレナの種菌の顕微鏡観察、培養液の調整、光合成効率の測定など、実際の研究プロセスの一部を体験します。専門の研究員が指導にあたります。"
+          "content": "各自が持ち寄った土壌サンプルからDNAを抽出し、特定の病原菌（例：ネコブセンチュウ）の有無をPCR（ポリメラーゼ連鎖反応）で検出するプロセスを体験。結果のデータ分析と解釈を学びます。"
         },
         {
           "title": "付加価値",
-          "content": "ユーグレナを配合した特製ドリンクの試飲や、研究施設の見学が含まれます。最新のバイオテクノロジーの可能性について、質疑応答形式で深く議論できます。"
+          "content": "専門研究員による診断技術の解説と、データに基づいた持続可能な病害対策（輪作、抵抗性品種の選択）に関するセミナーを開催。修了者には分析結果レポートの見本を提供します。"
         },
         {
           "title": "留意事項",
-          "content": "ラボ内は衛生管理のため、入室制限がございます。事前予約が必要です。本プランは体験学習であり、研究結果の開示は含まれません。"
+          "content": "安全のため、ラボ内での実験は指導員が行います。持ち物は筆記用具のみ。ご自身の畑の土壌サンプル（少量）を持ち込み可能です。"
         }
       ],
-      "startDate": "2026-01-01",
-      "endDate": "2027-12-31",
-      "durationMinutes": 120,
+      "startDate": "2026-05-01",
+      "endDate": "2027-04-30",
+      "durationMinutes": 180,
       "price": 8000,
       "capacityMin": 1,
       "capacityMax": 5
@@ -1104,11 +1104,11 @@
   },
   {
     "id": "farm-032",
-    "name": "SFIP 農業会計士事務所",
+    "name": "オンライン農業会計士事務所",
     "code": "SFIP",
     "type": "ロジカル農家タイプ",
     "location": "オンライン",
-    "imageUrl": "/images/farm-sfip-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-32.jpg",
     "planDetails": {
       "planName": "農業法人化のための税務・財務コンサル",
       "sections": [
@@ -1139,11 +1139,11 @@
   },
   {
     "id": "farm-033",
-    "name": "SCHO 漁師の畑",
+    "name": "気仙沼複合生産体験",
     "code": "SCHO",
     "type": "週末チャレンジファーマータイプ",
     "location": "宮城県気仙沼市",
-    "imageUrl": "/images/farm-scho-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-33.jpg",
     "planDetails": {
       "planName": "魚介と野菜の複合生産体験ツアー",
       "sections": [
@@ -1174,11 +1174,11 @@
   },
   {
     "id": "farm-034",
-    "name": "SCHP フルーツマスターズ",
+    "name": "笛吹フルーツマスターズ",
     "code": "SCHP",
     "type": "プロフェッショナル農家タイプ",
     "location": "山梨県笛吹市",
-    "imageUrl": "/images/farm-schp-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-34.jpg",
     "planDetails": {
       "planName": "プロの味覚を学ぶ果物の選果・格付け技術",
       "sections": [
@@ -1209,29 +1209,29 @@
   },
   {
     "id": "farm-035",
-    "name": "SCIO 陸上養殖研究所",
+    "name": "アグリAIテクノロジー",
     "code": "SCIO",
     "type": "テクノロジー農家タイプ",
-    "location": "神奈川県横須賀市",
-    "imageUrl": "/images/farm-scio-3.jpg",
+    "location": "オンライン",
+    "imageUrl": "/images/mock-farms/farm-35.jpg",
     "planDetails": {
-      "planName": "IT管理型 陸上養殖システム見学会",
+      "planName": "AI生育データ解析＆病害予測セミナー",
       "sections": [
         {
           "title": "プラン概要",
-          "content": "IoTとAIで管理される、最新の閉鎖循環式陸上養殖施設の見学ツアー。持続可能な食料生産技術に興味があるテクノロジー志向の方向け。"
+          "content": "最先端のAI技術を農業経営に活用したい方向けのオンラインセミナーです。ドローン画像や気象データから作物の病害発生リスクを予測し、予防的な対策を立てる方法を学びます。"
         },
         {
-          "title": "見学内容",
-          "content": "水温、水質（pH、溶存酸素量）、給餌量を自動制御するシステムの解説と、実際に養殖されている高級魚（サーモン、トラフグなど）の生育状況を見学します。病気の早期発見技術についても解説します。"
+          "title": "セミナー内容",
+          "content": "AIによる生育データ解析（葉面積指数、健康度など）、病害予測モデルの基本、そして実際に農業AIシステムを導入した農家の成功事例を解説します。質疑応答の時間もあります。"
         },
         {
-          "title": "セミナー",
-          "content": "システム開発者が登壇し、養殖ビジネスの課題と、テクノロジーによる解決策について解説するミニセミナーを開催。"
+          "title": "付加価値",
+          "content": "参加者には、AIが解析したサンプルの生育画像データ（デモ版）を配布します。受講者限定で、農業AIシステムのトライアル利用権利を優待価格で提供します。"
         },
         {
-          "title": "特典・留意事項",
-          "content": "見学後、養殖された魚を使った試食会を実施します。施設内の衛生管理上、写真撮影は禁止されています。予約は1週間前までにお願いします。"
+          "title": "留意事項",
+          "content": "セミナーはZoomを利用したオンライン形式です。安定したインターネット接続が必要です。技術的な内容が中心ですが、初心者でも理解できるよう平易に解説します。"
         }
       ],
       "startDate": "2026-01-01",
@@ -1244,11 +1244,11 @@
   },
   {
     "id": "farm-036",
-    "name": "SCIP 麹の匠ファーム",
+    "name": "横手麹の匠ファーム",
     "code": "SCIP",
     "type": "職人ファーマータイプ",
     "location": "秋田県横手市",
-    "imageUrl": "/images/farm-scip-3.jpg",
+    "imageUrl": "/images/mock-farms/farm-36.jpg",
     "planDetails": {
       "planName": "伝統的な米麹と甘酒作りの極意",
       "sections": [
@@ -1279,11 +1279,11 @@
   },
   {
     "id": "farm-037",
-    "name": "AFHP 自然育児農園",
-    "code": "AFHP",
-    "type": "のんびり家庭菜園タイプ",
+    "name": "宗像自然育児農園",
+    "code": "SFHO",
+    "type": "ソーシャルアグリタイプ",
     "location": "福岡県宗像市",
-    "imageUrl": "/images/farm-afhp-4.jpg",
+    "imageUrl": "/images/mock-farms/farm-37.jpg",
     "planDetails": {
       "planName": "親子で楽しむ泥んこ遊び＆野菜収穫",
       "sections": [
@@ -1314,11 +1314,11 @@
   },
   {
     "id": "farm-038",
-    "name": "AFHO 花と緑の学校",
+    "name": "熱海オーシャンビューガーデン",
     "code": "AFHO",
     "type": "週末ガーデンタイプ",
     "location": "静岡県熱海市",
-    "imageUrl": "/images/farm-afho-4.jpg",
+    "imageUrl": "/images/mock-farms/farm-38.jpg",
     "planDetails": {
       "planName": "多肉植物の寄せ植えと管理講座",
       "sections": [
@@ -1349,11 +1349,11 @@
   },
   {
     "id": "farm-039",
-    "name": "AFIO 古代農園プロジェクト",
+    "name": "奈良・飛鳥 古代米ファーム",
     "code": "AFIO",
     "type": "ロマンティックファーマータイプ",
     "location": "奈良県奈良市",
-    "imageUrl": "/images/farm-afio-4.jpg",
+    "imageUrl": "/images/mock-farms/farm-39.jpg",
     "planDetails": {
       "planName": "古代米（赤米・黒米）の稲作体験",
       "sections": [
@@ -1384,11 +1384,11 @@
   },
   {
     "id": "farm-040",
-    "name": "AFIP 土壌微生物研究会",
+    "name": "仙台土壌微生物研究所",
     "code": "AFIP",
     "type": "週末研究家タイプ",
     "location": "宮城県仙台市",
-    "imageUrl": "/images/farm-afip-4.jpg",
+    "imageUrl": "/images/mock-farms/farm-40.jpg",
     "planDetails": {
       "planName": "顕微鏡で見る！土壌微生物観察会",
       "sections": [
