@@ -32,7 +32,7 @@ export default function DiagnosisPageUI() {
     currentAxis,
   } = useQuestions();
 
-  const { unSelected, isAllSelect, axisValue } = useQuestionsProgress(
+  const { unSelected, isAllSelect } = useQuestionsProgress(
     questions,
     currentAxis!,
     currentAnswerValue
