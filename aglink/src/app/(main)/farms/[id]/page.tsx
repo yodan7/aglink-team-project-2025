@@ -220,7 +220,7 @@ export default function FarmApplicationPage({
               <input
                 type="date"
                 id="date"
-                name="date"
+                name="desiredDate"
                 required
                 value={formData.desiredDate}
                 onChange={handleChange}
