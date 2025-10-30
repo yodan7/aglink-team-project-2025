@@ -259,7 +259,7 @@ export default function FarmApplicationPage({
               <input
                 type="text"
                 id="name"
-                name="name"
+                name="representativeName"
                 required
                 value={formData.representativeName}
                 onChange={handleChange}
