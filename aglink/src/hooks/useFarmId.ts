@@ -27,5 +27,5 @@ export const useFarmId = (params: Promise<{ id: Farm["id"] }>) => {
     fetchCode();
   }, [params]);
 
-  return [id, error, loading];
+  return [id, loading, error];
 };
