@@ -26,139 +26,139 @@ import { useCode } from "@/hooks/useCode";
 import { useFarms } from "@/hooks/useFarms";
 
 // UI表示に必要な型 (ローカル定義)
-interface Farm {
-  id: number;
-  name: string;
-  location: string;
-  area: string;
-  features: string;
-  url: string;
-  imagePath: string; // カードUIのために追加
-  plantTypes: string; // 育てられる植物
-}
+// interface Farm {
+//   id: number;
+//   name: string;
+//   location: string;
+//   area: string;
+//   features: string;
+//   url: string;
+//   imagePath: string; // カードUIのために追加
+//   plantTypes: string; // 育てられる植物
+// }
 
-interface AxisDetail {
-  label: string; // 例: 動機
-  value: string; // 例: 芸術型 (A)
-  description: string; // 例: 美しさや創造性を追求する
-}
+// interface AxisDetail {
+//   label: string; // 例: 動機
+//   value: string; // 例: 芸術型 (A)
+//   description: string; // 例: 美しさや創造性を追求する
+// }
 
-interface SupportSystem {
-  id: number;
-  farming_type_code: string;
-  category: string;
-  title: string;
-  description: string;
-  url: string;
-}
+// interface SupportSystem {
+//   id: number;
+//   farming_type_code: string;
+//   category: string;
+//   title: string;
+//   description: string;
+//   url: string;
+// }
 
-interface DiagnosisResultData {
-  name: string;
-  code: string;
-  imagePath: string;
-  description: {
-    intro: string;
-    strengths: string[];
-    weaknesses: string[];
-    idealFarm: string;
-    crops: string;
-  };
-  axisDetails: AxisDetail[]; // 軸の詳細を追加
-  farmProposals: Farm[];
-  supportSystems: SupportSystem[];
-}
+// interface DiagnosisResultData {
+//   name: string;
+//   code: string;
+//   imagePath: string;
+//   description: {
+//     intro: string;
+//     strengths: string[];
+//     weaknesses: string[];
+//     idealFarm: string;
+//     crops: string;
+//   };
+//   axisDetails: AxisDetail[]; // 軸の詳細を追加
+//   farmProposals: Farm[];
+//   supportSystems: SupportSystem[];
+// }
 
 // --- UIで使用するモックデータ定義 ---
-const MOCK_RESULT: DiagnosisResultData = {
-  name: "週末ガーデナー",
-  code: "AFHO",
-  imagePath: "/images/agli-types/AFHO-type.png",
-  description: {
-    intro:
-      "畑は自分だけの癒し空間。美しさや創造性を追求し、収穫した野菜は家族や友人と楽しむ。新しい植物や栽培方法を試すのが大好き。",
-    strengths: [
-      "環境の変化に対する高い適応力と、育てる作物への愛情の深さ。",
-      "計画性よりも直感を頼りに、自然のサイクルに寄り添った農業を築ける。",
-    ],
-    weaknesses: [
-      "ビジネス的な効率や市場動向の考慮が苦手な傾向。",
-      "データに基づいた厳密な管理よりも感覚を優先しがち。",
-    ],
-    idealFarm:
-      "理想の農園は、小規模でも生態系が豊かで、手作りの温かみが感じられる場所です。特に、ハーブ栽培や有機野菜の多品目栽培に適性があります。",
-    crops:
-      "ハーブ類、葉物野菜（ルッコラ、バジル）、ユニークなミニトマトやベリー類",
-  },
-  axisDetails: [
-    {
-      label: "動機",
-      value: "芸術型 (A)",
-      description:
-        "美しさや創造性を追求し、作物や庭をアート作品のように育てることを楽しみます。",
-    },
-    {
-      label: "規模",
-      value: "家族型 (F)",
-      description:
-        "家族や友人との繋がりを大切にし、小規模で身近な範囲での農業を楽しみます。",
-    },
-    {
-      label: "アプローチ",
-      value: "実践型 (H)",
-      description:
-        "際立った技能や経験を活かし、直接土に触れ、身体を動かす作業を好みます。",
-    },
-    {
-      label: "スタンス",
-      value: "開放型 (O)",
-      description:
-        "新しい手法や異業種との交流に積極的で、多様な可能性を模索します。",
-    },
-  ],
-  supportSystems: [
-    {
-      id: 12,
-      farming_type_code: "AFHO",
-      category: "教育・体験",
-      title: "体験農業・ワークショップ助成",
-      description:
-        "地域の体験農業プログラムやワークショップ開催に対する助成。観光連携や教育プログラムの実施費用を補助し、参加者募集や運営の負担を軽減。",
-      url: "https://www.maff.go.jp/j/nousin/kouryu/nouhakusuishin/nouhaku_top.html",
-    },
-  ],
-  farmProposals: [
-    {
-      id: 1,
-      name: "里山の小さなハーブ農園",
-      location: "京都府 南丹市",
-      area: "150坪",
-      features: "無農薬、古民家付き",
-      url: "/farms/1",
-      imagePath: "/images/farm-thumb-1.jpg",
-      plantTypes: "ハーブ、ベビーリーフ",
-    },
-    {
-      id: 2,
-      name: "高原の有機野菜エリア",
-      location: "長野県 茅野市",
-      area: "400坪",
-      features: "冷涼地、多品目栽培向き",
-      url: "/farms/2",
-      imagePath: "/images/farm-thumb-2.jpg",
-      plantTypes: "ジャガイモ、キャベツ",
-    },
-    {
-      id: 3,
-      name: "海岸沿いの自然農園",
-      location: "千葉県 夷隅郡",
-      area: "200坪",
-      features: "温暖、土壌改良不要",
-      url: "/farms/3",
-      imagePath: "/images/farm-thumb-3.jpg",
-      plantTypes: "ミニトマト、メロン",
-    },
-  ],
-};
+// const MOCK_RESULT: DiagnosisResultData = {
+//   name: "週末ガーデナー",
+//   code: "AFHO",
+//   imagePath: "/images/agli-types/AFHO-type.png",
+//   description: {
+//     intro:
+//       "畑は自分だけの癒し空間。美しさや創造性を追求し、収穫した野菜は家族や友人と楽しむ。新しい植物や栽培方法を試すのが大好き。",
+//     strengths: [
+//       "環境の変化に対する高い適応力と、育てる作物への愛情の深さ。",
+//       "計画性よりも直感を頼りに、自然のサイクルに寄り添った農業を築ける。",
+//     ],
+//     weaknesses: [
+//       "ビジネス的な効率や市場動向の考慮が苦手な傾向。",
+//       "データに基づいた厳密な管理よりも感覚を優先しがち。",
+//     ],
+//     idealFarm:
+//       "理想の農園は、小規模でも生態系が豊かで、手作りの温かみが感じられる場所です。特に、ハーブ栽培や有機野菜の多品目栽培に適性があります。",
+//     crops:
+//       "ハーブ類、葉物野菜（ルッコラ、バジル）、ユニークなミニトマトやベリー類",
+//   },
+//   axisDetails: [
+//     {
+//       label: "動機",
+//       value: "芸術型 (A)",
+//       description:
+//         "美しさや創造性を追求し、作物や庭をアート作品のように育てることを楽しみます。",
+//     },
+//     {
+//       label: "規模",
+//       value: "家族型 (F)",
+//       description:
+//         "家族や友人との繋がりを大切にし、小規模で身近な範囲での農業を楽しみます。",
+//     },
+//     {
+//       label: "アプローチ",
+//       value: "実践型 (H)",
+//       description:
+//         "際立った技能や経験を活かし、直接土に触れ、身体を動かす作業を好みます。",
+//     },
+//     {
+//       label: "スタンス",
+//       value: "開放型 (O)",
+//       description:
+//         "新しい手法や異業種との交流に積極的で、多様な可能性を模索します。",
+//     },
+//   ],
+//   supportSystems: [
+//     {
+//       id: 12,
+//       farming_type_code: "AFHO",
+//       category: "教育・体験",
+//       title: "体験農業・ワークショップ助成",
+//       description:
+//         "地域の体験農業プログラムやワークショップ開催に対する助成。観光連携や教育プログラムの実施費用を補助し、参加者募集や運営の負担を軽減。",
+//       url: "https://www.maff.go.jp/j/nousin/kouryu/nouhakusuishin/nouhaku_top.html",
+//     },
+//   ],
+//   farmProposals: [
+//     {
+//       id: 1,
+//       name: "里山の小さなハーブ農園",
+//       location: "京都府 南丹市",
+//       area: "150坪",
+//       features: "無農薬、古民家付き",
+//       url: "/farms/1",
+//       imagePath: "/images/farm-thumb-1.jpg",
+//       plantTypes: "ハーブ、ベビーリーフ",
+//     },
+//     {
+//       id: 2,
+//       name: "高原の有機野菜エリア",
+//       location: "長野県 茅野市",
+//       area: "400坪",
+//       features: "冷涼地、多品目栽培向き",
+//       url: "/farms/2",
+//       imagePath: "/images/farm-thumb-2.jpg",
+//       plantTypes: "ジャガイモ、キャベツ",
+//     },
+//     {
+//       id: 3,
+//       name: "海岸沿いの自然農園",
+//       location: "千葉県 夷隅郡",
+//       area: "200坪",
+//       features: "温暖、土壌改良不要",
+//       url: "/farms/3",
+//       imagePath: "/images/farm-thumb-3.jpg",
+//       plantTypes: "ミニトマト、メロン",
+//     },
+//   ],
+// };
 
 export default function DiagnosisResultPage({
   params,
@@ -166,8 +166,8 @@ export default function DiagnosisResultPage({
   params: Promise<{ code: AgriTypePair["code"] }>;
 }) {
   // データはローカルのモックデータを使用
-  const result = MOCK_RESULT;
-  const { code, loading: codeLoading, error: codeError } = useCode(params);
+  // const result = MOCK_RESULT;
+  const [code, codeLoading, codeError] = useCode(params);
   const [
     diagnosis,
     axisDetails,
@@ -186,7 +186,7 @@ export default function DiagnosisResultPage({
   if (codeError || diagnosisError || farmsError) {
     return <div>エラー: {codeError || diagnosisError || farmsError}</div>;
   }
-
+  // console.log(farms?.[0].plans.map((x) => x.description));
   return (
     <main className="w-full min-h-screen bg-background">
       {/* 全体コンテナ: layout.tsxのpadding-topを打ち消すため、CSS変数を利用 */}
@@ -430,17 +430,16 @@ export default function DiagnosisResultPage({
                             className="object-cover"
                           />
                         </div>
-                        {/* <p className="text-sm text-gray-600 border-t pt-3">
-                          特徴: {farm.features} / 育てられる作物:{" "}
-                          {farm.plantTypes}
-                        </p> */}
+                        <p className="text-sm text-gray-600 border-t pt-3">
+                          特徴: {farm.plans[0].planName}
+                        </p>
                       </div>
                       <DialogFooter>
                         <Button
                           className="w-full bg-primary hover:bg-primary/90 text-white"
                           asChild
                         >
-                          <Link href={`farms/${farm.id}`}>
+                          <Link href={`/farms/${farm.id}`}>
                             農業体験を予約する
                             <Clock className="w-4 h-4 ml-2" />
                           </Link>

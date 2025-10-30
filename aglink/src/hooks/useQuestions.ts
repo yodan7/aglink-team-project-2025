@@ -47,23 +47,42 @@ export const useQuestions = () => {
 
   // typeCode更新の副作用をuseEffectで管理
   useEffect(() => {
-    // 現在の軸の値を計算 - オブジェクト形式に対応
+    if (!currentAxis) {
+      console.log("currentAxis is undefined. Skipping typeCode update.");
+      return;
+    }
+
+    // axisValueを計算
     const axisValue =
       currentAxis && currentAnswerValue[currentAxis]
-        ? Object.values(currentAnswerValue[currentAxis]).reduce(
-            (sum: number, value: number) => sum + value,
+        ? Object.entries(currentAnswerValue[currentAxis]).reduce(
+            (sum, [, value]) => sum + value,
             0
-          )
-        : 0;
+          ) // 各回答値を合計
+        : 0; // currentAxisが未定義の場合はデフォルト値0を使用
 
-    if (currentAxis && typeCode[currentAxis]) {
-      setTypeCode((prev) => ({
-        ...prev,
-        [currentAxis]:
-          axisValue > 0 ? prev[currentAxis][0] : prev[currentAxis][1],
-      }));
-    }
-  }, [currentAxis, currentAnswerValue]);
+    console.log("Debug: Calculated axisValue =", axisValue);
+
+    setTypeCode((prev) => {
+      const updatedTypeCode = { ...prev };
+
+      // 以前のtypeCodeのデバッグログ
+      console.log("Debug: Previous typeCode =", prev);
+
+      // currentAxisに対応する値のみ更新
+      if (currentAxis && axisValue !== undefined) {
+        updatedTypeCode[currentAxis] = calculateTypeCode(
+          axisValue,
+          currentAxis
+        ); // 必要に応じてロジックを置き換え
+      }
+
+      // 更新後のtypeCodeのデバッグログ
+      console.log("Debug: Updated typeCode =", updatedTypeCode);
+
+      return updatedTypeCode;
+    });
+  }, [currentAxis, currentAnswerValue]); // currentAxisとcurrentAnswerValueを依存配列に追加
 
   const handleAnswer = useCallback(
     (questionId: number, value: AnswerValue) => {
@@ -81,6 +100,20 @@ export const useQuestions = () => {
     },
     [currentAxis]
   );
+
+  // Helper function to calculate typeCode based on axosValue
+  function calculateTypeCode(value: number, axis: AxisCategory): string {
+    const defaultTypeCodes: Record<AxisCategory, string> = {
+      Motivation: "AS",
+      Scale: "FC",
+      Approach: "HI",
+      Stance: "OP",
+    };
+
+    const typeCode = defaultTypeCodes[axis];
+    return value > 0 ? typeCode[0] : value < 0 ? typeCode[1] : typeCode[0]; // 正か0なら1文字目、負なら2文字目を選択
+  }
+
   return {
     questions,
     currentAnswerValue,

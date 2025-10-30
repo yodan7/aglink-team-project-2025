@@ -23,5 +23,5 @@ export const useCode = (params: Promise<{ code: AgriTypePair["code"] }>) => {
     fetchCode();
   }, [params]);
 
-  return { code, loading, error };
+  return [code, loading, error];
 };

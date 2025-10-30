@@ -20,7 +20,15 @@ export const useQuestionsProgress = (
     [questions, currentAxis, currentAnswerValue]
   );
 
-  const isAllSelect = useMemo(() => unSelected.length === 0, [unSelected]);
+  const isAllSelect = useMemo(() => {
+    if (!questions || !currentAxis) {
+      console.warn(
+        "questions or currentAxis is undefined. Returning false for isAllSelect."
+      );
+      return false;
+    }
+    return unSelected.length === 0;
+  }, [unSelected, questions, currentAxis]);
 
   const axisValue = useMemo(
     () =>

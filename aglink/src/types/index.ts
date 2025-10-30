@@ -53,6 +53,7 @@ export type BookingFormInput = {
   desiredDate: string; // "YYYY-MM-DD"形式
   participants: number; //参加人数
   representativeName: string; //代表者氏名
+  farmId?: Farm["id"];
   // 必要であれば farmId や planId も追加
 };
 

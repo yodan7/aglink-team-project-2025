@@ -50,6 +50,10 @@ export default function DiagnosisPageUI() {
     return <div className="text-red-500 text-center">{error}</div>;
   }
 
+  // デバッグ用のログを追加
+  console.log("isAllSelect:", isAllSelect);
+  console.log("typeCode:", typeCode);
+
   return (
     // ★ 修正1: 垂直方向のパディングを大幅に削減 (p-4 md:p-6 に変更)
     <div
@@ -212,7 +216,11 @@ export default function DiagnosisPageUI() {
             className={`px-6 py-2 rounded-md shadow-md text-white transition-all duration-200 bg-primary hover:bg-primary/90 hover:shadow-lg hover:scale-[1.02]`}
             {...(isAllSelect ? { asChild: true } : { onClick: handleNext })}
           >
-            {isAllSelect ? (
+            {isAllSelect &&
+            typeCode.Motivation &&
+            typeCode.Scale &&
+            typeCode.Approach &&
+            typeCode.Stance ? (
               <Link
                 href={`/diagnosis/result/${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`}
               >
