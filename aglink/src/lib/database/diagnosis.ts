@@ -62,7 +62,8 @@ export const getDiagnosisByCode = async (
       return null;
     }
 
-    return (supabaseToCamelCase(data) as Diagnosis) || [];
+    const diagnosis = supabaseToCamelCase(data) as Diagnosis;
+    return diagnosis ?? null;
   } catch (error) {
     console.error("予期しないエラーが発生しました", error);
     return null;
