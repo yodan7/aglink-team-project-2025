@@ -1,0 +1,67 @@
+# GitHub Copilot 自動レビューワークフロー
+# このワークフローは、プルリクエストに対してGitHub Copilotによる自動コードレビューを促進します。
+name: Copilot Code Review
+
+# プルリクエストが作成または更新されたときにトリガー
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: ["main", "develop"]
+
+# ワークフローの権限設定
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  # Copilotレビューのリマインダーをコメントとして追加
+  copilot-review-reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: GitHub Copilotレビューのリマインダー
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // PRにCopilotレビューのリマインダーコメントを追加
+            const prNumber = context.payload.pull_request.number;
+            const existingComments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+
+            // 既にリマインダーコメントが存在するかチェック
+            const reminderExists = existingComments.data.some(comment =>
+              comment.body.includes('GitHub Copilot レビュー')
+            );
+
+            if (!reminderExists) {
+              const reviewMessage = [
+                '## 🤖 GitHub Copilot レビュー',
+                '',
+                'このプルリクエストは GitHub Copilot によるコードレビューの対象です。',
+                '',
+                '### レビューを依頼する方法:',
+                '1. GitHubのPR画面で「Reviewers」セクションを開く',
+                '2. 「Copilot」を選択してレビューをリクエスト',
+                '',
+                '### 注意事項:',
+                '- Copilotのレビューは日本語でコメントするよう設定されています',
+                '- レビュー結果を確認し、必要に応じて修正を行ってください',
+                '- 自動レビューは補助的なものです。人間のレビューも重要です',
+                '',
+                '詳細は [GitHub Copilot Code Review ドキュメント](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review) を参照してください。'
+              ].join('\n');
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: reviewMessage
+              });
+            }
