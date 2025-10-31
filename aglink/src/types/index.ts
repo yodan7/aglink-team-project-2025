@@ -23,9 +23,14 @@ export type BaseFarm = {
   imageUrl: string; // キャメルケースに変更
 };
 
+export type Section = {
+  title: string;
+  content: string;
+};
+
 export type PlanDetails = {
   planName: string; // キャメルケースに変更
-  description: string;
+  sections: Section[];
   startDate?: string;
   endDate?: string;
   durationMinutes?: number;

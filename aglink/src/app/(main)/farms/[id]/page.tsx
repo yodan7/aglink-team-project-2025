@@ -8,9 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { useState } from "react";
 import { useFarmId } from "@/hooks/useFarmId";
-import { BookingFormInput, Farm } from "@/types";
+import { Farm } from "@/types";
 import { useFarmById } from "@/hooks/useFarmById";
 import { useFormFarm } from "@/hooks/useFormFarm";
 
@@ -91,8 +90,24 @@ export default function FarmApplicationPage({
               {farm?.plans[0].planName}
             </h3>
 
+            {farm?.plans[0].sections.map((section, index) => (
+              <Card
+                key={index}
+                className="mb-6 bg-card border-primary/30 shadow-md"
+              >
+                <CardContent className="p-4">
+                  <h4 className="text-xl font-bold text-primary border-b-2 border-primary/50 pb-1 mb-3">
+                    {section.title}
+                  </h4>
+                  <p className="text-sm text-gray-700 whitespace-pre-wrap">
+                    {section.content}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+
             {/* 1-1. 栗拾いカード */}
-            <Card className="mb-6 bg-card border-primary/30 shadow-md">
+            {/* <Card className="mb-6 bg-card border-primary/30 shadow-md">
               <CardContent className="p-4">
                 <h4 className="text-xl font-bold text-primary border-b-2 border-primary/50 pb-1 mb-3">
                   🌰 【{farm?.plans[0].description}】
@@ -102,16 +117,13 @@ export default function FarmApplicationPage({
                     <strong>期間</strong>: {farm?.plans[0].startDate} ~{" "}
                     {farm?.plans[0].endDate}
                   </li>
-                  {/* <li>
-                    <strong>販売</strong>: {farm?.plans[0].price} 円
-                  </li> */}
                   <li>
                     <strong>人数</strong>: {farm?.plans[0].capacityMin} 名〜
                     {farm?.plans[0].capacityMax} 名
                   </li>
                 </ul>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* 1-2. サツマイモ掘りカード */}
             {/* <Card className="mb-6 bg-card border-primary/30 shadow-md">
@@ -136,7 +148,7 @@ export default function FarmApplicationPage({
             </Card> */}
 
             {/* 1-3. その他情報セクション */}
-            <h4 className="text-xl font-bold text-aglink-brown mt-8 mb-4">
+            {/* <h4 className="text-xl font-bold text-aglink-brown mt-8 mb-4">
               その他の体験内容
             </h4>
             {farm?.plans.map((item, index) => (
@@ -146,12 +158,10 @@ export default function FarmApplicationPage({
               >
                 <CardContent className="p-4">
                   <h5 className="font-semibold text-aglink-brown mb-1">
-                    {/* {item.planName} */}
                   </h5>
-                  {/* <p className="text-sm text-gray-600"  >{item.description}</p> */}
                 </CardContent>
               </Card>
-            ))}
+            ))} */}
           </CardContent>
         </Card>
 
@@ -194,7 +204,7 @@ export default function FarmApplicationPage({
 
         {/* --- 3. 画像 (Call to Action) --- */}
         <Image
-          src="/images/image_4359dc.png"
+          src={farm?.imageUrl as string}
           alt="農業体験の様子"
           width={800}
           height={400}

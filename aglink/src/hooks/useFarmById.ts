@@ -1,5 +1,5 @@
 "use client";
-import { getFarmById } from "@/lib/database/farms";
+import { getFarmByIdWithSections } from "@/lib/database/farms";
 import { Farm } from "@/types";
 import { useEffect, useState } from "react";
 
@@ -23,7 +23,7 @@ export const useFarmById = (id: Farm["id"]) => {
     const fetchData = async () => {
       setLoading(true); // ローディング開始
       try {
-        const farm = await getFarmById(id);
+        const farm = await getFarmByIdWithSections(id);
 
         if (isMounted) {
           if (!farm) {
