@@ -1,0 +1,122 @@
+[
+  {
+    "id": "q1",
+    "questionText": "育てる野菜は、ちょっと形が変わった個性的な品種に魅力を感じる。",
+    "axis": "Motivation",
+    "pole": "A"
+  },
+  {
+    "id": "q2",
+    "questionText": "農業を始める前に、費用対効果や収益の見込みを最初に計算したい。",
+    "axis": "Motivation",
+    "pole": "S"
+  },
+  {
+    "id": "q3",
+    "questionText": "畑で一番やりがいを感じるのは、自分のアイデアやセンスが形になった時だ。",
+    "axis": "Motivation",
+    "pole": "A"
+  },
+  {
+    "id": "q4",
+    "questionText": "農業の情報は、論理的でデータに基づいた客観的な情報を信頼する。",
+    "axis": "Motivation",
+    "pole": "S"
+  },
+  {
+    "id": "q5",
+    "questionText": "育てた野菜は、味だけでなく、見た目の美しさやユニークさも大切にしたい。",
+    "axis": "Motivation",
+    "pole": "A"
+  },
+  {
+    "id": "q6",
+    "questionText": "収穫した野菜は、自分で食べたり、おすそ分けして喜んでもらいたい。",
+    "axis": "Scale",
+    "pole": "F"
+  },
+  {
+    "id": "q7",
+    "questionText": "農業を、将来的に収入を得るためのビジネスとして考えている。",
+    "axis": "Scale",
+    "pole": "C"
+  },
+  {
+    "id": "q8",
+    "questionText": "家族や友人に「すごいね!」と褒めてもらうことが、大きなモチベーションになる。",
+    "axis": "Scale",
+    "pole": "F"
+  },
+  {
+    "id": "q9",
+    "questionText": "農業に使うお金は、将来の独立も見据えてしっかり投資しても良いと考えている。",
+    "axis": "Scale",
+    "pole": "C"
+  },
+  {
+    "id": "q10",
+    "questionText": "大きな畑を借りるチャンスがあったら、自分の事業として収益化を検討したい。",
+    "axis": "Scale",
+    "pole": "C"
+  },
+  {
+    "id": "q11",
+    "questionText": "苗を植えたり、土をいじったり、直接身体を動かす作業が好きだ。",
+    "axis": "Approach",
+    "pole": "H"
+  },
+  {
+    "id": "q12",
+    "questionText": "畑の状態は、センサーやアプリなどの最新ツールで管理したい。",
+    "axis": "Approach",
+    "pole": "I"
+  },
+  {
+    "id": "q13",
+    "questionText": "農業の知識は、経験豊かな農家さんのもとで、お手伝いをしながら学ぶのが一番だと思う。",
+    "axis": "Approach",
+    "pole": "H"
+  },
+  {
+    "id": "q14",
+    "questionText": "農業で困ったら、まずはAIやインターネットで原因や対策を調べたい。",
+    "axis": "Approach",
+    "pole": "I"
+  },
+  {
+    "id": "q15",
+    "questionText": "農業は、新しい技術や知識を取り入れて、スマートに進めていきたい。",
+    "axis": "Approach",
+    "pole": "I"
+  },
+  {
+    "id": "q16",
+    "questionText": "農業で失敗しても、「新しい発見があった」と前向きに捉えることができる。",
+    "axis": "Stance",
+    "pole": "O"
+  },
+  {
+    "id": "q17",
+    "questionText": "育てた作物は、昔からある伝統品種のほうが安心感がある。",
+    "axis": "Stance",
+    "pole": "P"
+  },
+  {
+    "id": "q18",
+    "questionText": "農業を通じて、IT企業やデザイナーなど異分野の人と繋がりたい。",
+    "axis": "Stance",
+    "pole": "O"
+  },
+  {
+    "id": "q19",
+    "questionText": "計画通りに進まない時は、一度立ち止まり、計画を細かく見直してから次の行動を決めたい。",
+    "axis": "Stance",
+    "pole": "P"
+  },
+  {
+    "id": "q20",
+    "questionText": "農業を始めた最終的な目標は、新しい価値を生み出し、可能性を広げることだ。",
+    "axis": "Stance",
+    "pole": "O"
+  }
+]
