@@ -2,7 +2,13 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { SearchIcon, BookmarkIcon, HistoryIcon, BookmarkItem } from "@/components/domain/home";
+import {
+  SearchIcon,
+  BookmarkIcon,
+  HistoryIcon,
+  BookmarkItem,
+} from "@/components/domain/home";
+import Image from "next/image";
 
 interface Bookmark {
   id: number;
@@ -12,16 +18,66 @@ interface Bookmark {
 }
 
 const bookmarks: Bookmark[] = [
-  { id: 1, image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm1", title: "新鮮なトマトの育て方", description: "家庭菜園で簡単にできる栽培のコツ。" },
-  { id: 2, image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm2", title: "オーガニック農法の基本", description: "化学肥料を使わない、環境に優しい農業。" },
-  { id: 3, image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm3", title: "最新の農業ドローン技術", description: "効率的な農薬散布や生育状況の監視。" },
-  { id: 4, image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm4", title: "土壌改良材の選び方と使い方", description: "あなたの畑に最適な改良材を見つけよう。" },
-  { id: 5, image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm5", title: "害虫対策の自然なアプローチ", description: "農薬に頼らない害虫対策をいくつか紹介。" },
-  { id: 6, image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm6", title: "水耕栽培システムの構築", description: "省スペースで始める未来の農業。" },
-  { id: 7, image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm7", title: "気候変動と作物の関係", description: "持続可能な農業を目指すための基礎知識。" },
-  { id: 8, image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm8", title: "有機堆肥の作り方", description: "家庭でできる簡単な堆肥作りを紹介。" },
-  { id: 9, image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm9", title: "季節ごとの野菜栽培スケジュール", description: "春夏秋冬に応じたおすすめ野菜を紹介。" },
-  { id: 10, image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm10", title: "スマート農業の最新トレンド", description: "AIとIoTが支える次世代農業技術。" },
+  {
+    id: 1,
+    image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm1",
+    title: "新鮮なトマトの育て方",
+    description: "家庭菜園で簡単にできる栽培のコツ。",
+  },
+  {
+    id: 2,
+    image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm2",
+    title: "オーガニック農法の基本",
+    description: "化学肥料を使わない、環境に優しい農業。",
+  },
+  {
+    id: 3,
+    image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm3",
+    title: "最新の農業ドローン技術",
+    description: "効率的な農薬散布や生育状況の監視。",
+  },
+  {
+    id: 4,
+    image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm4",
+    title: "土壌改良材の選び方と使い方",
+    description: "あなたの畑に最適な改良材を見つけよう。",
+  },
+  {
+    id: 5,
+    image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm5",
+    title: "害虫対策の自然なアプローチ",
+    description: "農薬に頼らない害虫対策をいくつか紹介。",
+  },
+  {
+    id: 6,
+    image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm6",
+    title: "水耕栽培システムの構築",
+    description: "省スペースで始める未来の農業。",
+  },
+  {
+    id: 7,
+    image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm7",
+    title: "気候変動と作物の関係",
+    description: "持続可能な農業を目指すための基礎知識。",
+  },
+  {
+    id: 8,
+    image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm8",
+    title: "有機堆肥の作り方",
+    description: "家庭でできる簡単な堆肥作りを紹介。",
+  },
+  {
+    id: 9,
+    image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm9",
+    title: "季節ごとの野菜栽培スケジュール",
+    description: "春夏秋冬に応じたおすすめ野菜を紹介。",
+  },
+  {
+    id: 10,
+    image: "https://placehold.co/80x80/e2e8f0/4a5568?text=Farm10",
+    title: "スマート農業の最新トレンド",
+    description: "AIとIoTが支える次世代農業技術。",
+  },
 ];
 
 const homeIcons = [{ src: "/images/group.png", alt: "集合写真" }];
@@ -92,7 +148,7 @@ export default function Page() {
       <section className="relative w-full bg-gray-50 mt-14">
         <div className="max-w-7xl mx-auto px-0 sm:px-4 lg:px-12">
           {homeIcons.map((icon, index) => (
-            <img
+            <Image
               key={index}
               src={icon.src}
               alt={icon.alt}
