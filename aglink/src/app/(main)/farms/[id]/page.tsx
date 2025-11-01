@@ -204,7 +204,7 @@ export default function FarmApplicationPage({
 
         {/* --- 3. 画像 (Call to Action) --- */}
         <Image
-          src={farm?.imageUrl as string}
+          src={farm?.imageUrl || "/images/placeholder.png"}
           alt="農業体験の様子"
           width={800}
           height={400}
