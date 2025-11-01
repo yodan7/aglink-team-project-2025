@@ -24,7 +24,7 @@ export default function FarmList({ farms }: Props) {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  {farm.plans[0].description}
+                  {farm.plans[0]?.sections?.[0]?.content || "説明なし"}
                 </p>
               </CardContent>
             </Card>
