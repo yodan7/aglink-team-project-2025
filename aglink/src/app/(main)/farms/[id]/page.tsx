@@ -90,7 +90,7 @@ export default function FarmApplicationPage({
               {farm?.plans[0].planName}
             </h3>
 
-            {farm?.plans[0].sections.map((section, index) => (
+            {farm?.plans[0]?.sections?.map((section, index) => (
               <Card
                 key={index}
                 className="mb-6 bg-card border-primary/30 shadow-md"
