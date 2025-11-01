@@ -30,7 +30,7 @@ export type Section = {
 
 export type PlanDetails = {
   planName: string; // キャメルケースに変更
-  sections: Section[];
+  sections?: Section[];
   startDate?: string;
   endDate?: string;
   durationMinutes?: number;
