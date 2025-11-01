@@ -30,6 +30,7 @@ export const useQuestionsNavigation = (
       left: 0,
       behavior: "smooth",
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [axisNum, isAllSelect, unSelected]);
 
   const handlePrev = useCallback(() => {
@@ -41,6 +42,7 @@ export const useQuestionsNavigation = (
         behavior: "smooth",
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [axisNum]);
 
   return { handlePrev, handleNext };
