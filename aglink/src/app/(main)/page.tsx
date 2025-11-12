@@ -150,6 +150,8 @@ export default function Page() {
           {homeIcons.map((icon, index) => (
             <Image
               key={index}
+              width={800}
+              height={600}
               src={icon.src}
               alt={icon.alt}
               className="w-full h-auto object-contain block mx-auto mb-auto"
