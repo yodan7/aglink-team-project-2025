@@ -1,6 +1,8 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useIsDisplay } from "@/context/DisplayContext";
 
 // Sheet, Menu, LogIn などのモバイルナビゲーション関連のインポートは削除
 
@@ -15,19 +17,34 @@ export function Header() {
     { href: "/farms", label: "農園を探す" },
     { href: "/mypage", label: "マイページ" },
   ];
+  const isDisplay = useIsDisplay();
+  console.log("isDisplay_header", isDisplay);
+
+  if (isDisplay === undefined) {
+    return null; // またはローディングスピナーを表示
+  }
 
   return (
     <header className="bg-white/95 backdrop-blur-sm shadow-sm py-4 px-6 md:px-12 flex justify-between items-center fixed top-0 left-0 w-full z-50 border-b border-gray-100">
       {/* ロゴエリア */}
 
-      <Image
-        src="/images/logo-icon/aglink-logo.png"
-        alt="Aglink ロゴ - 成長と繋がり"
-        width={180}
-        height={50}
-        priority
-        className="h-10 w-auto object-contain" // ロゴを大きく表示
-      />
+      <Link
+        href={isDisplay ? "/" : "#"}
+        onClick={(e) => {
+          if (!isDisplay) {
+            e.preventDefault(); // デフォルトのリンク動作を防ぐ
+          }
+        }}
+      >
+        <Image
+          src="/images/logo-icon/aglink-logo.png"
+          alt="Aglink ロゴ - 成長と繋がり"
+          width={180}
+          height={50}
+          priority
+          className="h-10 w-auto object-contain" // ロゴを大きく表示
+        />
+      </Link>
 
       {/* デスクトップ用ナビゲーション (md以上で表示) */}
       {/* モバイル画面ではこのナビゲーションは非表示になります。 */}
