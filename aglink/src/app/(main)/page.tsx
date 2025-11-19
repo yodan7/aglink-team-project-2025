@@ -152,6 +152,8 @@ export default function Page() {
               key={index}
               src={icon.src}
               alt={icon.alt}
+              width={1000}
+              height={1000}
               className="w-full h-auto object-contain block mx-auto mb-auto"
               style={{ display: "block", maxHeight: "80vh" }}
             />
