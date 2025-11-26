@@ -25,141 +25,6 @@ import { AgriTypePair } from "@/types";
 import { useCode } from "@/hooks/useCode";
 import { useFarms } from "@/hooks/useFarms";
 
-// UI表示に必要な型 (ローカル定義)
-// interface Farm {
-//   id: number;
-//   name: string;
-//   location: string;
-//   area: string;
-//   features: string;
-//   url: string;
-//   imagePath: string; // カードUIのために追加
-//   plantTypes: string; // 育てられる植物
-// }
-
-// interface AxisDetail {
-//   label: string; // 例: 動機
-//   value: string; // 例: 芸術型 (A)
-//   description: string; // 例: 美しさや創造性を追求する
-// }
-
-// interface SupportSystem {
-//   id: number;
-//   farming_type_code: string;
-//   category: string;
-//   title: string;
-//   description: string;
-//   url: string;
-// }
-
-// interface DiagnosisResultData {
-//   name: string;
-//   code: string;
-//   imagePath: string;
-//   description: {
-//     intro: string;
-//     strengths: string[];
-//     weaknesses: string[];
-//     idealFarm: string;
-//     crops: string;
-//   };
-//   axisDetails: AxisDetail[]; // 軸の詳細を追加
-//   farmProposals: Farm[];
-//   supportSystems: SupportSystem[];
-// }
-
-// --- UIで使用するモックデータ定義 ---
-// const MOCK_RESULT: DiagnosisResultData = {
-//   name: "週末ガーデナー",
-//   code: "AFHO",
-//   imagePath: "/images/agli-types/AFHO-type.png",
-//   description: {
-//     intro:
-//       "畑は自分だけの癒し空間。美しさや創造性を追求し、収穫した野菜は家族や友人と楽しむ。新しい植物や栽培方法を試すのが大好き。",
-//     strengths: [
-//       "環境の変化に対する高い適応力と、育てる作物への愛情の深さ。",
-//       "計画性よりも直感を頼りに、自然のサイクルに寄り添った農業を築ける。",
-//     ],
-//     weaknesses: [
-//       "ビジネス的な効率や市場動向の考慮が苦手な傾向。",
-//       "データに基づいた厳密な管理よりも感覚を優先しがち。",
-//     ],
-//     idealFarm:
-//       "理想の農園は、小規模でも生態系が豊かで、手作りの温かみが感じられる場所です。特に、ハーブ栽培や有機野菜の多品目栽培に適性があります。",
-//     crops:
-//       "ハーブ類、葉物野菜（ルッコラ、バジル）、ユニークなミニトマトやベリー類",
-//   },
-//   axisDetails: [
-//     {
-//       label: "動機",
-//       value: "芸術型 (A)",
-//       description:
-//         "美しさや創造性を追求し、作物や庭をアート作品のように育てることを楽しみます。",
-//     },
-//     {
-//       label: "規模",
-//       value: "家族型 (F)",
-//       description:
-//         "家族や友人との繋がりを大切にし、小規模で身近な範囲での農業を楽しみます。",
-//     },
-//     {
-//       label: "アプローチ",
-//       value: "実践型 (H)",
-//       description:
-//         "際立った技能や経験を活かし、直接土に触れ、身体を動かす作業を好みます。",
-//     },
-//     {
-//       label: "スタンス",
-//       value: "開放型 (O)",
-//       description:
-//         "新しい手法や異業種との交流に積極的で、多様な可能性を模索します。",
-//     },
-//   ],
-//   supportSystems: [
-//     {
-//       id: 12,
-//       farming_type_code: "AFHO",
-//       category: "教育・体験",
-//       title: "体験農業・ワークショップ助成",
-//       description:
-//         "地域の体験農業プログラムやワークショップ開催に対する助成。観光連携や教育プログラムの実施費用を補助し、参加者募集や運営の負担を軽減。",
-//       url: "https://www.maff.go.jp/j/nousin/kouryu/nouhakusuishin/nouhaku_top.html",
-//     },
-//   ],
-//   farmProposals: [
-//     {
-//       id: 1,
-//       name: "里山の小さなハーブ農園",
-//       location: "京都府 南丹市",
-//       area: "150坪",
-//       features: "無農薬、古民家付き",
-//       url: "/farms/1",
-//       imagePath: "/images/farm-thumb-1.jpg",
-//       plantTypes: "ハーブ、ベビーリーフ",
-//     },
-//     {
-//       id: 2,
-//       name: "高原の有機野菜エリア",
-//       location: "長野県 茅野市",
-//       area: "400坪",
-//       features: "冷涼地、多品目栽培向き",
-//       url: "/farms/2",
-//       imagePath: "/images/farm-thumb-2.jpg",
-//       plantTypes: "ジャガイモ、キャベツ",
-//     },
-//     {
-//       id: 3,
-//       name: "海岸沿いの自然農園",
-//       location: "千葉県 夷隅郡",
-//       area: "200坪",
-//       features: "温暖、土壌改良不要",
-//       url: "/farms/3",
-//       imagePath: "/images/farm-thumb-3.jpg",
-//       plantTypes: "ミニトマト、メロン",
-//     },
-//   ],
-// };
-
 export default function DiagnosisResultPage({
   params,
 }: {
@@ -213,7 +78,7 @@ export default function DiagnosisResultPage({
             {/* コンテンツ: 左右配置のコンテナ */}
             <div
               className="relative z-10 w-full max-w-5xl mx-auto pt-[100px] pb-16 md:pb-20 lg:pb-24 px-8 
-                                        flex flex-col lg:flex-row items-center lg:justify-center lg:gap-x-12 text-center"
+                                        flex flex-col lg:flex-row items-center lg:justify-center lg:gap-x-12 text-center"
             >
               {/* 左側: タイプ名とアルファベット、簡単な紹介文 */}
               <div className="flex flex-col items-center lg:items-center mb-8 lg:mb-0 text-white animate-fadeInUp delay-300">
@@ -221,7 +86,8 @@ export default function DiagnosisResultPage({
                   あなたの農業スタイル
                 </p>
                 <h1
-                  className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight"
+                  // 変更 1: text-5xl md:text-6xl lg:text-7xl から text-6xl md:text-7xl lg:text-8xl に変更
+                  className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-tight"
                   style={{
                     color: "white",
                     textShadow: "2px 2px 4px rgba(0,0,0,0.4)",
@@ -249,11 +115,7 @@ export default function DiagnosisResultPage({
 
           {/* 2. 詳細セクション - 画像配置のために親要素を relative に設定 */}
           <div className="w-full max-w-4xl space-y-8 px-4 relative">
-            {/* 詳細な説明 (イントロ部分) */}
-            {/* <p className="text-lg md:text-xl text-foreground font-medium text-center bg-card p-6 rounded-lg shadow-md mt-8 relative z-20">
-              {diagnosis?.description}
-            </p> */}
-
+            
             {/* スタイルの特徴と作物 (左側に画像1を配置) */}
             <section className="bg-card p-6 rounded-lg shadow-md relative">
               {/* ★★★ 画像1: 週末ガーデナーの特徴 (左側) ★★★ */}
@@ -266,19 +128,17 @@ export default function DiagnosisResultPage({
                 />
               </div>
 
-              <h2 className="text-2xl font-bold text-primary mb-4 flex items-center">
+              <h2 
+                // 変更 2: text-2xl から text-3xl に変更
+                className="text-3xl font-bold text-primary mb-4 flex items-center"
+              >
                 <Leaf className="w-6 h-6 mr-2" />
                 {diagnosis?.type} の特徴
               </h2>
-              <p className="text-base text-gray-700 mb-4">
+              {/* 変更 3: text-lg から text-xl に変更 */}
+              <p className="text-xl text-gray-700 mb-4">
                 {diagnosis?.description}
               </p>
-              {/* <p className="text-base font-semibold text-foreground border-t border-dashed pt-4">
-                🌿 向いている作物:{" "}
-                <span className="font-normal text-green-700">
-                  {diagnosis?.description}
-                </span>
-              </p> */}
             </section>
 
             {/* 4つの軸の詳細セクション (右側に画像2を配置) */}
@@ -293,7 +153,10 @@ export default function DiagnosisResultPage({
                 />
               </div>
 
-              <h2 className="text-2xl font-bold text-primary mb-6 flex items-center">
+              <h2 
+                // 変更 2: text-2xl から text-3xl に変更
+                className="text-3xl font-bold text-primary mb-6 flex items-center"
+              >
                 <Leaf className="w-6 h-6 mr-2" />
                 診断結果の詳細：4つの軸
               </h2>
@@ -304,7 +167,8 @@ export default function DiagnosisResultPage({
                       {axis.axisCategory}:{" "}
                       <span className="text-primary">{axis.name}</span>
                     </h3>
-                    <p className="text-sm text-gray-600">{axis.description}</p>
+                    {/* 変更 4: text-base から text-lg に変更 */}
+                    <p className="text-lg text-gray-600">{axis.description}</p>
                   </div>
                 ))}
               </div>
@@ -322,7 +186,10 @@ export default function DiagnosisResultPage({
                 />
               </div>
 
-              <h2 className="text-2xl font-bold text-primary mb-6 flex items-center">
+              <h2 
+                // 変更 2: text-2xl から text-3xl に変更
+                className="text-3xl font-bold text-primary mb-6 flex items-center"
+              >
                 <Info className="w-6 h-6 mr-2" />
                 支援制度の提案
               </h2>
@@ -340,7 +207,8 @@ export default function DiagnosisResultPage({
                         {support.category}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600 mb-3">
+                    {/* 変更 5: text-base から text-lg に変更 */}
+                    <p className="text-lg text-gray-600 mb-3">
                       {support.description}
                     </p>
                     <Button
@@ -365,7 +233,10 @@ export default function DiagnosisResultPage({
 
             {/* 3. 農地提案セクション (カードUI) */}
             <section className="bg-card p-6 rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold text-primary mb-6 flex items-center">
+              <h2 
+                // 変更 2: text-2xl から text-3xl に変更
+                className="text-3xl font-bold text-primary mb-6 flex items-center"
+              >
                 <MapPin className="w-6 h-6 mr-2" />
                 {diagnosis?.type} のあなたにお勧めの農地
               </h2>
@@ -392,7 +263,8 @@ export default function DiagnosisResultPage({
                         <CardTitle className="text-lg font-bold text-foreground line-clamp-1">
                           {farm.name}
                         </CardTitle>
-                        <CardDescription className="text-xs text-gray-600 line-clamp-2">
+                        {/* 変更 4: text-xs から text-sm に変更 (前回の変更を維持) */}
+                        <CardDescription className="text-sm text-gray-600 line-clamp-2">
                           <MapPin className="w-3 h-3 mr-1 inline" />
                           {farm.location} | {farm.location} - {farm.type}
                         </CardDescription>
