@@ -148,14 +148,14 @@ export default function Page() {
       <section className="relative w-full bg-gray-50 mt-14">
         <div className="max-w-7xl mx-auto px-0 sm:px-4 lg:px-12">
           {homeIcons.map((icon, index) => (
-            <Image
-              key={index}
-              src={icon.src}
-              alt={icon.alt}
-              width={1000}
-              height={1000}
-              className="w-full h-auto object-contain block mx-auto mb-auto"
-            />
+            <div key={index} className="w-full h-auto flex justify-center mb-auto">
+              <Image
+                src={icon.src}
+                alt={icon.alt}
+                width={1000}
+                height={1000}
+              />
+            </div>
           ))}
         </div>
       </section>
