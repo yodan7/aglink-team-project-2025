@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   SearchIcon,
   BookmarkIcon,
@@ -84,6 +85,9 @@ const homeIcons = [{ src: "/images/group.png", alt: "集合写真" }];
 
 export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const pathname = usePathname();
+  const isDiagnosisDisabled =
+    pathname?.startsWith("/diagnosis") && !pathname?.startsWith("/diagnosis/result");
 
   const handleSearchClick = () => {
     console.log("Search button clicked.");
@@ -148,14 +152,24 @@ export default function Page() {
       <section className="relative w-full bg-gray-50 mt-14">
         <div className="max-w-7xl mx-auto px-0 sm:px-4 lg:px-12">
           {homeIcons.map((icon, index) => (
-            <div key={index} className="w-full h-auto flex justify-center mb-auto">
-              <Image
-                src={icon.src}
-                alt={icon.alt}
-                width={1000}
-                height={1000}
-              />
-            </div>
+            !isDiagnosisDisabled ? (
+              <Link
+                key={index}
+                href="/"
+                className="w-full h-auto flex justify-center mb-auto"
+                aria-label="ホームに戻る"
+              >
+                <Image src={icon.src} alt={icon.alt} width={1000} height={1000} />
+              </Link>
+            ) : (
+              <div
+                key={index}
+                className="w-full h-auto flex justify-center mb-auto cursor-not-allowed opacity-70"
+                aria-hidden={true}
+              >
+                <Image src={icon.src} alt={icon.alt} width={1000} height={1000} />
+              </div>
+            )
           ))}
         </div>
       </section>
