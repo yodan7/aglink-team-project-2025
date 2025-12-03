@@ -155,7 +155,7 @@ export default function Page() {
               width={1000}
               height={1000}
               className="w-full h-auto object-contain block mx-auto mb-auto"
-              style={{ display: "block", maxHeight: "80vh" }}
+              style={{ maxHeight: "80vh" }}
             />
           ))}
         </div>
