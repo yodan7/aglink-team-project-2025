@@ -143,7 +143,8 @@ export default function TypesListPage() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {group.types.map((type) => (
                                 <Link
-                                    href={`/types/${type.code}`}
+                                    // ★修正: 診断結果ページへのリンクに変更
+                                    href={`/diagnosis/result/${type.code}`}
                                     key={type.code}
                                     className="group block"
                                 >
