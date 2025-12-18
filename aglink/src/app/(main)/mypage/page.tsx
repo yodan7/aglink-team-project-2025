@@ -6,6 +6,8 @@ import Link from "next/link";
 import { BookmarkItem } from "@/components/domain/home";
 import { useAuth } from "@/hooks/useAuth";
 import mockFarms from "@/data/mock-farms.json";
+import { supabase } from "@/lib/supabaseClient";
+import { Eye, EyeOff } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -39,7 +41,7 @@ const MypagePage: React.FC = () => {
 
   const defaultUser: Required<AuthUser> = {
     name: "山田 太郎",
-    avatar: "https://placehold.co/96x96/8CB389/ffffff?text=YT",
+    avatar: "/images/logo-icon/aglink-icon.png",
     email: "",
   };
 
@@ -71,6 +73,28 @@ const MypagePage: React.FC = () => {
     age: "",
     address: "",
   });
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+
+  const uploadAvatar = async (file: File): Promise<string> => {
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      throw new Error('ファイルサイズが大きすぎます。5MB以下にしてください。');
+    }
+
+    const fileExt = file.name.split('.').pop()?.toLowerCase();
+    if (!fileExt || !['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExt)) {
+      throw new Error('対応していないファイル形式です。JPG, PNG, GIF, WebP のみ対応しています。');
+    }
+
+    const fileName = `${user.email || 'user'}-${Date.now()}.${fileExt}`;
+    const { error } = await supabase.storage.from('avatars').upload(fileName, file);
+    if (error) throw error;
+    const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(fileName);
+    return publicUrl;
+  };
 
   const recent = auth.recentDiagnosis ?? {
     type: "家庭菜園タイプ",
@@ -111,23 +135,16 @@ const MypagePage: React.FC = () => {
   const detectedCode = detectCode(recent.type);
   const characterImageSrc = `/images/agli-types/${detectedCode}-type.png`;
 
-  // mock-farms.json を簡易に BookmarkItem の props に変換
-  type FarmMock = {
-    id: string;
-    name: string;
-    imageUrl?: string;
-    planDetails?: { planName?: string };
-    type?: string;
-  };
-
-  const bookmarks = (mockFarms as FarmMock[])
+  const bookmarks: Array<{ id: string; image: string; title: string; description: string; }> = mockFarms
     .slice(0, 6)
-    .map((f) => ({
+    .map((f: { id: string; name: string; imageUrl?: string; planDetails?: { planName?: string }; type?: string; }) => ({
       id: f.id,
       image: f.imageUrl ?? "/images/mock-farms/farm-00.jpg",
       title: f.name,
       description: f.planDetails?.planName ?? f.type ?? "",
     }));
+
+  const isInitial = !profile.email && !profile.gender && profile.age === "" && !profile.address;
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
@@ -150,12 +167,19 @@ const MypagePage: React.FC = () => {
             </div>
             <div className="flex-1 text-center sm:text-left">
               <CardTitle className="text-2xl md:text-3xl">{profile.name}</CardTitle>
-              <CardDescription className="text-base md:text-lg">プロフィールを編集して、より良いおすすめを受け取りましょう。</CardDescription>
+              <CardDescription className="text-base md:text-lg">
+                {isInitial ? "プロフィールを編集して、より良いおすすめを受け取りましょう。" : ""}
+              </CardDescription>
             </div>
             <div className="flex-shrink-0">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" size="lg" className="px-4 py-2 text-lg md:text-xl">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="px-4 py-2 text-lg md:text-xl"
+                    onClick={() => setSelectedFile(null)}
+                  >
                     設定
                   </Button>
                 </DialogTrigger>
@@ -166,15 +190,41 @@ const MypagePage: React.FC = () => {
                     <DialogDescription>ユーザー情報を編集して保存できます（ローカルのみ）。</DialogDescription>
                   </DialogHeader>
 
+                  {/* アイコン画像プレビュー */}
+                  <div className="flex justify-center mb-4">
+                    <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-100">
+                      <Image
+                        src={selectedFile ? URL.createObjectURL(selectedFile) : profile.avatar}
+                        alt="アイコンプレビュー"
+                        width={96}
+                        height={96}
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+
                   <form
-                    onSubmit={(e) => {
+                    onSubmit={async (e) => {
                       e.preventDefault();
                       const form = e.target as HTMLFormElement;
                       const formData = new FormData(form);
 
+                      let avatarUrl = profile.avatar;
+                      if (selectedFile) {
+                        try {
+                          avatarUrl = await uploadAvatar(selectedFile);
+                        } catch (error) {
+                          console.error('Avatar upload failed:', error);
+                          // エラーハンドリング: 具体的なエラーメッセージを表示
+                          const errorMessage = error instanceof Error ? error.message : '画像のアップロードに失敗しました。';
+                          alert(`画像のアップロードに失敗しました: ${errorMessage}`);
+                          return;
+                        }
+                      }
+
                       const name = (formData.get("name") as string) ?? profile.name;
-                      const avatar = (formData.get("avatar") as string) ?? profile.avatar;
                       const email = (formData.get("email") as string) ?? profile.email;
+                      const newPassword = (formData.get("newPassword") as string) ?? "";
                       const genderRaw = (formData.get("gender") as string) ?? profile.gender;
                       const gender = genderRaw === "male" || genderRaw === "female" || genderRaw === "other" ? genderRaw : profile.gender;
                       const ageRaw = formData.get("age");
@@ -187,13 +237,15 @@ const MypagePage: React.FC = () => {
                       setProfile((prev) => ({
                         ...prev,
                         name,
-                        avatar,
+                        avatar: avatarUrl,
                         email,
-                        password: "",
+                        password: newPassword,
                         gender,
                         age,
                         address,
                       }));
+                      setSelectedFile(null); // リセット
+                      alert("変更内容を保存しました");
                     }}
                   >
                     <div className="space-y-3">
@@ -203,8 +255,14 @@ const MypagePage: React.FC = () => {
                       </div>
 
                       <div>
-                        <Label htmlFor="avatar">アイコン画像URL</Label>
-                        <Input id="avatar" name="avatar" defaultValue={profile.avatar} />
+                        <Label htmlFor="avatar">アイコン画像</Label>
+                        <input
+                          id="avatar"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                          className="w-full rounded-md border px-3 py-1"
+                        />
                       </div>
 
                       <div>
@@ -213,8 +271,45 @@ const MypagePage: React.FC = () => {
                       </div>
 
                       <div>
-                        <Label htmlFor="password">パスワード</Label>
-                        <Input id="password" name="password" type="password" />
+                        <Label htmlFor="currentPassword">現在のパスワード</Label>
+                        <div className="relative">
+                          <input
+                            id="currentPassword"
+                            name="currentPassword"
+                            type={showCurrentPassword ? "text" : "password"}
+                            className="w-full rounded-md border px-3 py-1 pr-10"
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-0 top-0 h-full px-3 py-1"
+                            onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                          >
+                            {showCurrentPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="newPassword">新しいパスワード</Label>
+                        <div className="relative">
+                          <input
+                            id="newPassword"
+                            name="newPassword"
+                            type={showNewPassword ? "text" : "password"}
+                            className="w-full rounded-md border px-3 py-1 pr-10"
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-0 top-0 h-full px-3 py-1"
+                            onClick={() => setShowNewPassword(!showNewPassword)}
+                          >
+                            {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          </Button>
+                        </div>
                       </div>
 
                       <div>
@@ -258,7 +353,7 @@ const MypagePage: React.FC = () => {
                       </div>
                       </div>
 
-                    <DialogFooter>
+                    <DialogFooter className="mt-4">
                       <Button type="submit" className="bg-primary text-white">保存</Button>
                     </DialogFooter>
                   </form>
@@ -266,6 +361,16 @@ const MypagePage: React.FC = () => {
               </Dialog>
             </div>
           </CardHeader>
+          {!isInitial && (
+            <CardContent>
+              <div className="space-y-2">
+                <p><strong>メールアドレス:</strong> {profile.email || "未設定"}</p>
+                <p><strong>性別:</strong> {profile.gender === "male" ? "男性" : profile.gender === "female" ? "女性" : profile.gender === "other" ? "その他" : "未設定"}</p>
+                <p><strong>年齢:</strong> {profile.age || "未設定"}</p>
+                <p><strong>住所:</strong> {profile.address || "未設定"}</p>
+              </div>
+            </CardContent>
+          )}
         </Card>
 
         {/* 直近の診断結果 */}
