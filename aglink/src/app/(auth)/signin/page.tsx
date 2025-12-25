@@ -1,48 +1,112 @@
-// login.tsx
+"use client";
+
+import React, { useState, FormEvent } from 'react';
+import { LucideSprout } from 'lucide-react'; // アイコン例として追加
+
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // ログイン処理のダミーハンドラ
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
+    console.log('ログイン試行:', { email, password });
+    alert(`ようこそ、Aglinkへ！(メールアドレス: ${email})`);
+  };
+
+  // 会員登録ページへの遷移ハンドラ
+  const handleSignupRedirect = () => {
+    alert('会員登録ページへ遷移します。');
+  };
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-green-50 p-5">
-      <div className="w-full max-w-md text-center">
-        {/* アプリタイトル */}
-        <h1 className="text-3xl font-bold text-green-700 mb-8">Aglink</h1>
-
-        {/* ログインフォームボックス */}
-        <div className="bg-white p-8 rounded-xl shadow-md mb-6">
-          <h2 className="text-2xl font-bold text-green-700 mb-6">ログイン</h2>
-
-          <form className="flex flex-col">
-            <input
-              type="text"
-              placeholder="メールアドレス"
-              className="w-full p-3 mb-4 border rounded text-center text-lg"
-            />
-            <input
-              type="password"
-              placeholder="パスワード"
-              className="w-full p-3 mb-4 border rounded text-center text-lg"
-            />
-            <button
-              type="submit"
-              className="w-full py-3 px-4 rounded-lg bg-green-500 text-white font-bold hover:bg-green-600 mb-2"
-            >
-              ログイン
-            </button>
-            <button
-              type="button"
-              className="w-full py-3 px-4 rounded-lg border-2 border-green-500 text-green-700 font-bold hover:bg-green-100"
-            >
-              会員登録
-            </button>
-          </form>
-
-          <a
-            href="#"
-            className="block text-gray-600 text-sm mt-4 hover:underline hover:text-green-600"
+    <>
+      {/* Tailwind CSS クラスのみでスタイリング
+        bg-[#F0F4EF] : カスタム背景色
+        min-h-screen : 画面いっぱいの高さ
+      */}
+      <div className="min-h-screen flex items-center justify-center bg-[#F0F4EF] p-5 font-sans">
+        <div className="w-[90%] max-w-[400px] text-center">
+          
+          {/* アプリタイトル */}
+          <h1 
+            className="text-[#38761D] mb-[30px] text-[40px] font-bold opacity-0 flex items-center justify-center gap-3"
+            style={{ animation: 'fadeInUp 0.7s ease-out forwards 0.1s' }}
           >
-            パスワードを忘れた場合
-          </a>
+            <LucideSprout size={40} />
+            Aglink
+          </h1>
+
+          {/* ログインフォームボックス */}
+          <div 
+            className="bg-white px-[25px] py-[30px] rounded-[15px] shadow-[0_4px_12px_rgba(0,0,0,0.1)] mb-5 opacity-0"
+            style={{ animation: 'fadeInUp 0.7s ease-out forwards 0.2s' }}
+          >
+            <h2 className="text-[#38761D] mt-0 mb-5 text-2xl font-bold">ログイン</h2>
+
+            <form className="flex flex-col" onSubmit={handleLogin}>
+              <input
+                type="text"
+                placeholder="メールアドレス"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-[12px_15px] mb-[15px] border border-[#CCCCCC] rounded-lg text-base text-center outline-none transition-all focus:border-[#6AA84F] focus:ring-4 focus:ring-[#6AA84F]/20"
+                required
+              />
+              <input
+                type="password"
+                placeholder="パスワード"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-[12px_15px] mb-[15px] border border-[#CCCCCC] rounded-lg text-base text-center outline-none transition-all focus:border-[#6AA84F] focus:ring-4 focus:ring-[#6AA84F]/20"
+                required
+              />
+              
+              {/* ログインボタン */}
+              <button
+                type="submit"
+                className="w-full p-3 mt-[15px] rounded-lg text-lg font-bold text-white bg-[#6AA84F] hover:bg-[#4CAF50] transition-colors block opacity-0"
+                style={{ animation: 'fadeInUp 0.7s ease-out forwards 0.3s' }}
+              >
+                ログイン
+              </button>
+              
+              {/* 会員登録ボタン */}
+              <button
+                type="button"
+                onClick={handleSignupRedirect}
+                className="w-full p-[10px] mt-[10px] rounded-lg text-lg font-bold bg-transparent border-2 border-[#6AA84F] text-[#38761D] hover:bg-[#E8F5E9] transition-colors opacity-0"
+                style={{ animation: 'fadeInUp 0.7s ease-out forwards 0.4s' }}
+              >
+                会員登録
+              </button>
+            </form>
+
+            {/* パスワード忘れリンク */}
+            <a
+              href="#"
+              className="inline-block mt-5 text-[#666666] text-sm no-underline mb-[10px] hover:text-[#4CAF50] hover:underline opacity-0 transition-colors"
+              style={{ animation: 'fadeInUp 0.7s ease-out forwards 0.5s' }}
+            >
+              パスワードを忘れた場合
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* アニメーションのキーフレーム定義のみ残しています（Tailwind設定ファイルがない環境のため） */}
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </>
   );
 }
