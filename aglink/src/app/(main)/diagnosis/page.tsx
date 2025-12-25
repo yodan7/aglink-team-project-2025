@@ -279,6 +279,7 @@ export default function DiagnosisPageUI() {
         </div>
       </div>
 
+      {/*以下嶋岡が追加。最後の五問に答えると下にChatGPTのフィードバックテスト用のページに移動するボタンが出現します。*/}
       {axisNum === 3 && isAllSelect && (
         <div className="mt-8 mb-4">
           <Button
@@ -299,6 +300,7 @@ export default function DiagnosisPageUI() {
           </Button>
         </div>
       )}
+      {/*ここまで嶋岡*/ }
     </div>
   );
 }
