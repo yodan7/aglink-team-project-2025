@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { getAllQuestions } from "@/lib/database/questions"; 
 import { GroupedQuestions } from "@/types";
 
+
 // 💡 必要な型定義の追加
 type CurrentValue = {
     Motivation: Record<number, number>;
@@ -17,7 +18,9 @@ const Chat: React.FC = () => {
     // 汎用チャット機能のステート
     const [prompt, setPrompt] = useState("");
     const [response, setResponse] = useState("");
-    const [isLoading, setIsLoading] = useState(false); // 通信状態を管理する
+    const [isLoading, setIsLoading] = useState(false); // 通信状態を管理する 
+    const [realAnswers, setRealAnswers] = useState<CurrentValue | null>(null);
+    const [realType, setRealType] = useState<string>("");
 
     // 質問データ関連のステートは元のコードからそのまま残します
     const [questions, setQuestions] = useState<GroupedQuestions | null>(null);
@@ -61,6 +64,23 @@ const Chat: React.FC = () => {
     const TEST_FINAL_TYPE: string = "AHOF"; 
     
     // --------------------------------------------------------
+
+    // /app/(sample)/chat-test/page.tsx 内
+
+useEffect(() => {
+        const savedData = sessionStorage.getItem("debug_diagnosis_data");
+        if (savedData) {
+            try {
+                const { userAnswers, finalType } = JSON.parse(savedData);
+                // 💡 コンソールだけでなく、送信で使うためのステートにしっかり保存
+                setRealAnswers(userAnswers); 
+                setRealType(finalType);
+                console.log("✅ 診断画面からのデータを保持しました:", userAnswers);
+            } catch (e) {
+                console.error("❌ データ解析失敗:", e);
+            }
+        }
+    }, []);
 
     // 質問データを取得する useEffect
     useEffect(() => {
@@ -111,40 +131,47 @@ const Chat: React.FC = () => {
     };
 
     // 💡 診断フィードバックテスト送信関数 (修正済み)
-    const handleDiagnosisTest = async (e: React.FormEvent<HTMLFormElement>) => {
+const handleDiagnosisTest = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (isLoading) return;
 
+        // 💡 保持している「本物のデータ」があれば優先、なければ「TEST_USER_ANSWERS」を使用
+        const targetData = realAnswers || TEST_USER_ANSWERS;
+        const targetType = realType || TEST_FINAL_TYPE;
+
         setIsLoading(true);
-        setResponse("診断データを送信し、AIに分析させています...");
+        // 💡 初期メッセージをここで上書きし、ユーザーに状況を伝えます
+        setResponse("📡 AIに診断データを送信しています...");
 
         try {
-            // 💡 修正点: APIパスを /api/diagnosis に、ペイロードを userAnswers に修正
             const res = await fetch('/api/diagnosis', { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    // 💡 新しい CurrentValue 形式のモックデータを送信
-                    userAnswers: TEST_USER_ANSWERS, 
-                    finalType: TEST_FINAL_TYPE, 
+                    userAnswers: targetData, 
+                    finalType: targetType, 
                 })
             });
 
             if (!res.ok) {
-                const errorData = await res.json().catch(() => ({ message: res.statusText }));
-                throw new Error(`APIリクエストが失敗しました: ${errorData.message}`);
+                const errorBody = await res.text();
+                throw new Error(`サーバーエラー (${res.status}): ${errorBody}`);
             }
 
-            const data = await res.json();
-            const feedbackText = data.aiFeedback ?? "AIからのフィードバックがありませんでした。";
+            setResponse("⏳ AIが深掘り分析を行っています。そのまま30秒ほどお待ちください...");
 
-            // 💡 応答のマークダウン形式を削除 (AI側の systemPrompt で修正済みのため)
-            setResponse(`### 診断結果テスト: ${data.finalType}\n\n${feedbackText}`);
+            const data = await res.json();
+            
+            if (data.success) {
+                // 💡 AIの回答を最終セット
+                setResponse(`### 最終診断タイプ: ${data.finalType}\n\n${data.aiFeedback}`);
+            } else {
+                setResponse(`⚠️ エラー: ${data.message}`);
+            }
 
         } catch (error) {
-            console.error("Diagnosis submission error:", error);
-            const errorMessage = error instanceof Error ? error.message : "不明なエラー";
-            setResponse(`エラーが発生しました。AIフィードバックを取得できませんでした。詳細: ${errorMessage}`);
+            console.error("Diagnosis Submission Error:", error);
+            setResponse(`❌ 送信失敗: ${error instanceof Error ? error.message : "不明なエラー"}`);
         } finally {
             setIsLoading(false);
         }

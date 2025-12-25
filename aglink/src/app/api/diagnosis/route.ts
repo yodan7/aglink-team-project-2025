@@ -1,4 +1,4 @@
-// /app/api/diagnose/route.ts
+// /app/api/diagnosis/route.ts
 
 import { NextResponse } from 'next/server';
 import { getAiFeedback } from '../openai'
@@ -124,23 +124,27 @@ function buildAiUserContent(
 
 export async function POST(request: Request) {
     try {
-        // 1. 質問メタデータを取得
-        const questionsMetadata = await getQuestionsFromSupabase();
-        
-        // 2. データを JSON 形式で受け取る
+        // 1. データを JSON 形式で受け取る
         const body: DiagnosisRequest = await request.json();
         
-        // 3. 受け取った回答データと質問メタデータを結合し、AIプロンプト文字列に変換
+        // 💡 サーバー側のログ（デバッグ用）
+        console.log("✅ 診断開始。タイプ:", body.finalType);
+
+        // 2. 質問メタデータを取得（Supabaseから全20問の情報を取得）
+        const questionsMetadata = await getQuestionsFromSupabase();
+        
+        // 3. 受け取った回答データと質問情報を結合し、AIが読みやすいテキストに変換
         const userContent = buildAiUserContent(
             body.userAnswers, 
             questionsMetadata, 
             body.finalType
         ); 
         
-        // 4. 変換したプロンプトを AI 関数に渡し、フィードバックを取得
+        // 4. 🚀 ここで AI (openai.ts経由) を呼び出し、分析結果を生成
+        // AIが考え終わるまでここで待機（await）します
         const aiFeedback = await getAiFeedback(userContent);
         
-        // 5. 結果をクライアントに返却
+        // 5. 生成された AI のアドバイスをフロントエンドへ返却
         return NextResponse.json({ 
             success: true,
             finalType: body.finalType,
@@ -148,11 +152,13 @@ export async function POST(request: Request) {
         });
         
     } catch (error) {
-        console.error("診断フィードバック処理中にエラーが発生しました:", error);
+        // どこかでエラーが起きた場合のログ出力
+        console.error("❌ 診断フィードバック生成中にエラー:", error);
         const errorMessage = error instanceof Error ? error.message : "内部サーバーエラー";
+        
         return NextResponse.json({ 
             success: false, 
-            message: `フィードバックの取得中にエラーが発生しました: ${errorMessage}` 
+            message: `分析に失敗しました: ${errorMessage}` 
         }, { status: 500 });
     }
 }

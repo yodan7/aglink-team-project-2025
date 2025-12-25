@@ -234,6 +234,27 @@ export default function DiagnosisPageUI() {
           </Button>
         )}
       </div>
+
+      {axisNum === 3 && isAllSelect && (
+        <div className="mt-8 mb-4">
+          <Button
+            variant="outline"
+            className="border-amber-500 text-amber-600 hover:bg-amber-50 h-auto py-3 px-6 font-bold"
+            onClick={() => {
+              const finalTypeCode = `${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`;
+              const data = { 
+                userAnswers: currentAnswerValue, 
+                finalType: finalTypeCode 
+              };
+              console.log("🚀 送信データ確認:", data); // 💡 送信直前のデータを確認
+              sessionStorage.setItem("debug_diagnosis_data", JSON.stringify(data));
+              window.location.href = "/chat-test";
+            }}
+          >
+            現在の回答データでAIテストを実行
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
