@@ -41,7 +41,7 @@ export default function Login() {
               width={150} // width increased from 200 to 300
               height={30} // height increased from 60 to 90
               priority
-              className="h-auto w-auto flex " // h-12 removed for auto height adjustment
+              className="h-auto w-auto" // h-12 removed for auto height adjustment
             />
           </div>
 
