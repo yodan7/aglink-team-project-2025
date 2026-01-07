@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabaseClient";
+import { createClient } from "@/lib/supabase/client";
 import type {
   DiagnosisQuestion,
   AxisCategory,
@@ -8,6 +8,7 @@ import { supabaseToCamelCase } from "../utils";
 
 export const getAllQuestions = async (): Promise<GroupedQuestions | null> => {
   try {
+    const supabase = createClient();
     //全部取ってくる場合は配列になるので、戻り値の型を配列にする
     const { data, error } = await supabase.from("questions").select("*");
     // {data | null, error | null}が返ってくるので、data, error, nullチェックが必要
