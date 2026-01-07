@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { MapPin, ExternalLink, Leaf, Info, Clock } from "lucide-react";
 import Image from "next/image";
@@ -24,14 +24,13 @@ import { useDiagnosis } from "@/hooks/useDiagnosis";
 import { AgriTypePair } from "@/types";
 import { useCode } from "@/hooks/useCode";
 import { useFarms } from "@/hooks/useFarms";
+import { saveDiagnosisResult } from "../../actions";
 
 export default function DiagnosisResultPage({
   params,
 }: {
   params: Promise<{ code: AgriTypePair["code"] }>;
 }) {
-  // データはローカルのモックデータを使用
-  // const result = MOCK_RESULT;
   const [code, codeLoading, codeError] = useCode(params);
   const [
     diagnosis,
@@ -92,6 +91,39 @@ const handleGetAiFeedback = async () => {
         setIsAiLoading(false);
     }
 };
+  console.log("🔍 useCodeの状態:", { code, codeLoading, codeError });
+
+  // 保存済みかどうかのフラグ
+  const hasSaved = useRef(false);
+
+  useEffect(() => {
+    if (!code || hasSaved.current) return;
+
+    const save = async () => {
+      hasSaved.current = true;
+      console.log("💾 保存処理スタート: code =", code);
+
+      try {
+        // 結果を受け取る
+        const result = await saveDiagnosisResult(code as string);
+
+        if (result.success) {
+          if (result.saved) {
+            console.log("✅ 保存成功！ (DBに書き込みました)");
+          } else {
+            console.log("ℹ️ 未ログインのため保存をスキップしました");
+          }
+        } else {
+          console.error("❌ 保存エラー:", result.error);
+        }
+      } catch (e) {
+        console.error("❌ 通信エラー:", e);
+      }
+    };
+
+    save();
+  }, [code]);
+  // codeの値が変わったタイミング（読み込み完了時）に発火
 
   if (codeLoading || diagnosisLoading || farmsLoading) {
     return <div>読み込み中...</div>;
@@ -100,42 +132,37 @@ const handleGetAiFeedback = async () => {
   if (codeError || diagnosisError || farmsError) {
     return <div>エラー: {codeError || diagnosisError || farmsError}</div>;
   }
+
   // console.log(farms?.[0].plans.map((x) => x.description));
   return (
     <main className="w-full min-h-screen bg-background">
-      {/* 全体コンテナ: layout.tsxのpadding-topを打ち消すため、CSS変数を利用 */}
+      {/* 全体コンテナ */}
       <div
         className="flex flex-col items-center w-full relative z-0"
         style={{ marginTop: "calc(-1 * var(--layout-padding-top))" }}
       >
         <div className="w-full max-w-5xl flex flex-col items-center pt-8 pb-12">
-          {/* ★★★ 1. トップセクション (キャラクター＆タイプ名) ★★★ */}
+          {/* 1. トップセクション */}
           <div className="relative w-screen overflow-hidden mb-12">
-            {/* 背景画像 (緑の空と雲) */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="/images/result-haikei.png" // 雲の背景画像パス
+                src="/images/result-haikei.png"
                 alt="雲と緑の背景"
                 fill
                 className="object-cover"
                 priority
               />
-              {/* 半透明のオーバーレイ */}
               <div className="absolute inset-0 bg-black/5"></div>
             </div>
 
             {/* コンテンツ: 左右配置のコンテナ */}
-            <div
-              className="relative z-10 w-full max-w-5xl mx-auto pt-[100px] pb-16 md:pb-20 lg:pb-24 px-8 
-                                        flex flex-col lg:flex-row items-center lg:justify-center lg:gap-x-12 text-center"
-            >
+            <div className="relative z-10 w-full max-w-5xl mx-auto pt-[100px] pb-16 md:pb-20 lg:pb-24 px-8 flex flex-col lg:flex-row items-center lg:justify-center lg:gap-x-12 text-center">
               {/* 左側: タイプ名とアルファベット、簡単な紹介文 */}
               <div className="flex flex-col items-center lg:items-center mb-8 lg:mb-0 text-white animate-fadeInUp delay-300">
                 <p className="text-xl md:text-2xl font-semibold mb-1">
                   あなたの農業スタイル
                 </p>
                 <h1
-                  // 変更 1: text-5xl md:text-6xl lg:text-7xl から text-6xl md:text-7xl lg:text-8xl に変更
                   className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-tight"
                   style={{
                     color: "white",
@@ -149,7 +176,6 @@ const handleGetAiFeedback = async () => {
                 </p>
               </div>
 
-              {/* 右側: キャラクター画像 */}
               <div className="w-[200px] h-[200px] md:w-[300px] md:h-[300px] relative shrink-0 animate-fadeInUp">
                 <Image
                   src={`/images/agli-types/${code}-type.png`}
@@ -162,50 +188,20 @@ const handleGetAiFeedback = async () => {
             </div>
           </div>
 
-          {/* 2. 詳細セクション - 画像配置のために親要素を relative に設定 */}
+          {/* 2. 詳細セクション */}
           <div className="w-full max-w-4xl space-y-8 px-4 relative">
-            
-            {/* スタイルの特徴と作物 (左側に画像1を配置) */}
             <section className="bg-card p-6 rounded-lg shadow-md relative">
-              {/* ★★★ 画像1: 週末ガーデナーの特徴 (左側) ★★★ */}
-              <div className="hidden lg:block absolute w-24 h-24 -left-[8vw] -top-1/4">
-                <Image
-                  src="/images/agli-types/AFHO1.png"
-                  alt="キャラクターイメージ1"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-
-              <h2 
-                // 変更 2: text-2xl から text-3xl に変更
-                className="text-3xl font-bold text-primary mb-4 flex items-center"
-              >
+              <h2 className="text-3xl font-bold text-primary mb-4 flex items-center">
                 <Leaf className="w-6 h-6 mr-2" />
                 {diagnosis?.type} の特徴
               </h2>
-              {/* 変更 3: text-lg から text-xl に変更 */}
               <p className="text-xl text-gray-700 mb-4">
                 {diagnosis?.description}
               </p>
             </section>
 
-            {/* 4つの軸の詳細セクション (右側に画像2を配置) */}
             <section className="bg-card p-6 rounded-lg shadow-md relative">
-              {/* ★★★ 画像2: 診断結果の詳細 (右側) ★★★ */}
-              <div className="hidden lg:block absolute w-28 h-28 right-0 top-1/2 transform -translate-y-1/2 translate-x-1/3">
-                <Image
-                  src="/images/agli-types/AFHO2.png"
-                  alt="キャラクターイメージ2"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-
-              <h2 
-                // 変更 2: text-2xl から text-3xl に変更
-                className="text-3xl font-bold text-primary mb-6 flex items-center"
-              >
+              <h2 className="text-3xl font-bold text-primary mb-6 flex items-center">
                 <Leaf className="w-6 h-6 mr-2" />
                 診断結果の詳細：4つの軸
               </h2>
@@ -216,29 +212,14 @@ const handleGetAiFeedback = async () => {
                       {axis.axisCategory}:{" "}
                       <span className="text-primary">{axis.name}</span>
                     </h3>
-                    {/* 変更 4: text-base から text-lg に変更 */}
                     <p className="text-lg text-gray-600">{axis.description}</p>
                   </div>
                 ))}
               </div>
             </section>
 
-            {/* 支援情報セクション (左側に画像3を配置) */}
             <section className="bg-card p-6 rounded-lg shadow-md relative">
-              {/* ★★★ 画像3: 支援制度の提案 (左側) ★★★ */}
-              <div className="hidden lg:block absolute w-24 h-24 -left-1/4 top-1/2 transform -translate-y-1/2">
-                <Image
-                  src="/images/agli-types/AFHO3.png"
-                  alt="キャラクターイメージ3"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-
-              <h2 
-                // 変更 2: text-2xl から text-3xl に変更
-                className="text-3xl font-bold text-primary mb-6 flex items-center"
-              >
+              <h2 className="text-3xl font-bold text-primary mb-6 flex items-center">
                 <Info className="w-6 h-6 mr-2" />
                 支援制度の提案
               </h2>
@@ -256,7 +237,6 @@ const handleGetAiFeedback = async () => {
                         {support.category}
                       </span>
                     </div>
-                    {/* 変更 5: text-base から text-lg に変更 */}
                     <p className="text-lg text-gray-600 mb-3">
                       {support.description}
                     </p>
@@ -284,10 +264,7 @@ const handleGetAiFeedback = async () => {
 
             {/* 3. 農地提案セクション (カードUI) */}
             <section className="bg-card p-6 rounded-lg shadow-md">
-              <h2 
-                // 変更 2: text-2xl から text-3xl に変更
-                className="text-3xl font-bold text-primary mb-6 flex items-center"
-              >
+              <h2 className="text-3xl font-bold text-primary mb-6 flex items-center">
                 <MapPin className="w-6 h-6 mr-2" />
                 {diagnosis?.type} のあなたにお勧めの農地
               </h2>
@@ -296,11 +273,10 @@ const handleGetAiFeedback = async () => {
                 {farms?.map((farm) => (
                   <Dialog key={farm.id}>
                     <Card className="overflow-hidden shadow-md hover:shadow-xl transition duration-300 p-0">
-                      {/* 画像エリア (7割を占める) */}
                       <CardHeader className="p-0 border-b border-border">
                         <div className="relative h-40 md:h-48 w-full">
                           <Image
-                            src={farm.imageUrl} // 農地画像パス
+                            src={farm.imageUrl}
                             alt={farm.name}
                             fill
                             className="object-cover"
@@ -308,19 +284,15 @@ const handleGetAiFeedback = async () => {
                           />
                         </div>
                       </CardHeader>
-
-                      {/* カード本文 (3割を占める) */}
                       <CardContent className="p-4 flex flex-col gap-1">
                         <CardTitle className="text-lg font-bold text-foreground line-clamp-1">
                           {farm.name}
                         </CardTitle>
-                        {/* 変更 4: text-xs から text-sm に変更 (前回の変更を維持) */}
                         <CardDescription className="text-sm text-gray-600 line-clamp-2">
                           <MapPin className="w-3 h-3 mr-1 inline" />
                           {farm.location} | {farm.location} - {farm.type}
                         </CardDescription>
 
-                        {/* モーダルを起動するトリガー */}
                         <DialogTrigger asChild>
                           <Button
                             variant="default"
@@ -333,19 +305,25 @@ const handleGetAiFeedback = async () => {
                       </CardContent>
                     </Card>
 
-                    {/* モーダルウィンドウのコンテンツ定義 */}
-                    <DialogContent className="sm:max-w-[425px]">
-                      <DialogHeader>
-                        <DialogTitle className="text-xl text-primary">
+                    {/* ★★★ 修正箇所: サイズを画面いっぱいに固定 (w-[95vw] h-[90vh]) ★★★ */}
+                    <DialogContent className="w-[95vw] max-w-[95vw] h-[90vh] max-h-[90vh] p-0 flex flex-col">
+
+                      {/* ヘッダーエリア */}
+                      <DialogHeader className="p-6 pb-2 shrink-0">
+                        <DialogTitle className="text-2xl md:text-3xl font-bold text-primary mb-2">
                           {farm.name}
                         </DialogTitle>
-                        <DialogDescription className="text-sm text-gray-700 font-semibold flex items-center">
-                          <MapPin className="w-4 h-4 mr-2 text-muted-foreground" />
+                        <DialogDescription className="text-base md:text-lg text-gray-700 font-medium flex items-center">
+                          <MapPin className="w-5 h-5 mr-2 text-muted-foreground" />
                           {farm.location} ({farm.location})
                         </DialogDescription>
                       </DialogHeader>
-                      <div className="space-y-4">
-                        <div className="relative h-40 w-full rounded-md overflow-hidden">
+
+                      {/* スクロール可能なコンテンツエリア (flex-1 で余った高さを全て使う) */}
+                      <div className="flex-1 overflow-y-auto p-6 pt-2 space-y-6">
+
+                        {/* メイン画像 */}
+                        <div className="relative w-full h-64 md:h-[400px] lg:h-[500px] rounded-xl overflow-hidden shadow-sm shrink-0">
                           <Image
                             src={farm.imageUrl}
                             alt={farm.name}
@@ -353,21 +331,52 @@ const handleGetAiFeedback = async () => {
                             className="object-cover"
                           />
                         </div>
-                        <p className="text-sm text-gray-600 border-t pt-3">
-                          特徴: {farm.plans[0].planName}
-                        </p>
+
+                        {/* 詳細情報 */}
+                        <div className="space-y-4">
+                          <div className="bg-muted/30 p-4 rounded-lg">
+                            <h4 className="font-bold text-lg mb-2 text-foreground">
+                              農園の特徴・プラン
+                            </h4>
+                            <p className="text-base md:text-lg text-gray-700 leading-relaxed">
+                              {farm.plans[0].planName}
+                            </p>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="border p-4 rounded-lg">
+                              <span className="text-sm text-muted-foreground block mb-1">
+                                農園タイプ
+                              </span>
+                              <span className="text-lg font-medium">
+                                {farm.type}
+                              </span>
+                            </div>
+                            <div className="border p-4 rounded-lg">
+                              <span className="text-sm text-muted-foreground block mb-1">
+                                エリア
+                              </span>
+                              <span className="text-lg font-medium">
+                                {farm.location}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <DialogFooter>
+
+                      {/* フッター (アクションボタン) */}
+                      <DialogFooter className="p-6 pt-4 border-t mt-auto shrink-0 bg-background/95 backdrop-blur">
                         <Button
-                          className="w-full bg-primary hover:bg-primary/90 text-white"
+                          className="w-full h-14 text-xl font-bold bg-primary hover:bg-primary/90 text-white shadow-lg rounded-lg"
                           asChild
                         >
                           <Link href={`/farms/${farm.id}`}>
                             農業体験を予約する
-                            <Clock className="w-4 h-4 ml-2" />
+                            <Clock className="w-6 h-6 ml-2" />
                           </Link>
                         </Button>
                       </DialogFooter>
+
                     </DialogContent>
                   </Dialog>
                 ))}
@@ -425,7 +434,6 @@ const handleGetAiFeedback = async () => {
           </div>
         </div>
 
-        {/* 画面下部の余白調整用のダミー要素 */}
         <div className="h-10"></div>
       </div>
     </main>

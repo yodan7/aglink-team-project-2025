@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabaseClient";
+import { createClient } from "@/lib/supabase/client";
 import type { Diagnosis } from "@/types";
 
 /**
@@ -13,6 +13,7 @@ export const saveDiagnosis = async (
   diagnosisData: Omit<Diagnosis, "id" | "user_id">
 ): Promise<Diagnosis | null> => {
   try {
+    const supabase = createClient();
     const payload = { ...diagnosisData, user_id: userId };
     const { data, error } = await supabase
       .from("diagnoses_results")
@@ -39,6 +40,7 @@ export const getUserDiagnosisHistory = async (
   userId: string
 ): Promise<Diagnosis[] | null> => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("diagnoses_results")
       .select("*")
@@ -65,6 +67,7 @@ export const getDiagnosisStats = async (): Promise<Record<
   number
 > | null> => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("diagnoses_results")
       .select("farm_type")
