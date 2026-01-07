@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { MapPin, ExternalLink, Leaf, Info, Clock } from "lucide-react";
 import Image from "next/image";
@@ -24,6 +24,7 @@ import { useDiagnosis } from "@/hooks/useDiagnosis";
 import { AgriTypePair } from "@/types";
 import { useCode } from "@/hooks/useCode";
 import { useFarms } from "@/hooks/useFarms";
+import { saveDiagnosisResult } from "../../actions";
 
 export default function DiagnosisResultPage({
   params,
@@ -42,6 +43,40 @@ export default function DiagnosisResultPage({
     code as AgriTypePair["code"]
   );
 
+  console.log("🔍 useCodeの状態:", { code, codeLoading, codeError });
+
+  // 保存済みかどうかのフラグ
+  const hasSaved = useRef(false);
+
+  useEffect(() => {
+    if (!code || hasSaved.current) return;
+
+    const save = async () => {
+      hasSaved.current = true;
+      console.log("💾 保存処理スタート: code =", code);
+
+      try {
+        // 結果を受け取る
+        const result = await saveDiagnosisResult(code as string);
+
+        if (result.success) {
+          if (result.saved) {
+            console.log("✅ 保存成功！ (DBに書き込みました)");
+          } else {
+            console.log("ℹ️ 未ログインのため保存をスキップしました");
+          }
+        } else {
+          console.error("❌ 保存エラー:", result.error);
+        }
+      } catch (e) {
+        console.error("❌ 通信エラー:", e);
+      }
+    };
+
+    save();
+  }, [code]);
+  // codeの値が変わったタイミング（読み込み完了時）に発火
+
   if (codeLoading || diagnosisLoading || farmsLoading) {
     return <div>読み込み中...</div>;
   }
@@ -50,6 +85,7 @@ export default function DiagnosisResultPage({
     return <div>エラー: {codeError || diagnosisError || farmsError}</div>;
   }
 
+  // console.log(farms?.[0].plans.map((x) => x.description));
   return (
     <main className="w-full min-h-screen bg-background">
       {/* 全体コンテナ */}
@@ -71,10 +107,9 @@ export default function DiagnosisResultPage({
               <div className="absolute inset-0 bg-black/5"></div>
             </div>
 
-            <div
-              className="relative z-10 w-full max-w-5xl mx-auto pt-[100px] pb-16 md:pb-20 lg:pb-24 px-8 
-                                            flex flex-col lg:flex-row items-center lg:justify-center lg:gap-x-12 text-center"
-            >
+            {/* コンテンツ: 左右配置のコンテナ */}
+            <div className="relative z-10 w-full max-w-5xl mx-auto pt-[100px] pb-16 md:pb-20 lg:pb-24 px-8 flex flex-col lg:flex-row items-center lg:justify-center lg:gap-x-12 text-center">
+              {/* 左側: タイプ名とアルファベット、簡単な紹介文 */}
               <div className="flex flex-col items-center lg:items-center mb-8 lg:mb-0 text-white animate-fadeInUp delay-300">
                 <p className="text-xl md:text-2xl font-semibold mb-1">
                   あなたの農業スタイル
