@@ -4,6 +4,7 @@ import React, { useState, FormEvent } from "react";
 import { LucideSprout } from "lucide-react"; // アイコン例として追加
 import { login } from "@/lib/database/actions";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -30,13 +31,19 @@ export default function Login() {
       <div className="min-h-screen flex items-center justify-center bg-[#F0F4EF] p-5 font-sans">
         <div className="w-[90%] max-w-[400px] text-center">
           {/* アプリタイトル */}
-          <h1
-            className="text-[#38761D] mb-[30px] text-[40px] font-bold opacity-0 flex items-center justify-center gap-3"
+          <div
+            className="justify-center flex mb-3 opacity-0" // mb-8 -> mb-12 for more spacing below
             style={{ animation: "fadeInUp 0.7s ease-out forwards 0.1s" }}
           >
-            <LucideSprout size={40} />
-            Aglink
-          </h1>
+            <Image
+              src="/images/logo-icon/aglink-logo.png"
+              alt="Aglink ロゴ - 成長と繋がり"
+              width={150} // width increased from 200 to 300
+              height={30} // height increased from 60 to 90
+              priority
+              className="h-auto w-auto" // h-12 removed for auto height adjustment
+            />
+          </div>
 
           {/* ログインフォームボックス */}
           <div
