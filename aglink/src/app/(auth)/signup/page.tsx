@@ -1,27 +1,29 @@
-'use client';
+"use client";
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent } from "react";
+import { signup } from "@/lib/database/actions";
+import Link from "next/link";
 // Next.js固有の機能（Link, useRouter）は、このプレビュー環境では
 // 動作しないため、標準的なHTML要素とアラートで代用します。
 
 export default function SignupPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
-  const handleSignup = (e: FormEvent) => {
-    e.preventDefault();
-    const data = { email, password, name };
-    console.log('新規登録リクエスト:', data);
-    
-    // 実際のアプリではルーターで遷移しますが、ここではアラートで代用
-    alert('登録処理が完了しました。登録完了ページへ遷移します。'); 
-  };
+  // const handleSignup = (e: FormEvent) => {
+  //   e.preventDefault();
+  //   const data = { email, password, name };
+  //   console.log('新規登録リクエスト:', data);
 
-  const handleSigninRedirect = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    alert('ログインページへ遷移します。');
-  };
+  //   // 実際のアプリではルーターで遷移しますが、ここではアラートで代用
+  //   alert('登録処理が完了しました。登録完了ページへ遷移します。');
+  // };
+
+  // const handleSigninRedirect = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  //   e.preventDefault();
+  //   alert('ログインページへ遷移します。');
+  // };
 
   return (
     <>
@@ -31,26 +33,26 @@ export default function SignupPage() {
       */}
       <div className="min-h-screen flex items-center justify-center bg-[#F0F4EF] p-5 font-sans">
         <div className="w-[90%] max-w-[400px] text-center">
-          
           {/* アプリタイトル */}
           <h1 className="text-[#38761D] mb-[30px] text-[40px] font-bold">
             🌱 農業診断
           </h1>
 
           {/* フォームコンテナ */}
-          <div 
+          <div
             className="bg-white px-[25px] py-[30px] rounded-[15px] shadow-[0_4px_12px_rgba(0,0,0,0.1)] mb-5 opacity-0"
-            style={{ animation: 'fadeInUp 0.7s ease-out forwards 0.2s' }}
+            style={{ animation: "fadeInUp 0.7s ease-out forwards 0.2s" }}
           >
             <h2 className="text-[#38761D] mt-0 mb-5 text-[28px] font-bold">
               新規アカウント登録
             </h2>
 
-            <form onSubmit={handleSignup} className="flex flex-col">
+            <form action={signup} className="flex flex-col">
               {/* 名前入力フィールド */}
               <div className="mb-[15px]">
                 <input
                   type="text"
+                  name="name"
                   placeholder="お名前 (オプション)"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -62,6 +64,7 @@ export default function SignupPage() {
               <div className="mb-[15px]">
                 <input
                   type="email"
+                  name="email"
                   placeholder="メールアドレス"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -74,6 +77,7 @@ export default function SignupPage() {
               <div className="mb-[15px]">
                 <input
                   type="password"
+                  name="password"
                   placeholder="パスワード"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -93,14 +97,13 @@ export default function SignupPage() {
           </div>
 
           {/* ログインへのリンク (Next.jsのLinkではなくaタグを使用) */}
-          <a 
-            href="/signin" 
-            onClick={handleSigninRedirect}
+          <Link
+            href="/signin"
             className="w-full p-[10px] mt-4 rounded-lg text-base font-bold bg-transparent border-2 border-[#6AA84F] text-[#38761D] hover:bg-[#E8F5E9] transition-colors block opacity-0 text-decoration-none cursor-pointer"
-            style={{ animation: 'fadeInUp 0.7s ease-out forwards 0.3s' }}
+            style={{ animation: "fadeInUp 0.7s ease-out forwards 0.3s" }}
           >
             既にアカウントをお持ちの方はこちら
-          </a>
+          </Link>
         </div>
       </div>
 
