@@ -3,6 +3,7 @@
 import React, { useState, FormEvent } from "react";
 import { signup } from "@/lib/database/actions";
 import Link from "next/link";
+import Image from "next/image";
 // Next.js固有の機能（Link, useRouter）は、このプレビュー環境では
 // 動作しないため、標準的なHTML要素とアラートで代用します。
 
@@ -34,9 +35,19 @@ export default function SignupPage() {
       <div className="min-h-screen flex items-center justify-center bg-[#F0F4EF] p-5 font-sans">
         <div className="w-[90%] max-w-[400px] text-center">
           {/* アプリタイトル */}
-          <h1 className="text-[#38761D] mb-[30px] text-[40px] font-bold">
-            🌱 農業診断
-          </h1>
+          <div
+            className="justify-center flex mb-3 opacity-0" // mb-8 -> mb-12 for more spacing below
+            style={{ animation: "fadeInUp 0.7s ease-out forwards 0.1s" }}
+          >
+            <Image
+              src="/images/logo-icon/aglink-logo.png"
+              alt="Aglink ロゴ - 成長と繋がり"
+              width={150} // width increased from 200 to 300
+              height={30} // height increased from 60 to 90
+              priority
+              className="h-auto w-auto flex " // h-12 removed for auto height adjustment
+            />
+          </div>
 
           {/* フォームコンテナ */}
           <div
