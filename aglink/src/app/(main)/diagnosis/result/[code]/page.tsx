@@ -43,6 +43,54 @@ export default function DiagnosisResultPage({
     code as AgriTypePair["code"]
   );
 
+  /**
+ * AIフィードバック用のステートと関数
+ */
+// 1. 応答を格納するステート
+const [aiResponse, setAiResponse] = React.useState<string>("");
+const [isAiLoading, setIsAiLoading] = React.useState<boolean>(false);
+
+// 2. sessionStorage から回答データを取得し、AIへ送信する関数
+const handleGetAiFeedback = async () => {
+    if (isAiLoading) return;
+
+    // sessionStorageから「本物の回答データ」を取得
+    const savedData = sessionStorage.getItem("debug_diagnosis_data");
+    if (!savedData) {
+        setAiResponse("⚠️ 診断回答データが見つかりませんでした。再度診断を行ってください。");
+        return;
+    }
+
+    setIsAiLoading(true);
+    setAiResponse("📡 AIがあなたの回答を詳細に分析しています...");
+
+    try {
+        const { userAnswers } = JSON.parse(savedData);
+
+        const res = await fetch('/api/diagnosis', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userAnswers: userAnswers,
+                finalType: code // paramsから取得したcodeを使用
+            })
+        });
+
+        if (!res.ok) throw new Error(`通信エラー: ${res.status}`);
+
+        const data = await res.json();
+        
+        if (data.success) {
+            setAiResponse(data.aiFeedback);
+        } else {
+            setAiResponse(`⚠️ 分析失敗: ${data.message}`);
+        }
+    } catch (err) {
+        setAiResponse(`❌ エラーが発生しました: ${err instanceof Error ? err.message : "不明な不具合"}`);
+    } finally {
+        setIsAiLoading(false);
+    }
+};
   console.log("🔍 useCodeの状態:", { code, codeLoading, codeError });
 
   // 保存済みかどうかのフラグ
@@ -212,7 +260,9 @@ export default function DiagnosisResultPage({
               </div>
             </section>
 
-            {/* 3. 農地提案セクション */}
+
+
+            {/* 3. 農地提案セクション (カードUI) */}
             <section className="bg-card p-6 rounded-lg shadow-md">
               <h2 className="text-3xl font-bold text-primary mb-6 flex items-center">
                 <MapPin className="w-6 h-6 mr-2" />
@@ -343,6 +393,43 @@ export default function DiagnosisResultPage({
                   <Link href="#farms">すべての農地を見る</Link>
                 </Button>
               </div>
+            </section>
+            
+            {/* ★★★ 4. AI詳細分析セクション (追加) ★★★ */}
+            <section className="bg-amber-50 p-6 rounded-lg shadow-md border-2 border-amber-200 relative overflow-hidden">
+                {/* 背景に薄く装飾（オプション） */}
+                <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none">
+                    <Leaf className="w-32 h-32 text-amber-600 rotate-12" />
+                </div>
+
+                <h2 className="text-3xl font-bold text-amber-700 mb-4 flex items-center">
+                    <Info className="w-6 h-6 mr-2" />
+                    AIによる個別最適化アドバイス
+                </h2>
+                
+                <div className="space-y-4 relative z-10">
+                    <p className="text-lg text-amber-900/80">
+                        診断結果に基づき、AIがあなただけの具体的な「農業への踏み出し方」を詳しくアドバイスします。
+                    </p>
+
+                    {/* AIの応答エリア */}
+                    {aiResponse && (
+                        <div className="p-5 bg-white/80 rounded-lg border border-amber-200 text-gray-800 text-lg leading-relaxed whitespace-pre-wrap animate-fadeIn">
+                            {aiResponse}
+                        </div>
+                    )}
+                    {!aiResponse && (
+                        <div className="flex justify-center pt-2">
+                            <Button
+                                onClick={handleGetAiFeedback}
+                                disabled={isAiLoading}
+                                className="bg-amber-600 hover:bg-amber-700 text-white px-10 py-6 text-xl shadow-xl transition-all duration-300 transform hover:scale-105"
+                            >
+                                {isAiLoading ? "分析中..." : "AI詳細分析を実行する"}
+                            </Button>
+                        </div>
+                    )}
+                </div>
             </section>
           </div>
         </div>

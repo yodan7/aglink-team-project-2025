@@ -62,6 +62,15 @@ export default function DiagnosisPageUI() {
   const progressPercent = totalQuestionsCount
     ? (totalAnsweredCount / totalQuestionsCount) * 100
     : 0;
+  
+  const saveDiagnosisData = () => {
+    const finalTypeCode = `${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`;
+    const data = { 
+      userAnswers: currentAnswerValue, 
+      finalType: finalTypeCode 
+    };
+    sessionStorage.setItem("debug_diagnosis_data", JSON.stringify(data));
+  };
 
   if (error) {
     return <div className="text-red-500 text-center">{error}</div>;
@@ -264,10 +273,11 @@ export default function DiagnosisPageUI() {
                   typeCode.Approach &&
                   typeCode.Stance ? (
                   <Link
-                    href={`/diagnosis/result/${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`}
-                  >
-                    結果を見る <ArrowRight className="w-5 h-5 ml-2" />
-                  </Link>
+                  href={`/diagnosis/result/${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`}
+                  onClick={saveDiagnosisData} // ★ここに追加！
+                >
+                  結果を見る <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
                 ) : (
                   <>
                     結果を見る <ArrowRight className="w-5 h-5 ml-2" />
