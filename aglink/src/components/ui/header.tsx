@@ -9,11 +9,12 @@ export function Header() {
   const pathname = usePathname();
   // /diagnosis の直下は無効化するが、/diagnosis/result は有効にする
   const isDiagnosisDisabled =
-    pathname?.startsWith("/diagnosis") && !pathname?.startsWith("/diagnosis/result");
+    pathname?.startsWith("/diagnosis") &&
+    !pathname?.startsWith("/diagnosis/result");
   // ナビゲーションの共通データ
   const navItems = [
     { href: "/diagnosis", label: "診断を始める" },
-    { href: "/types", label: "農業スタイル一覧" },
+    { href: "/aglitypes", label: "農業スタイル一覧" },
     { href: "/mypage", label: "マイページ" },
     { href: "/signin", label: "ログイン" },
   ];
@@ -55,9 +56,7 @@ export function Header() {
             asChild // 子要素のLinkをボタンとして振る舞わせる
             className="text-base font-medium text-[#4A3931] hover:text-green-700 hover:bg-green-50 px-5 py-2 transition-all duration-200"
           >
-            <Link href={item.href}>
-              {item.label}
-            </Link>
+            <Link href={item.href}>{item.label}</Link>
           </Button>
         ))}
       </nav>

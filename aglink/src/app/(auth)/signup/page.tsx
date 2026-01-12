@@ -1,16 +1,28 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useActionState, useEffect } from "react";
 import { signup } from "@/lib/database/actions";
 import Link from "next/link";
 import Image from "next/image";
 // Next.js固有の機能（Link, useRouter）は、このプレビュー環境では
 // 動作しないため、標準的なHTML要素とアラートで代用します。
 
+// エラー状態の初期値
+const initialState = {
+  error: null,
+  message: null,
+};
+
 export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [state, formAction, isPending] = useActionState(signup, initialState);
+
+  useEffect(() => {
+    if (state.error) {
+      alert(state.error);
+    }
+  }, [state]);
 
   // const handleSignup = (e: FormEvent) => {
   //   e.preventDefault();
@@ -58,19 +70,7 @@ export default function SignupPage() {
               新規アカウント登録
             </h2>
 
-            <form action={signup} className="flex flex-col">
-              {/* 名前入力フィールド */}
-              <div className="mb-[15px]">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="お名前 (オプション)"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full p-[12px_15px] border border-[#CCCCCC] rounded-lg text-[22px] text-center outline-none transition-all focus:border-[#6AA84F] focus:ring-4 focus:ring-[#6AA84F]/20"
-                />
-              </div>
-
+            <form action={formAction} className="flex flex-col">
               {/* メールアドレス入力フィールド */}
               <div className="mb-[15px]">
                 <input

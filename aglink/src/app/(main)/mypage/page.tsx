@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import { updateProfile } from "./actions";
+import { updateProfile, deleteAccount, logout } from "./actions";
 import { useMypageData } from "@/hooks/useMypageData"; // 作成したフックをインポート
 
 import Image from "next/image";
@@ -117,7 +117,16 @@ const TYPE_INFO: Record<string, { name: string; summary: string }> = {
 const MypagePage: React.FC = () => {
   // カスタムフックを利用してデータとローディング状態を取得
   // これによりページコンポーネントからデータ取得ロジックが分離されました
-  const { profile, latestDiagnosis, bookmarks, loading, setProfile } = useMypageData();
+  const {
+    profile,
+    latestDiagnosis,
+    loading,
+    setProfile,
+    uploadAvatar,
+    getAvatarUrl,
+    uploading,
+    bookmarks,
+  } = useMypageData();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   // 診断結果表示用のデータ準備
@@ -228,16 +237,30 @@ const MypagePage: React.FC = () => {
   // 更新処理ハンドラ
   const handleUpdate = async (formData: FormData) => {
     // 楽観的UI更新
+    // ★ ログ出力して確認！
+    console.log("User ID:", profile.id);
+    // もしここで null や undefined が出たら、ログイン処理の問題です。
     const newProfile = {
       ...profile,
       name: formData.get("name") as string,
-      avatar: formData.get("avatar") as string,
       gender: formData.get("gender") as string,
       age: formData.get("age") as unknown as number,
       address: formData.get("address") as string,
     };
     setProfile(newProfile);
     setDialogOpen(false);
+
+    if (formData.get("avatar")) {
+      const userId = profile.id; // Assuming email is used as userId, adjust as needed
+      const file = formData.get("avatar") as File;
+      const uploadResult = await uploadAvatar(userId, file);
+      if (uploadResult.success) {
+        newProfile.avatar = getAvatarUrl(uploadResult.path);
+        setProfile(newProfile);
+      } else {
+        alert("アバターのアップロードに失敗しました。");
+      }
+    }
 
     // Server Action実行
     const result = await updateProfile(formData);
@@ -318,12 +341,13 @@ const MypagePage: React.FC = () => {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="avatar">アイコン画像URL</Label>
+                        <Label htmlFor="avatar">アイコン画像</Label>
                         <Input
                           id="avatar"
                           name="avatar"
-                          defaultValue={profile.avatar}
-                          placeholder="https://..."
+                          type="file"
+                          disabled={uploading}
+                          accept="image/*"
                         />
                       </div>
                       <div>
@@ -492,13 +516,90 @@ const MypagePage: React.FC = () => {
             </CardContent>
           </Card>
         </section>
-        <div className="mt-8 text-center">
+        <div className="mt-8 text-center space-y-4">
           <Button
             asChild
             className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full shadow-lg"
           >
             <Link href="/">ホームに戻る</Link>
           </Button>
+
+          {/* ログアウトボタン */}
+          <div>
+            <Button
+              variant="outline"
+              className="border-gray-400 hover:bg-gray-50 px-6 py-2"
+              onClick={async () => {
+                if (confirm("ログアウトしますか？")) {
+                  const result = await logout();
+                  if (result.error) {
+                    alert(result.error);
+                  } else {
+                    window.location.href = "/signin";
+                  }
+                }
+              }}
+            >
+              ログアウト
+            </Button>
+          </div>
+
+          {/* 退会ボタン */}
+          <div className="pt-4">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="text-red-600 border-red-600 hover:bg-red-50 hover:text-red-700 px-6 py-2"
+                >
+                  退会する
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle className="text-red-600">
+                    本当に退会しますか？
+                  </DialogTitle>
+                  <DialogDescription className="space-y-2">
+                    <p className="font-semibold">
+                      退会すると以下のデータが削除されます：
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-sm">
+                      <li>プロフィール情報</li>
+                      <li>診断履歴</li>
+                      <li>ブックマーク</li>
+                    </ul>
+                    <p className="text-red-600 font-semibold mt-4">
+                      この操作は取り消せません。
+                    </p>
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter className="flex-col sm:flex-row gap-2">
+                  <DialogTrigger asChild>
+                    <Button variant="outline">キャンセル</Button>
+                  </DialogTrigger>
+                  <Button
+                    variant="destructive"
+                    onClick={async () => {
+                      if (confirm("本当に退会してもよろしいですか？")) {
+                        const result = await deleteAccount();
+                        if (result.error) {
+                          alert(result.error);
+                        } else {
+                          alert(
+                            "退会が完了しました。ご利用ありがとうございました。"
+                          );
+                          window.location.href = "/";
+                        }
+                      }
+                    }}
+                  >
+                    退会する
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
       </div>
     </div>

@@ -21,10 +21,11 @@ export async function POST(request: Request) {
         return NextResponse.json({ text: answerText });
 
     } catch (error) {
-        // エラー詳細をコンソールに出力し、クライアントに具体的なエラーメッセージを返す
+        // ★セキュリティ: サーバー側のログには詳細を記録
         console.error('API処理中にエラーが発生しました:', error);
+        // ★セキュリティ: クライアントには一般的なメッセージのみ返す（詳細は隠す）
         return NextResponse.json({ 
-            error: `サーバー内部でエラーが発生しました。詳細: ${error instanceof Error ? error.message : String(error)}`
+            error: 'サーバー内部でエラーが発生しました。しばらく経ってから再度お試しください。'
         }, { status: 500 });
     }
 }
