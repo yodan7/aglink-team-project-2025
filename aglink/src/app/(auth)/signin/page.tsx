@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, FormEvent, useActionState, useEffect } from "react";
-import { LucideSprout } from "lucide-react"; // アイコン例として追加
 import { login } from "@/lib/database/actions";
 import Link from "next/link";
 import Image from "next/image";
