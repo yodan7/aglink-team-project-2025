@@ -15,7 +15,8 @@ export const useQuestionsNavigation = (
         const unElement = document.getElementById(
           `q${unSelected[0].id.toString()}`
         );
-        unElement?.scrollIntoView({ behavior: "smooth", block: "center" });
+        // ★修正: block を "start" に変更し、質問が画面上部に表示されるようにする
+        unElement?.scrollIntoView({ behavior: "smooth", block: "start" });
       }
       return;
     }
@@ -23,13 +24,15 @@ export const useQuestionsNavigation = (
     // 選択済みの場合
     if (axisNum < 3) {
       setAxisNum((prev) => prev + 1);
+      // ★修正: 質問が更新された後にスクロールするため、setTimeoutで遅延実行
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth",
+        });
+      }, 100);
     }
-
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [axisNum, isAllSelect, unSelected]);
 
