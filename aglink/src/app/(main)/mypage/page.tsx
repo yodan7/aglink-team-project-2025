@@ -245,7 +245,6 @@ const MypagePage: React.FC = () => {
   const handleUpdate = async (formData: FormData) => {
     // 楽観的UI更新
     // ★ ログ出力して確認！
-    console.log("User ID:", profile.id);
     // もしここで null や undefined が出たら、ログイン処理の問題です。
     const newProfile = {
       ...profile,
