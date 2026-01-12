@@ -293,10 +293,12 @@ export const useMypageData = () => {
           );
           setBookmarks(validBookmarks);
 
-          // デバッグ用ログ
-          console.log("📚 Bookmarks Data:", bookmarksData);
-          console.log("📚 First bookmark farms:", bookmarksData?.[0]?.farms);
-          console.log("📚 Valid bookmarks count:", validBookmarks.length);
+          // デバッグ用ログ（本番環境では出力しない）
+          if (process.env.NODE_ENV !== "production") {
+            console.log("📚 Bookmarks Data:", bookmarksData);
+            console.log("📚 First bookmark farms:", bookmarksData?.[0]?.farms);
+            console.log("📚 Valid bookmarks count:", validBookmarks.length);
+          }
         }
       } catch (error) {
         console.error("Error fetching data:", error);
