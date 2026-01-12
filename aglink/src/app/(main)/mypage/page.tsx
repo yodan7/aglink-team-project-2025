@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import { updateProfile, deleteAccount, logout } from "./actions";
+import { updateProfile } from "./actions";
 import { useMypageData } from "@/hooks/useMypageData"; // 作成したフックをインポート
 
 import Image from "next/image";
@@ -529,83 +529,6 @@ const MypagePage: React.FC = () => {
           >
             <Link href="/">ホームに戻る</Link>
           </Button>
-
-          {/* ログアウトボタン */}
-          <div>
-            <Button
-              variant="outline"
-              className="border-gray-400 hover:bg-gray-50 px-6 py-2"
-              onClick={async () => {
-                if (confirm("ログアウトしますか？")) {
-                  const result = await logout();
-                  if (result.error) {
-                    alert(result.error);
-                  } else {
-                    window.location.href = "/signin";
-                  }
-                }
-              }}
-            >
-              ログアウト
-            </Button>
-          </div>
-
-          {/* 退会ボタン */}
-          <div className="pt-4">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="text-red-600 border-red-600 hover:bg-red-50 hover:text-red-700 px-6 py-2"
-                >
-                  退会する
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle className="text-red-600">
-                    本当に退会しますか？
-                  </DialogTitle>
-                  <DialogDescription className="space-y-2">
-                    <p className="font-semibold">
-                      退会すると以下のデータが削除されます：
-                    </p>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
-                      <li>プロフィール情報</li>
-                      <li>診断履歴</li>
-                      <li>ブックマーク</li>
-                    </ul>
-                    <p className="text-red-600 font-semibold mt-4">
-                      この操作は取り消せません。
-                    </p>
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter className="flex-col sm:flex-row gap-2">
-                  <DialogTrigger asChild>
-                    <Button variant="outline">キャンセル</Button>
-                  </DialogTrigger>
-                  <Button
-                    variant="destructive"
-                    onClick={async () => {
-                      if (confirm("本当に退会してもよろしいですか？")) {
-                        const result = await deleteAccount();
-                        if (result.error) {
-                          alert(result.error);
-                        } else {
-                          alert(
-                            "退会が完了しました。ご利用ありがとうございました。"
-                          );
-                          window.location.href = "/";
-                        }
-                      }
-                    }}
-                  >
-                    退会する
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </div>
         </div>
       </div>
     </div>
