@@ -295,9 +295,9 @@ export const useMypageData = () => {
 
           // デバッグ用ログ（本番環境では出力しない）
           if (process.env.NODE_ENV !== "production") {
-            console.log("📚 Bookmarks Data:", bookmarksData);
-            console.log("📚 First bookmark farms:", bookmarksData?.[0]?.farms);
-            console.log("📚 Valid bookmarks count:", validBookmarks.length);
+            // console.log("📚 Bookmarks Data:", bookmarksData);
+            // console.log("📚 First bookmark farms:", bookmarksData?.[0]?.farms);
+            // console.log("📚 Valid bookmarks count:", validBookmarks.length);
           }
         }
       } catch (error) {
