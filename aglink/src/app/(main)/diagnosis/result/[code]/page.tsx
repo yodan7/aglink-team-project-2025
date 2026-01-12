@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { MapPin, ExternalLink, Leaf, Info, Clock } from "lucide-react";
 import Image from "next/image";
@@ -24,149 +24,13 @@ import { useDiagnosis } from "@/hooks/useDiagnosis";
 import { AgriTypePair } from "@/types";
 import { useCode } from "@/hooks/useCode";
 import { useFarms } from "@/hooks/useFarms";
-
-// UI表示に必要な型 (ローカル定義)
-// interface Farm {
-//   id: number;
-//   name: string;
-//   location: string;
-//   area: string;
-//   features: string;
-//   url: string;
-//   imagePath: string; // カードUIのために追加
-//   plantTypes: string; // 育てられる植物
-// }
-
-// interface AxisDetail {
-//   label: string; // 例: 動機
-//   value: string; // 例: 芸術型 (A)
-//   description: string; // 例: 美しさや創造性を追求する
-// }
-
-// interface SupportSystem {
-//   id: number;
-//   farming_type_code: string;
-//   category: string;
-//   title: string;
-//   description: string;
-//   url: string;
-// }
-
-// interface DiagnosisResultData {
-//   name: string;
-//   code: string;
-//   imagePath: string;
-//   description: {
-//     intro: string;
-//     strengths: string[];
-//     weaknesses: string[];
-//     idealFarm: string;
-//     crops: string;
-//   };
-//   axisDetails: AxisDetail[]; // 軸の詳細を追加
-//   farmProposals: Farm[];
-//   supportSystems: SupportSystem[];
-// }
-
-// --- UIで使用するモックデータ定義 ---
-// const MOCK_RESULT: DiagnosisResultData = {
-//   name: "週末ガーデナー",
-//   code: "AFHO",
-//   imagePath: "/images/agli-types/AFHO-type.png",
-//   description: {
-//     intro:
-//       "畑は自分だけの癒し空間。美しさや創造性を追求し、収穫した野菜は家族や友人と楽しむ。新しい植物や栽培方法を試すのが大好き。",
-//     strengths: [
-//       "環境の変化に対する高い適応力と、育てる作物への愛情の深さ。",
-//       "計画性よりも直感を頼りに、自然のサイクルに寄り添った農業を築ける。",
-//     ],
-//     weaknesses: [
-//       "ビジネス的な効率や市場動向の考慮が苦手な傾向。",
-//       "データに基づいた厳密な管理よりも感覚を優先しがち。",
-//     ],
-//     idealFarm:
-//       "理想の農園は、小規模でも生態系が豊かで、手作りの温かみが感じられる場所です。特に、ハーブ栽培や有機野菜の多品目栽培に適性があります。",
-//     crops:
-//       "ハーブ類、葉物野菜（ルッコラ、バジル）、ユニークなミニトマトやベリー類",
-//   },
-//   axisDetails: [
-//     {
-//       label: "動機",
-//       value: "芸術型 (A)",
-//       description:
-//         "美しさや創造性を追求し、作物や庭をアート作品のように育てることを楽しみます。",
-//     },
-//     {
-//       label: "規模",
-//       value: "家族型 (F)",
-//       description:
-//         "家族や友人との繋がりを大切にし、小規模で身近な範囲での農業を楽しみます。",
-//     },
-//     {
-//       label: "アプローチ",
-//       value: "実践型 (H)",
-//       description:
-//         "際立った技能や経験を活かし、直接土に触れ、身体を動かす作業を好みます。",
-//     },
-//     {
-//       label: "スタンス",
-//       value: "開放型 (O)",
-//       description:
-//         "新しい手法や異業種との交流に積極的で、多様な可能性を模索します。",
-//     },
-//   ],
-//   supportSystems: [
-//     {
-//       id: 12,
-//       farming_type_code: "AFHO",
-//       category: "教育・体験",
-//       title: "体験農業・ワークショップ助成",
-//       description:
-//         "地域の体験農業プログラムやワークショップ開催に対する助成。観光連携や教育プログラムの実施費用を補助し、参加者募集や運営の負担を軽減。",
-//       url: "https://www.maff.go.jp/j/nousin/kouryu/nouhakusuishin/nouhaku_top.html",
-//     },
-//   ],
-//   farmProposals: [
-//     {
-//       id: 1,
-//       name: "里山の小さなハーブ農園",
-//       location: "京都府 南丹市",
-//       area: "150坪",
-//       features: "無農薬、古民家付き",
-//       url: "/farms/1",
-//       imagePath: "/images/farm-thumb-1.jpg",
-//       plantTypes: "ハーブ、ベビーリーフ",
-//     },
-//     {
-//       id: 2,
-//       name: "高原の有機野菜エリア",
-//       location: "長野県 茅野市",
-//       area: "400坪",
-//       features: "冷涼地、多品目栽培向き",
-//       url: "/farms/2",
-//       imagePath: "/images/farm-thumb-2.jpg",
-//       plantTypes: "ジャガイモ、キャベツ",
-//     },
-//     {
-//       id: 3,
-//       name: "海岸沿いの自然農園",
-//       location: "千葉県 夷隅郡",
-//       area: "200坪",
-//       features: "温暖、土壌改良不要",
-//       url: "/farms/3",
-//       imagePath: "/images/farm-thumb-3.jpg",
-//       plantTypes: "ミニトマト、メロン",
-//     },
-//   ],
-// };
+import { saveDiagnosisResult } from "../../actions";
 
 export default function DiagnosisResultPage({
   params,
 }: {
   params: Promise<{ code: AgriTypePair["code"] }>;
 }) {
-  // データはローカルのモックデータを使用
-  // const result = MOCK_RESULT;
   const [code, codeLoading, codeError] = useCode(params);
   const [
     diagnosis,
@@ -179,6 +43,88 @@ export default function DiagnosisResultPage({
     code as AgriTypePair["code"]
   );
 
+  /**
+ * AIフィードバック用のステートと関数
+ */
+// 1. 応答を格納するステート
+const [aiResponse, setAiResponse] = React.useState<string>("");
+const [isAiLoading, setIsAiLoading] = React.useState<boolean>(false);
+
+// 2. sessionStorage から回答データを取得し、AIへ送信する関数
+const handleGetAiFeedback = async () => {
+    if (isAiLoading) return;
+
+    // sessionStorageから「本物の回答データ」を取得
+    const savedData = sessionStorage.getItem("debug_diagnosis_data");
+    if (!savedData) {
+        setAiResponse("⚠️ 診断回答データが見つかりませんでした。再度診断を行ってください。");
+        return;
+    }
+
+    setIsAiLoading(true);
+    setAiResponse("📡 AIがあなたの回答を詳細に分析しています...");
+
+    try {
+        const { userAnswers } = JSON.parse(savedData);
+
+        const res = await fetch('/api/diagnosis', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userAnswers: userAnswers,
+                finalType: code // paramsから取得したcodeを使用
+            })
+        });
+
+        if (!res.ok) throw new Error(`通信エラー: ${res.status}`);
+
+        const data = await res.json();
+        
+        if (data.success) {
+            setAiResponse(data.aiFeedback);
+        } else {
+            setAiResponse(`⚠️ 分析失敗: ${data.message}`);
+        }
+    } catch (err) {
+        setAiResponse(`❌ エラーが発生しました: ${err instanceof Error ? err.message : "不明な不具合"}`);
+    } finally {
+        setIsAiLoading(false);
+    }
+};
+  console.log("🔍 useCodeの状態:", { code, codeLoading, codeError });
+
+  // 保存済みかどうかのフラグ
+  const hasSaved = useRef(false);
+
+  useEffect(() => {
+    if (!code || hasSaved.current) return;
+
+    const save = async () => {
+      hasSaved.current = true;
+      console.log("💾 保存処理スタート: code =", code);
+
+      try {
+        // 結果を受け取る
+        const result = await saveDiagnosisResult(code as string);
+
+        if (result.success) {
+          if (result.saved) {
+            console.log("✅ 保存成功！ (DBに書き込みました)");
+          } else {
+            console.log("ℹ️ 未ログインのため保存をスキップしました");
+          }
+        } else {
+          console.error("❌ 保存エラー:", result.error);
+        }
+      } catch (e) {
+        console.error("❌ 通信エラー:", e);
+      }
+    };
+
+    save();
+  }, [code]);
+  // codeの値が変わったタイミング（読み込み完了時）に発火
+
   if (codeLoading || diagnosisLoading || farmsLoading) {
     return <div>読み込み中...</div>;
   }
@@ -186,42 +132,38 @@ export default function DiagnosisResultPage({
   if (codeError || diagnosisError || farmsError) {
     return <div>エラー: {codeError || diagnosisError || farmsError}</div>;
   }
+
   // console.log(farms?.[0].plans.map((x) => x.description));
   return (
     <main className="w-full min-h-screen bg-background">
-      {/* 全体コンテナ: layout.tsxのpadding-topを打ち消すため、CSS変数を利用 */}
+      {/* 全体コンテナ */}
       <div
         className="flex flex-col items-center w-full relative z-0"
         style={{ marginTop: "calc(-1 * var(--layout-padding-top))" }}
       >
         <div className="w-full max-w-5xl flex flex-col items-center pt-8 pb-12">
-          {/* ★★★ 1. トップセクション (キャラクター＆タイプ名) ★★★ */}
+          {/* 1. トップセクション */}
           <div className="relative w-screen overflow-hidden mb-12">
-            {/* 背景画像 (緑の空と雲) */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="/images/result-haikei.png" // 雲の背景画像パス
+                src="/images/result-haikei.png"
                 alt="雲と緑の背景"
                 fill
                 className="object-cover"
                 priority
               />
-              {/* 半透明のオーバーレイ */}
               <div className="absolute inset-0 bg-black/5"></div>
             </div>
 
             {/* コンテンツ: 左右配置のコンテナ */}
-            <div
-              className="relative z-10 w-full max-w-5xl mx-auto pt-[100px] pb-16 md:pb-20 lg:pb-24 px-8 
-                                        flex flex-col lg:flex-row items-center lg:justify-center lg:gap-x-12 text-center"
-            >
+            <div className="relative z-10 w-full max-w-5xl mx-auto pt-[100px] pb-16 md:pb-20 lg:pb-24 px-8 flex flex-col lg:flex-row items-center lg:justify-center lg:gap-x-12 text-center">
               {/* 左側: タイプ名とアルファベット、簡単な紹介文 */}
               <div className="flex flex-col items-center lg:items-center mb-8 lg:mb-0 text-white animate-fadeInUp delay-300">
                 <p className="text-xl md:text-2xl font-semibold mb-1">
                   あなたの農業スタイル
                 </p>
                 <h1
-                  className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight"
+                  className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-tight"
                   style={{
                     color: "white",
                     textShadow: "2px 2px 4px rgba(0,0,0,0.4)",
@@ -234,7 +176,6 @@ export default function DiagnosisResultPage({
                 </p>
               </div>
 
-              {/* 右側: キャラクター画像 */}
               <div className="w-[200px] h-[200px] md:w-[300px] md:h-[300px] relative shrink-0 animate-fadeInUp">
                 <Image
                   src={`/images/agli-types/${code}-type.png`}
@@ -247,53 +188,20 @@ export default function DiagnosisResultPage({
             </div>
           </div>
 
-          {/* 2. 詳細セクション - 画像配置のために親要素を relative に設定 */}
+          {/* 2. 詳細セクション */}
           <div className="w-full max-w-4xl space-y-8 px-4 relative">
-            {/* 詳細な説明 (イントロ部分) */}
-            {/* <p className="text-lg md:text-xl text-foreground font-medium text-center bg-card p-6 rounded-lg shadow-md mt-8 relative z-20">
-              {diagnosis?.description}
-            </p> */}
-
-            {/* スタイルの特徴と作物 (左側に画像1を配置) */}
             <section className="bg-card p-6 rounded-lg shadow-md relative">
-              {/* ★★★ 画像1: 週末ガーデナーの特徴 (左側) ★★★ */}
-              <div className="hidden lg:block absolute w-24 h-24 -left-[8vw] -top-1/4">
-                <Image
-                  src="/images/agli-types/AFHO1.png"
-                  alt="キャラクターイメージ1"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-
-              <h2 className="text-2xl font-bold text-primary mb-4 flex items-center">
+              <h2 className="text-3xl font-bold text-primary mb-4 flex items-center">
                 <Leaf className="w-6 h-6 mr-2" />
                 {diagnosis?.type} の特徴
               </h2>
-              <p className="text-base text-gray-700 mb-4">
+              <p className="text-xl text-gray-700 mb-4">
                 {diagnosis?.description}
               </p>
-              {/* <p className="text-base font-semibold text-foreground border-t border-dashed pt-4">
-                🌿 向いている作物:{" "}
-                <span className="font-normal text-green-700">
-                  {diagnosis?.description}
-                </span>
-              </p> */}
             </section>
 
-            {/* 4つの軸の詳細セクション (右側に画像2を配置) */}
             <section className="bg-card p-6 rounded-lg shadow-md relative">
-              {/* ★★★ 画像2: 診断結果の詳細 (右側) ★★★ */}
-              <div className="hidden lg:block absolute w-28 h-28 right-0 top-1/2 transform -translate-y-1/2 translate-x-1/3">
-                <Image
-                  src="/images/agli-types/AFHO2.png"
-                  alt="キャラクターイメージ2"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-
-              <h2 className="text-2xl font-bold text-primary mb-6 flex items-center">
+              <h2 className="text-3xl font-bold text-primary mb-6 flex items-center">
                 <Leaf className="w-6 h-6 mr-2" />
                 診断結果の詳細：4つの軸
               </h2>
@@ -304,25 +212,14 @@ export default function DiagnosisResultPage({
                       {axis.axisCategory}:{" "}
                       <span className="text-primary">{axis.name}</span>
                     </h3>
-                    <p className="text-sm text-gray-600">{axis.description}</p>
+                    <p className="text-lg text-gray-600">{axis.description}</p>
                   </div>
                 ))}
               </div>
             </section>
 
-            {/* 支援情報セクション (左側に画像3を配置) */}
             <section className="bg-card p-6 rounded-lg shadow-md relative">
-              {/* ★★★ 画像3: 支援制度の提案 (左側) ★★★ */}
-              <div className="hidden lg:block absolute w-24 h-24 -left-1/4 top-1/2 transform -translate-y-1/2">
-                <Image
-                  src="/images/agli-types/AFHO3.png"
-                  alt="キャラクターイメージ3"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-
-              <h2 className="text-2xl font-bold text-primary mb-6 flex items-center">
+              <h2 className="text-3xl font-bold text-primary mb-6 flex items-center">
                 <Info className="w-6 h-6 mr-2" />
                 支援制度の提案
               </h2>
@@ -340,7 +237,7 @@ export default function DiagnosisResultPage({
                         {support.category}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600 mb-3">
+                    <p className="text-lg text-gray-600 mb-3">
                       {support.description}
                     </p>
                     <Button
@@ -363,9 +260,11 @@ export default function DiagnosisResultPage({
               </div>
             </section>
 
+
+
             {/* 3. 農地提案セクション (カードUI) */}
             <section className="bg-card p-6 rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold text-primary mb-6 flex items-center">
+              <h2 className="text-3xl font-bold text-primary mb-6 flex items-center">
                 <MapPin className="w-6 h-6 mr-2" />
                 {diagnosis?.type} のあなたにお勧めの農地
               </h2>
@@ -374,11 +273,10 @@ export default function DiagnosisResultPage({
                 {farms?.map((farm) => (
                   <Dialog key={farm.id}>
                     <Card className="overflow-hidden shadow-md hover:shadow-xl transition duration-300 p-0">
-                      {/* 画像エリア (7割を占める) */}
                       <CardHeader className="p-0 border-b border-border">
                         <div className="relative h-40 md:h-48 w-full">
                           <Image
-                            src={farm.imageUrl} // 農地画像パス
+                            src={farm.imageUrl}
                             alt={farm.name}
                             fill
                             className="object-cover"
@@ -386,18 +284,15 @@ export default function DiagnosisResultPage({
                           />
                         </div>
                       </CardHeader>
-
-                      {/* カード本文 (3割を占める) */}
                       <CardContent className="p-4 flex flex-col gap-1">
                         <CardTitle className="text-lg font-bold text-foreground line-clamp-1">
                           {farm.name}
                         </CardTitle>
-                        <CardDescription className="text-xs text-gray-600 line-clamp-2">
+                        <CardDescription className="text-sm text-gray-600 line-clamp-2">
                           <MapPin className="w-3 h-3 mr-1 inline" />
                           {farm.location} | {farm.location} - {farm.type}
                         </CardDescription>
 
-                        {/* モーダルを起動するトリガー */}
                         <DialogTrigger asChild>
                           <Button
                             variant="default"
@@ -410,19 +305,25 @@ export default function DiagnosisResultPage({
                       </CardContent>
                     </Card>
 
-                    {/* モーダルウィンドウのコンテンツ定義 */}
-                    <DialogContent className="sm:max-w-[425px]">
-                      <DialogHeader>
-                        <DialogTitle className="text-xl text-primary">
+                    {/* ★★★ 修正箇所: サイズを画面いっぱいに固定 (w-[95vw] h-[90vh]) ★★★ */}
+                    <DialogContent className="w-[95vw] max-w-[95vw] h-[90vh] max-h-[90vh] p-0 flex flex-col">
+
+                      {/* ヘッダーエリア */}
+                      <DialogHeader className="p-6 pb-2 shrink-0">
+                        <DialogTitle className="text-2xl md:text-3xl font-bold text-primary mb-2">
                           {farm.name}
                         </DialogTitle>
-                        <DialogDescription className="text-sm text-gray-700 font-semibold flex items-center">
-                          <MapPin className="w-4 h-4 mr-2 text-muted-foreground" />
+                        <DialogDescription className="text-base md:text-lg text-gray-700 font-medium flex items-center">
+                          <MapPin className="w-5 h-5 mr-2 text-muted-foreground" />
                           {farm.location} ({farm.location})
                         </DialogDescription>
                       </DialogHeader>
-                      <div className="space-y-4">
-                        <div className="relative h-40 w-full rounded-md overflow-hidden">
+
+                      {/* スクロール可能なコンテンツエリア (flex-1 で余った高さを全て使う) */}
+                      <div className="flex-1 overflow-y-auto p-6 pt-2 space-y-6">
+
+                        {/* メイン画像 */}
+                        <div className="relative w-full h-64 md:h-[400px] lg:h-[500px] rounded-xl overflow-hidden shadow-sm shrink-0">
                           <Image
                             src={farm.imageUrl}
                             alt={farm.name}
@@ -430,21 +331,52 @@ export default function DiagnosisResultPage({
                             className="object-cover"
                           />
                         </div>
-                        <p className="text-sm text-gray-600 border-t pt-3">
-                          特徴: {farm.plans[0].planName}
-                        </p>
+
+                        {/* 詳細情報 */}
+                        <div className="space-y-4">
+                          <div className="bg-muted/30 p-4 rounded-lg">
+                            <h4 className="font-bold text-lg mb-2 text-foreground">
+                              農園の特徴・プラン
+                            </h4>
+                            <p className="text-base md:text-lg text-gray-700 leading-relaxed">
+                              {farm.plans[0].planName}
+                            </p>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="border p-4 rounded-lg">
+                              <span className="text-sm text-muted-foreground block mb-1">
+                                農園タイプ
+                              </span>
+                              <span className="text-lg font-medium">
+                                {farm.type}
+                              </span>
+                            </div>
+                            <div className="border p-4 rounded-lg">
+                              <span className="text-sm text-muted-foreground block mb-1">
+                                エリア
+                              </span>
+                              <span className="text-lg font-medium">
+                                {farm.location}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <DialogFooter>
+
+                      {/* フッター (アクションボタン) */}
+                      <DialogFooter className="p-6 pt-4 border-t mt-auto shrink-0 bg-background/95 backdrop-blur">
                         <Button
-                          className="w-full bg-primary hover:bg-primary/90 text-white"
+                          className="w-full h-14 text-xl font-bold bg-primary hover:bg-primary/90 text-white shadow-lg rounded-lg"
                           asChild
                         >
                           <Link href={`/farms/${farm.id}`}>
                             農業体験を予約する
-                            <Clock className="w-4 h-4 ml-2" />
+                            <Clock className="w-6 h-6 ml-2" />
                           </Link>
                         </Button>
                       </DialogFooter>
+
                     </DialogContent>
                   </Dialog>
                 ))}
@@ -462,10 +394,46 @@ export default function DiagnosisResultPage({
                 </Button>
               </div>
             </section>
+            
+            {/* ★★★ 4. AI詳細分析セクション (追加) ★★★ */}
+            <section className="bg-amber-50 p-6 rounded-lg shadow-md border-2 border-amber-200 relative overflow-hidden">
+                {/* 背景に薄く装飾（オプション） */}
+                <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none">
+                    <Leaf className="w-32 h-32 text-amber-600 rotate-12" />
+                </div>
+
+                <h2 className="text-3xl font-bold text-amber-700 mb-4 flex items-center">
+                    <Info className="w-6 h-6 mr-2" />
+                    AIによる個別最適化アドバイス
+                </h2>
+                
+                <div className="space-y-4 relative z-10">
+                    <p className="text-lg text-amber-900/80">
+                        診断結果に基づき、AIがあなただけの具体的な「農業への踏み出し方」を詳しくアドバイスします。
+                    </p>
+
+                    {/* AIの応答エリア */}
+                    {aiResponse && (
+                        <div className="p-5 bg-white/80 rounded-lg border border-amber-200 text-gray-800 text-lg leading-relaxed whitespace-pre-wrap animate-fadeIn">
+                            {aiResponse}
+                        </div>
+                    )}
+                    {!aiResponse && (
+                        <div className="flex justify-center pt-2">
+                            <Button
+                                onClick={handleGetAiFeedback}
+                                disabled={isAiLoading}
+                                className="bg-amber-600 hover:bg-amber-700 text-white px-10 py-6 text-xl shadow-xl transition-all duration-300 transform hover:scale-105"
+                            >
+                                {isAiLoading ? "分析中..." : "AI詳細分析を実行する"}
+                            </Button>
+                        </div>
+                    )}
+                </div>
+            </section>
           </div>
         </div>
 
-        {/* 画面下部の余白調整用のダミー要素 */}
         <div className="h-10"></div>
       </div>
     </main>

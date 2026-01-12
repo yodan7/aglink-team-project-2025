@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabaseClient";
+import { createClient } from "@/lib/supabase/client";
 import type { AxisDetail, Diagnosis, SupportInfo } from "@/types";
 import { supabaseToCamelCase } from "../utils";
 
@@ -51,6 +51,7 @@ export const getDiagnosisByCode = async (
   code: string
 ): Promise<Diagnosis | null> => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("agri_types")
       .select("*")
@@ -73,6 +74,7 @@ export const getAxisDetailByCode = async (
   code: string
 ): Promise<AxisDetail[] | null> => {
   try {
+    const supabase = createClient();
     // Supabaseのinクエリを使用して効率的にデータを取得
     const { data, error } = await supabase
       .from("axis_detail")
@@ -101,6 +103,7 @@ export const getSupportInfoByCode = async (
   code: string
 ): Promise<SupportInfo[] | null> => {
   try {
+    const supabase = createClient();
     // Supabaseクエリで、指定されたcodeと"ALL"の両方を取得
     const { data, error } = await supabase
       .from("support_info")

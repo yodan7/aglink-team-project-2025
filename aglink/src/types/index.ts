@@ -108,7 +108,7 @@ export type GroupedQuestions = {
 };
 
 // ✅ より厳密な型定義
-export type AnswerValue = 2 | 1 | 0 | -1 | -2;
+export type AnswerValue = 2 | 1 | -1 | -2;
 export type AxisAnswers = Record<string, AnswerValue>; //オブジェクト形式
 export type AnswerObjectType = {
   Motivation: AxisAnswers; // オブジェクト形式に変更

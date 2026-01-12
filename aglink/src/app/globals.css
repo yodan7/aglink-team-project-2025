@@ -404,3 +404,13 @@
     text-align: right;
     font-size: 14px;
 }
+
+
+
+@keyframes bounce-short {
+  0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+  50% { transform: translateY(-15%); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+}
+.animate-bounce-short {
+  animation: bounce-short 0.5s 1;
+}
