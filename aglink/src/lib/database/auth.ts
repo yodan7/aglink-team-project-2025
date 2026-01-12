@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabaseClient";
+import { createClient } from "@/lib/supabase/client";
 
 /* 
 === 今後の展望：より厳密な型定義とエラーハンドリング ===
@@ -52,6 +52,7 @@ const getErrorMessage = (error: AuthError): string => {
  */
 export const signUp = async (email: string, password: string) => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
@@ -78,6 +79,7 @@ export const signUp = async (email: string, password: string) => {
  */
 export const signIn = async (email: string, password: string) => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
@@ -101,6 +103,7 @@ export const signIn = async (email: string, password: string) => {
  */
 export const sendPasswordResetEmail = async (email: string) => {
   try {
+    const supabase = createClient();
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: "http://example.com/account/update-password",
     });
@@ -122,6 +125,7 @@ export const sendPasswordResetEmail = async (email: string) => {
  */
 export const updatePassword = async (password: string) => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase.auth.updateUser({
       password: password,
     });
