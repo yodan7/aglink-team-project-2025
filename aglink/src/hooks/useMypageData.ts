@@ -87,7 +87,7 @@ export const useMypageData = () => {
         data: { publicUrl },
       } = supabase.storage.from("avatars").getPublicUrl(PathName);
 
-      console.log("Saving URL to DB:", publicUrl); // ★ログ確認: 保存しようとしているURL
+      // console.log("Saving URL to DB:", publicUrl); // ★ログ確認: 保存しようとしているURL
 
       // プロフィールテーブル更新
       // ★ .select() を追加して、更新結果を受け取れるように変更
@@ -103,7 +103,7 @@ export const useMypageData = () => {
       if (updateError) throw updateError;
 
       // ★ 更新結果のチェック
-      console.log("DB Update Result:", updateData);
+      // console.log("DB Update Result:", updateData);
       if (!updateData || updateData.length === 0) {
         console.warn(
           "⚠️ DBの更新件数が0件です。profilesテーブルに行が存在しないか、RLSポリシーでブロックされています。"
