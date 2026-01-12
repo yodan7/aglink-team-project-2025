@@ -148,26 +148,12 @@ export default function Page() {
       <section className="relative w-full bg-gray-50 mt-14">
         <div className="max-w-7xl mx-auto px-0 sm:px-4 lg:px-12">
           {homeIcons.map((icon, index) => (
-<<<<<<< HEAD
-            <Image
+            <div
               key={index}
-              src={icon.src}
-              alt={icon.alt}
-              width={800}
-              height={600}
-              className="w-full h-auto object-contain block mx-auto mb-auto"
-              style={{ display: "block", maxHeight: "80vh" }}
-            />
-=======
-            <div key={index} className="w-full h-auto flex justify-center mb-auto">
-              <Image
-                src={icon.src}
-                alt={icon.alt}
-                width={1000}
-                height={1000}
-              />
+              className="w-full h-auto flex justify-center mb-auto"
+            >
+              <Image src={icon.src} alt={icon.alt} width={1000} height={1000} />
             </div>
->>>>>>> 5505789cf1f2fb63d86625f8a6dbb0d67444a613
           ))}
         </div>
       </section>
