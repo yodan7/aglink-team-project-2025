@@ -19,8 +19,10 @@ export async function ask(content: string) {
     messages: [{ role: 'user', content: content }],
     model: "gpt-4.1",
   });
-  // 回答結果を返却
-  console.log(completion);
+  // 回答結果を返却（開発環境のみログ出力）
+  if (process.env.NODE_ENV !== "production") {
+    console.log(completion);
+  }
   const answer = completion.choices[0].message?.content
   return answer
 }
