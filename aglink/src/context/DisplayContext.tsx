@@ -13,8 +13,6 @@ export const DisplayProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // localhost:3000/diagnosis の場合のみ isDisplay を false に設定
   const isDisplay = pathname !== "/diagnosis";
-  console.log("pathname", pathname);
-  console.log("isDisplay", isDisplay);
 
   return (
     <DisplayContext.Provider value={isDisplay}>
