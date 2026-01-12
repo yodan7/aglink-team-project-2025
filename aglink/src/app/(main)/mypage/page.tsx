@@ -2,13 +2,12 @@
 
 import React, { useState } from "react";
 
-import { updateProfile, deleteAccount, logout } from "./actions";
+import { updateProfile } from "./actions";
 import { useMypageData } from "@/hooks/useMypageData"; // 作成したフックをインポート
 
 import Image from "next/image";
 import Link from "next/link";
 import { BookmarkItem } from "@/components/domain/home";
-import { useAuth } from "@/hooks/useAuth";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -227,12 +226,15 @@ const MypagePage: React.FC = () => {
 
   // mock-farms.json を簡易に BookmarkItem の props に変換
   // ブックマークデータをBookmarkItem用に変換
-  const bookmarkItems = bookmarks.map((b) => ({
-    id: b.farm?.id || b.farm_id,
-    image: b.farm?.imageUrl || "/images/mock-farms/farm-00.jpg",
-    title: b.farm?.name || "不明な農地",
-    description: b.farm?.location || "",
-  }));
+  const bookmarkItems = bookmarks.map((b) => {
+    const farm = b.farms; // Supabaseは単一オブジェクトで返す
+    return {
+      id: farm?.id || b.farm_id,
+      image: farm?.image_url || "/images/mock-farms/farm-00.jpg",
+      title: farm?.name || "不明な農地",
+      description: farm?.location || "",
+    };
+  });
 
   // 更新処理ハンドラ
   const handleUpdate = async (formData: FormData) => {
@@ -491,20 +493,18 @@ const MypagePage: React.FC = () => {
                 {bookmarkItems.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {bookmarkItems.map((b) => (
-                      <button
+                      <Link
                         key={b.id}
-                        onClick={() => {}}
-                        aria-label={`ブックマーク: ${b.title}`}
-                        className="w-full text-left"
+                        href={`/farms/${b.id}`}
+                        className="block py-2 md:py-3 hover:opacity-80 transition-opacity"
+                        aria-label={`ブックマーク: ${b.title} の詳細を見る`}
                       >
-                        <div className="py-2 md:py-3">
-                          <BookmarkItem
-                            image={b.image}
-                            title={b.title}
-                            description={b.description}
-                          />
-                        </div>
-                      </button>
+                        <BookmarkItem
+                          image={b.image}
+                          title={b.title}
+                          description={b.description}
+                        />
+                      </Link>
                     ))}
                   </div>
                 ) : (
