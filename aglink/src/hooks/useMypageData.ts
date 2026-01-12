@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import type { Bookmark } from "@/types";
 
 // 型定義
 export type ProfileState = {
@@ -35,6 +36,9 @@ export const useMypageData = () => {
   // 最新の診断結果ステート
   const [latestDiagnosis, setLatestDiagnosis] =
     useState<DiagnosisResult | null>(null);
+
+  // ブックマークステート
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,6 +110,31 @@ export const useMypageData = () => {
             ).toLocaleDateString("ja-JP"),
           });
         }
+
+        // 4. ブックマークを取得
+        const { data: bookmarksData, error: bookmarksError } = await supabase
+          .from("bookmarks")
+          .select(`
+            id,
+            user_id,
+            farm_id,
+            created_at,
+            farms (
+              id,
+              name,
+              location,
+              image_url,
+              type
+            )
+          `)
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false });
+
+        if (bookmarksError) {
+          console.error("Error fetching bookmarks:", bookmarksError);
+        } else {
+          setBookmarks(bookmarksData || []);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -119,6 +148,7 @@ export const useMypageData = () => {
   return {
     profile,
     latestDiagnosis,
+    bookmarks,
     loading,
     setProfile, // UI側での楽観的更新のためにsetterも返す
   };

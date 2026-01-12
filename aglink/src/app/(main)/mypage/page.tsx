@@ -9,7 +9,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { BookmarkItem } from "@/components/domain/home";
 import { useAuth } from "@/hooks/useAuth";
-import mockFarms from "@/data/mock-farms.json";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -118,7 +117,7 @@ const TYPE_INFO: Record<string, { name: string; summary: string }> = {
 const MypagePage: React.FC = () => {
   // カスタムフックを利用してデータとローディング状態を取得
   // これによりページコンポーネントからデータ取得ロジックが分離されました
-  const { profile, latestDiagnosis, loading, setProfile } = useMypageData();
+  const { profile, latestDiagnosis, bookmarks, loading, setProfile } = useMypageData();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   // 診断結果表示用のデータ準備
@@ -218,19 +217,12 @@ const MypagePage: React.FC = () => {
   // const characterImageSrc = `/images/agli-types/${detectedCode}-type.png`;
 
   // mock-farms.json を簡易に BookmarkItem の props に変換
-  type FarmMock = {
-    id: string;
-    name: string;
-    imageUrl?: string;
-    planDetails?: { planName?: string };
-    type?: string;
-  };
-
-  const bookmarks = (mockFarms as FarmMock[]).slice(0, 6).map((f) => ({
-    id: f.id,
-    image: f.imageUrl ?? "/images/mock-farms/farm-00.jpg",
-    title: f.name,
-    description: f.planDetails?.planName ?? f.type ?? "",
+  // ブックマークデータをBookmarkItem用に変換
+  const bookmarkItems = bookmarks.map((b) => ({
+    id: b.farm?.id || b.farm_id,
+    image: b.farm?.imageUrl || "/images/mock-farms/farm-00.jpg",
+    title: b.farm?.name || "不明な農地",
+    description: b.farm?.location || "",
   }));
 
   // 更新処理ハンドラ
@@ -472,9 +464,9 @@ const MypagePage: React.FC = () => {
           <Card>
             <CardContent>
               <div className="max-h-80 overflow-y-auto pr-2">
-                {bookmarks.length > 0 ? (
+                {bookmarkItems.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {bookmarks.map((b) => (
+                    {bookmarkItems.map((b) => (
                       <button
                         key={b.id}
                         onClick={() => {}}

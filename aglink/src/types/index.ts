@@ -134,3 +134,11 @@ export type SupportInfo = {
   description: string;
   resourceLinks: string;
 };
+
+export type Bookmark = {
+  id: string;
+  user_id: string;
+  farm_id: string;
+  created_at: string;
+  farm?: Farm; // 関連する農地情報
+};
