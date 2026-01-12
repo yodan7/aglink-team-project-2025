@@ -9,7 +9,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { BookmarkItem } from "@/components/domain/home";
 import { useAuth } from "@/hooks/useAuth";
-import mockFarms from "@/data/mock-farms.json";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -126,6 +125,7 @@ const MypagePage: React.FC = () => {
     uploadAvatar,
     getAvatarUrl,
     uploading,
+    bookmarks,
   } = useMypageData();
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -226,19 +226,12 @@ const MypagePage: React.FC = () => {
   // const characterImageSrc = `/images/agli-types/${detectedCode}-type.png`;
 
   // mock-farms.json を簡易に BookmarkItem の props に変換
-  type FarmMock = {
-    id: string;
-    name: string;
-    imageUrl?: string;
-    planDetails?: { planName?: string };
-    type?: string;
-  };
-
-  const bookmarks = (mockFarms as FarmMock[]).slice(0, 6).map((f) => ({
-    id: f.id,
-    image: f.imageUrl ?? "/images/mock-farms/farm-00.jpg",
-    title: f.name,
-    description: f.planDetails?.planName ?? f.type ?? "",
+  // ブックマークデータをBookmarkItem用に変換
+  const bookmarkItems = bookmarks.map((b) => ({
+    id: b.farm?.id || b.farm_id,
+    image: b.farm?.imageUrl || "/images/mock-farms/farm-00.jpg",
+    title: b.farm?.name || "不明な農地",
+    description: b.farm?.location || "",
   }));
 
   // 更新処理ハンドラ
@@ -495,9 +488,9 @@ const MypagePage: React.FC = () => {
           <Card>
             <CardContent>
               <div className="max-h-80 overflow-y-auto pr-2">
-                {bookmarks.length > 0 ? (
+                {bookmarkItems.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {bookmarks.map((b) => (
+                    {bookmarkItems.map((b) => (
                       <button
                         key={b.id}
                         onClick={() => {}}
@@ -530,83 +523,6 @@ const MypagePage: React.FC = () => {
           >
             <Link href="/">ホームに戻る</Link>
           </Button>
-
-          {/* ログアウトボタン */}
-          <div>
-            <Button
-              variant="outline"
-              className="border-gray-400 hover:bg-gray-50 px-6 py-2"
-              onClick={async () => {
-                if (confirm("ログアウトしますか？")) {
-                  const result = await logout();
-                  if (result.error) {
-                    alert(result.error);
-                  } else {
-                    window.location.href = "/signin";
-                  }
-                }
-              }}
-            >
-              ログアウト
-            </Button>
-          </div>
-
-          {/* 退会ボタン */}
-          <div className="pt-4">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="text-red-600 border-red-600 hover:bg-red-50 hover:text-red-700 px-6 py-2"
-                >
-                  退会する
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle className="text-red-600">
-                    本当に退会しますか？
-                  </DialogTitle>
-                  <DialogDescription className="space-y-2">
-                    <p className="font-semibold">
-                      退会すると以下のデータが削除されます：
-                    </p>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
-                      <li>プロフィール情報</li>
-                      <li>診断履歴</li>
-                      <li>ブックマーク</li>
-                    </ul>
-                    <p className="text-red-600 font-semibold mt-4">
-                      この操作は取り消せません。
-                    </p>
-                  </DialogDescription>
-                </DialogHeader>
-                <DialogFooter className="flex-col sm:flex-row gap-2">
-                  <DialogTrigger asChild>
-                    <Button variant="outline">キャンセル</Button>
-                  </DialogTrigger>
-                  <Button
-                    variant="destructive"
-                    onClick={async () => {
-                      if (confirm("本当に退会してもよろしいですか？")) {
-                        const result = await deleteAccount();
-                        if (result.error) {
-                          alert(result.error);
-                        } else {
-                          alert(
-                            "退会が完了しました。ご利用ありがとうございました。"
-                          );
-                          window.location.href = "/";
-                        }
-                      }
-                    }}
-                  >
-                    退会する
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </div>
         </div>
       </div>
     </div>
