@@ -1,6 +1,5 @@
 import "server-only";
 import OpenAI from "openai";
-import { text } from "stream/consumers";
 
 // 1. 環境変数が設定されているかチェック
 if (!process.env.GPT_API_KEY) {
