@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { useIsDisplay } from "@/context/DisplayContext";
 
 export function Header() {
   const pathname = usePathname();
@@ -18,12 +17,6 @@ export function Header() {
     { href: "/mypage", label: "マイページ" },
     { href: "/signin", label: "ログイン" },
   ];
-  const isDisplay = useIsDisplay();
-  console.log("isDisplay_header", isDisplay);
-
-  if (isDisplay === undefined) {
-    return null; // またはローディングスピナーを表示
-  }
 
   return (
     <header className="bg-white/95 backdrop-blur-sm shadow-sm py-4 px-6 md:px-12 flex justify-between items-center fixed top-0 left-0 w-full z-50 border-b border-gray-100">

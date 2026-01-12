@@ -5,7 +5,6 @@ import "./globals.css";
 // HeaderとFooterをインポート
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
-import { DisplayProvider } from "@/context/DisplayContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,9 +38,7 @@ export default function RootLayout({
           'pt-[80px]'でHeaderの高さ分のスペースを確保します。
           （Headerの高さが約80pxと仮定）
         */}
-        <main className="flex-grow pt-[80px]">
-          <DisplayProvider>{children}</DisplayProvider>
-        </main>
+        <main className="flex-grow pt-[80px]">{children}</main>
         <Footer /> {/* フッターを配置 */}
       </body>
     </html>
