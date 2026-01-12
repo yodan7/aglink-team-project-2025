@@ -25,6 +25,7 @@ import { AgriTypePair } from "@/types";
 import { useCode } from "@/hooks/useCode";
 import { useFarms } from "@/hooks/useFarms";
 import { saveDiagnosisResult } from "../../actions";
+import BookmarkButton from "@/components/domain/farms/BookmarkButton";
 
 export default function DiagnosisResultPage({
   params,
@@ -282,6 +283,7 @@ const handleGetAiFeedback = async () => {
                             className="object-cover"
                             sizes="(max-width: 1024px) 50vw, 33vw"
                           />
+                          <BookmarkButton farmId={farm.id} size="lg" />
                         </div>
                       </CardHeader>
                       <CardContent className="p-4 flex flex-col gap-1">

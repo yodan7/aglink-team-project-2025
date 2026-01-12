@@ -8,8 +8,6 @@ import { useMypageData } from "@/hooks/useMypageData"; // 作成したフック�
 import Image from "next/image";
 import Link from "next/link";
 import { BookmarkItem } from "@/components/domain/home";
-import { useAuth } from "@/hooks/useAuth";
-import mockFarms from "@/data/mock-farms.json";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -126,6 +124,7 @@ const MypagePage: React.FC = () => {
     uploadAvatar,
     getAvatarUrl,
     uploading,
+    bookmarks,
   } = useMypageData();
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -226,20 +225,16 @@ const MypagePage: React.FC = () => {
   // const characterImageSrc = `/images/agli-types/${detectedCode}-type.png`;
 
   // mock-farms.json を簡易に BookmarkItem の props に変換
-  type FarmMock = {
-    id: string;
-    name: string;
-    imageUrl?: string;
-    planDetails?: { planName?: string };
-    type?: string;
-  };
-
-  const bookmarks = (mockFarms as FarmMock[]).slice(0, 6).map((f) => ({
-    id: f.id,
-    image: f.imageUrl ?? "/images/mock-farms/farm-00.jpg",
-    title: f.name,
-    description: f.planDetails?.planName ?? f.type ?? "",
-  }));
+  // ブックマークデータをBookmarkItem用に変換
+  const bookmarkItems = bookmarks.map((b) => {
+    const farm = b.farms; // Supabaseは単一オブジェクトで返す
+    return {
+      id: farm?.id || b.farm_id,
+      image: farm?.image_url || "/images/mock-farms/farm-00.jpg",
+      title: farm?.name || "不明な農地",
+      description: farm?.location || "",
+    };
+  });
 
   // 更新処理ハンドラ
   const handleUpdate = async (formData: FormData) => {
@@ -494,23 +489,21 @@ const MypagePage: React.FC = () => {
           <Card>
             <CardContent>
               <div className="max-h-80 overflow-y-auto pr-2">
-                {bookmarks.length > 0 ? (
+                {bookmarkItems.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {bookmarks.map((b) => (
-                      <button
+                    {bookmarkItems.map((b) => (
+                      <Link
                         key={b.id}
-                        onClick={() => {}}
-                        aria-label={`ブックマーク: ${b.title}`}
-                        className="w-full text-left"
+                        href={`/farms/${b.id}`}
+                        className="block py-2 md:py-3 hover:opacity-80 transition-opacity"
+                        aria-label={`ブックマーク: ${b.title} の詳細を見る`}
                       >
-                        <div className="py-2 md:py-3">
-                          <BookmarkItem
-                            image={b.image}
-                            title={b.title}
-                            description={b.description}
-                          />
-                        </div>
-                      </button>
+                        <BookmarkItem
+                          image={b.image}
+                          title={b.title}
+                          description={b.description}
+                        />
+                      </Link>
                     ))}
                   </div>
                 ) : (

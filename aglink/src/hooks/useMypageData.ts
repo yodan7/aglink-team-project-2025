@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import type { Bookmark } from "@/types";
 
 // 型定義
 export type ProfileState = {
@@ -151,6 +152,8 @@ export const useMypageData = () => {
   const [latestDiagnosis, setLatestDiagnosis] =
     useState<DiagnosisResult | null>(null);
 
+  // ブックマークステート
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   /**
    * DBから取得したアバターの値（パス or URL or null）を
    * 表示可能な完全なURLに変換するヘルパー関数
@@ -256,6 +259,47 @@ export const useMypageData = () => {
             ).toLocaleDateString("ja-JP"),
           });
         }
+
+        // 4. ブックマークを取得
+        const { data: bookmarksData, error: bookmarksError } = await supabase
+          .from("bookmarks")
+          .select(
+            `
+            id,
+            user_id,
+            farm_id,
+            created_at,
+            farms (
+              id,
+              name,
+              location,
+              image_url,
+              type
+            )
+          `
+          )
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false });
+
+        if (bookmarksError) {
+          console.error("Error fetching bookmarks:", bookmarksError);
+          setBookmarks([]);
+        } else {
+          // [must] 農地が削除されているブックマークを除外
+          // Supabaseは外部キー結合で単一オブジェクトとして返す
+          const typedBookmarks = (bookmarksData || []) as unknown as Bookmark[];
+          const validBookmarks = typedBookmarks.filter(
+            (bookmark) => bookmark.farms !== null
+          );
+          setBookmarks(validBookmarks);
+
+          // デバッグ用ログ（本番環境では出力しない）
+          if (process.env.NODE_ENV !== "production") {
+            console.log("📚 Bookmarks Data:", bookmarksData);
+            console.log("📚 First bookmark farms:", bookmarksData?.[0]?.farms);
+            console.log("📚 Valid bookmarks count:", validBookmarks.length);
+          }
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -264,11 +308,13 @@ export const useMypageData = () => {
     };
 
     fetchData();
-  }, [router]); // routerを依存配列に追加
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // 初回マウント時のみ実行（supabase, router, resolveAvatarUrlは安定しているため除外）
 
   return {
     profile,
     latestDiagnosis,
+    bookmarks,
     loading,
     setProfile, // UI側での楽観的更新のためにsetterも返す
     uploadAvatar,
