@@ -1,21 +1,26 @@
 "use client";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5505789cf1f2fb63d86625f8a6dbb0d67444a613
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useIsDisplay } from "@/context/DisplayContext";
 
-// Sheet, Menu, LogIn などのモバイルナビゲーション関連のインポートは削除
-
-// 仮のカスタムカラー定義（tailwind.config.tsに設定されることを前提）
-const AG_BROWN = "text-aglink-brown";
-const AG_HOVER_GREEN = "hover:text-aglink-green";
-
 export function Header() {
+  const pathname = usePathname();
+  // /diagnosis の直下は無効化するが、/diagnosis/result は有効にする
+  const isDiagnosisDisabled =
+    pathname?.startsWith("/diagnosis") &&
+    !pathname?.startsWith("/diagnosis/result");
   // ナビゲーションの共通データ
   const navItems = [
     { href: "/diagnosis", label: "診断を始める" },
-    { href: "/farms", label: "農園を探す" },
+    { href: "/aglitypes", label: "農業スタイル一覧" },
     { href: "/mypage", label: "マイページ" },
+    { href: "/signin", label: "ログイン" },
   ];
   const isDisplay = useIsDisplay();
   console.log("isDisplay_header", isDisplay);
@@ -27,6 +32,7 @@ export function Header() {
   return (
     <header className="bg-white/95 backdrop-blur-sm shadow-sm py-4 px-6 md:px-12 flex justify-between items-center fixed top-0 left-0 w-full z-50 border-b border-gray-100">
       {/* ロゴエリア */}
+<<<<<<< HEAD
 
       <Link
         href={isDisplay ? "/" : "#"}
@@ -45,28 +51,45 @@ export function Header() {
           className="h-10 w-auto object-contain" // ロゴを大きく表示
         />
       </Link>
+=======
+      {/** /diagnosis 配下だが /diagnosis/result は許可する */}
+      {!isDiagnosisDisabled ? (
+        <Link href="/" aria-label="ホームに戻る" className="inline-block">
+          <Image
+            src="/images/logo-icon/aglink-logo.png"
+            alt="Aglink ロゴ - 成長と繋がり"
+            width={180}
+            height={50}
+            priority
+            className="h-10 w-auto object-contain"
+          />
+        </Link>
+      ) : (
+        <div className="inline-block cursor-not-allowed opacity-80" aria-hidden>
+          <Image
+            src="/images/logo-icon/aglink-logo.png"
+            alt="Aglink ロゴ - 成長と繋がり"
+            width={180}
+            height={50}
+            priority
+            className="h-10 w-auto object-contain"
+          />
+        </div>
+      )}
+>>>>>>> 5505789cf1f2fb63d86625f8a6dbb0d67444a613
 
       {/* デスクトップ用ナビゲーション (md以上で表示) */}
-      {/* モバイル画面ではこのナビゲーションは非表示になります。 */}
-      <nav className="hidden md:flex items-center space-x-8">
+      <nav className="hidden md:flex items-center space-x-4">
         {navItems.map((item) => (
-          <Link
+          <Button
             key={item.href}
-            href={item.href}
-            className={`${AG_BROWN} ${AG_HOVER_GREEN} font-medium transition-colors duration-200`}
+            variant="ghost" // 背景透明・ホバー時背景ありのスタイル
+            asChild // 子要素のLinkをボタンとして振る舞わせる
+            className="text-base font-medium text-[#4A3931] hover:text-green-700 hover:bg-green-50 px-5 py-2 transition-all duration-200"
           >
-            {item.label}
-          </Link>
+            <Link href={item.href}>{item.label}</Link>
+          </Button>
         ))}
-
-        {/* ログインボタン */}
-        <Button
-          variant="link"
-          className={`px-0 ${AG_BROWN} ${AG_HOVER_GREEN} transition-colors duration-200`}
-          asChild
-        >
-          <Link href="/login">ログイン</Link>
-        </Button>
       </nav>
     </header>
   );

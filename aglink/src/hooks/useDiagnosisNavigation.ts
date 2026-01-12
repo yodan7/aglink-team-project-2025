@@ -1,7 +1,7 @@
 import { DiagnosisQuestion } from "@/types";
 import { useCallback } from "react";
 
-export const useQuestionsNavigation = (
+export const useDiagnosisNavigation = (
   axisNum: number,
   setAxisNum: (value: number | ((prevState: number) => number)) => void,
   isAllSelect: boolean,
@@ -15,8 +15,7 @@ export const useQuestionsNavigation = (
         const unElement = document.getElementById(
           `q${unSelected[0].id.toString()}`
         );
-        // ★修正: block を "start" に変更し、質問が画面上部に表示されるようにする
-        unElement?.scrollIntoView({ behavior: "smooth", block: "start" });
+        unElement?.scrollIntoView({ behavior: "smooth", block: "center" });
       }
       return;
     }
@@ -24,16 +23,13 @@ export const useQuestionsNavigation = (
     // 選択済みの場合
     if (axisNum < 3) {
       setAxisNum((prev) => prev + 1);
-      // ★修正: 質問が更新された後にスクロールするため、setTimeoutで遅延実行
-      setTimeout(() => {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth",
-        });
-      }, 100);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, [axisNum, isAllSelect, unSelected]);
 
   const handlePrev = useCallback(() => {
@@ -45,7 +41,6 @@ export const useQuestionsNavigation = (
         behavior: "smooth",
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [axisNum]);
 
   return { handlePrev, handleNext };
