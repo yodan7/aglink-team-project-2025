@@ -1,19 +1,27 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useActionState, useEffect } from "react";
 import { LucideSprout } from "lucide-react"; // アイコン例として追加
 import { login } from "@/lib/database/actions";
 import Link from "next/link";
 import Image from "next/image";
 
+// エラー状態の初期値
+const initialState = {
+  error: null,
+  message: null,
+};
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [state, formAction, isPending] = useActionState(login, initialState);
 
   // ログイン処理のダミーハンドラ
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
-    console.log("ログイン試行:", { email, password });
+    // ★セキュリティ: パスワードをログに出力しない
+    console.log("ログイン試行:", { email });
     alert(`ようこそ、Aglinkへ！(メールアドレス: ${email})`);
   };
 
@@ -21,6 +29,12 @@ export default function Login() {
   const handleSignupRedirect = () => {
     alert("会員登録ページへ遷移します。");
   };
+
+  useEffect(() => {
+    if (state.error) {
+      alert(state.error);
+    }
+  }, [state]);
 
   return (
     <>
@@ -54,7 +68,7 @@ export default function Login() {
               ログイン
             </h2>
 
-            <form action={login} className="flex flex-col">
+            <form action={formAction} className="flex flex-col">
               <input
                 type="email"
                 name="email"
