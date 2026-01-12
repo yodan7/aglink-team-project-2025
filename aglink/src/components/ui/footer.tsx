@@ -1,26 +1,49 @@
+"use client";
+
 import Link from "next/link"; // Linkコンポーネントをインポート
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Instagram, Twitter, Mail } from "lucide-react";
 
 // AG_LIGHT_GREEN の定義は削除またはコメントアウト (未使用のため)
 // const AG_LIGHT_GREEN = "text-aglink-light-green";
 
 export function Footer() {
+  const pathname = usePathname();
+  // /diagnosis の直下は無効にするが、/diagnosis/result は有効にする
+  const isDiagnosisDisabled =
+    pathname?.startsWith("/diagnosis") && !pathname?.startsWith("/diagnosis/result");
+
   return (
     // Tailwindのカスタムクラス名はそのまま維持
     <footer className="bg-aglink-dark-green text-aglink-light-green py-12 md:py-16">
       <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center md:items-start space-y-8 md:space-y-0">
         {/* 会社情報/ロゴ */}
         <div className="flex flex-col items-center md:items-start space-y-3">
-          {/* ロゴ画像を配置 */}
-          <Image
-            src="/images/logo-icon/aglink-logo.png"
-            alt="Aglink ロゴ"
-            width={130} // ヘッダーより少し大きめに
-            height={35}
-            // 濃い背景色での視認性向上のためのCSSフィルター（必要に応じて調整）
-            className="invert-0 filter hue-rotate-[180deg] saturate-50"
-          />
+          {/* ロゴ画像を配置: /diagnosis 直下ではクリック不可、/diagnosis/result は許可 */}
+          {!isDiagnosisDisabled ? (
+            <Link href="/" className="inline-block" aria-label="ホームに戻る">
+              <Image
+                src="/images/logo-icon/aglink-logo.png"
+                alt="Aglink ロゴ"
+                width={130} // ヘッダーより少し大きめに
+                height={35}
+                // 濃い背景色での視認性向上のためのCSSフィルター（必要に応じて調整）
+                className="invert-0 filter hue-rotate-[180deg] saturate-50"
+              />
+            </Link>
+          ) : (
+            <div className="inline-block cursor-not-allowed opacity-80" aria-hidden>
+              <Image
+                src="/images/logo-icon/aglink-logo.png"
+                alt="Aglink ロゴ"
+                width={130}
+                height={35}
+                className="invert-0 filter hue-rotate-[180deg] saturate-50"
+              />
+            </div>
+          )}
+
           <p className="text-sm text-gray-300">あなたの農業ライフをサポート</p>
         </div>
 

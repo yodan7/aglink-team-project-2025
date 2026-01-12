@@ -1,28 +1,47 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function SignupSuccessPage() {
   const router = useRouter();
 
   const handleGoToMain = () => {
-    router.push('/diagnosis'); 
+    router.push("/diagnosis");
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-green-50 p-5">
       <div className="w-full max-w-md text-center">
         {/* アプリタイトル */}
-        <h1 className="text-3xl font-bold text-green-700 mb-8">🎉 農業診断</h1>
+        <div
+          className="justify-center flex mb-3 opacity-0" // mb-8 -> mb-12 for more spacing below
+          style={{ animation: "fadeInUp 0.7s ease-out forwards 0.1s" }}
+        >
+          <Image
+            src="/images/logo-icon/aglink-logo.png"
+            alt="Aglink ロゴ - 成長と繋がり"
+            width={150} // width increased from 200 to 300
+            height={30} // height increased from 60 to 90
+            priority
+            className="h-auto w-auto" // h-12 removed for auto height adjustment
+          />
+        </div>
 
         {/* 成功メッセージボックス */}
         <div className="bg-white p-8 rounded-xl shadow-md mb-6">
           <div className="text-6xl mb-4">✅</div>
-          <h2 className="text-2xl font-bold text-green-700 mb-2">ご登録ありがとうございます！</h2>
-          <p className="text-gray-700 mb-1">これで、すべての機能をご利用いただけます。</p>
-          <p className="text-gray-700 mb-4">早速、あなたの農園を診断してみましょう！</p>
+          <h2 className="text-2xl font-bold text-green-700 mb-2">
+            ご登録ありがとうございます！
+          </h2>
+          <p className="text-gray-700 mb-1">
+            これで、すべての機能をご利用いただけます。
+          </p>
+          <p className="text-gray-700 mb-4">
+            早速、あなたの農園を診断してみましょう！
+          </p>
 
           {/* メイン画面へ進むボタン */}
           <button

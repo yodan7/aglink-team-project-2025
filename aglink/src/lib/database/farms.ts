@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabaseClient";
+import { createClient } from "@/lib/supabase/client";
 import type { Farm, NewFarmInput } from "@/types";
 import { supabaseToCamelCase } from "../utils";
 
@@ -11,6 +11,7 @@ import { supabaseToCamelCase } from "../utils";
  */
 export const getAllFarms = async (): Promise<Farm[] | null> => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("farms")
       .select(
@@ -52,6 +53,7 @@ export const getAllFarms = async (): Promise<Farm[] | null> => {
  */
 export const getFarmById = async (id: string): Promise<Farm | null> => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("farms")
       .select(
@@ -93,6 +95,7 @@ export const getFarmById = async (id: string): Promise<Farm | null> => {
  */
 export const getFarmsByCode = async (code: string): Promise<Farm[] | null> => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("farms")
       .select(
@@ -135,6 +138,7 @@ export const getFarmsByCode = async (code: string): Promise<Farm[] | null> => {
  */
 export const getAllFarmsWithSections = async (): Promise<Farm[] | null> => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("farms")
       .select(
@@ -178,8 +182,11 @@ export const getAllFarmsWithSections = async (): Promise<Farm[] | null> => {
 /**
  * 特定の農地を取得（1個、sectionsあり）
  */
-export const getFarmByIdWithSections = async (id: string): Promise<Farm | null> => {
+export const getFarmByIdWithSections = async (
+  id: string
+): Promise<Farm | null> => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("farms")
       .select(
@@ -223,8 +230,11 @@ export const getFarmByIdWithSections = async (id: string): Promise<Farm | null> 
 /**
  * 農業codeでフィルタリング（sectionsあり）
  */
-export const getFarmsByCodeWithSections = async (code: string): Promise<Farm[] | null> => {
+export const getFarmsByCodeWithSections = async (
+  code: string
+): Promise<Farm[] | null> => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("farms")
       .select(
@@ -273,6 +283,7 @@ export const createFarm = async (
   farmData: NewFarmInput
 ): Promise<Farm | null> => {
   try {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("farms")
       .insert(farmData)
