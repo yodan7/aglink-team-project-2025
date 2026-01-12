@@ -134,3 +134,22 @@ export type SupportInfo = {
   description: string;
   resourceLinks: string;
 };
+
+// [must] ブックマーク用の簡易農地型を追加
+export type BookmarkedFarm = {
+  id: string;
+  name: string;
+  location: string;
+  image_url: string | null;
+  type: string;
+};
+
+// [must] Bookmark型を修正
+// Supabaseは外部キー結合で単一オブジェクトとして返す
+export type Bookmark = {
+  id: string;
+  user_id: string;
+  farm_id: string;
+  created_at: string;
+  farms: BookmarkedFarm | null; // ← Supabaseは単一オブジェクトで返す
+};
