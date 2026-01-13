@@ -12,7 +12,8 @@ export function Footer() {
   const pathname = usePathname();
   // /diagnosis の直下は無効にするが、/diagnosis/result は有効にする
   const isDiagnosisDisabled =
-    pathname?.startsWith("/diagnosis") && !pathname?.startsWith("/diagnosis/result");
+    pathname?.startsWith("/diagnosis") &&
+    !pathname?.startsWith("/diagnosis/result");
 
   return (
     // Tailwindのカスタムクラス名はそのまま維持
@@ -33,7 +34,10 @@ export function Footer() {
               />
             </Link>
           ) : (
-            <div className="inline-block cursor-not-allowed opacity-80" aria-hidden>
+            <div
+              className="inline-block cursor-not-allowed opacity-80"
+              aria-hidden
+            >
               <Image
                 src="/images/logo-icon/aglink-logo.png"
                 alt="Aglink ロゴ"
@@ -52,13 +56,13 @@ export function Footer() {
           <span className="font-semibold text-white mb-1">サイトマップ</span>
 
           {/* <a>タグからLinkに置き換えることを推奨（ここでは簡潔さのため<a>を維持） */}
-          <a href="/about" className="hover:text-white transition-colors">
+          <a href="#" className="hover:text-white transition-colors">
             Aglinkについて
           </a>
-          <a href="/faq" className="hover:text-white transition-colors">
+          <a href="#" className="hover:text-white transition-colors">
             よくある質問
           </a>
-          <a href="/privacy" className="hover:text-white transition-colors">
+          <a href="#" className="hover:text-white transition-colors">
             プライバシーポリシー
           </a>
         </div>
