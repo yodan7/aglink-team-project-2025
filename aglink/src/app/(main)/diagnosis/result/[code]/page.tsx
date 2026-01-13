@@ -26,6 +26,7 @@ import { useCode } from "@/hooks/useCode";
 import { useFarms } from "@/hooks/useFarms";
 import { saveDiagnosisResult } from "../../actions";
 import BookmarkButton from "@/components/domain/farms/BookmarkButton";
+import { HomeButton } from "@/components/ui/homeButton";
 
 export default function DiagnosisResultPage({
   params,
@@ -464,6 +465,8 @@ export default function DiagnosisResultPage({
                 )}
               </div>
             </section>
+
+            <HomeButton />
           </div>
         </div>
 
