@@ -111,7 +111,7 @@ export default function Login() {
 
             {/* パスワード忘れリンク */}
             <Link
-              href=""
+              href="#"
               className="inline-block mt-5 text-[#666666] text-sm no-underline mb-[10px] hover:text-[#4CAF50] hover:underline opacity-0 transition-colors"
               style={{ animation: "fadeInUp 0.7s ease-out forwards 0.5s" }}
               onClick={() => {
