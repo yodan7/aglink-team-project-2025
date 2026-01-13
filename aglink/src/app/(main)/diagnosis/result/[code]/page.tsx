@@ -104,7 +104,7 @@ export default function DiagnosisResultPage({
   const hasSaved = useRef(false);
 
   useEffect(() => {
-    //sessionStorageは文字列鹿保存できないため事前に文字列と比較する
+    //sessionStorageは文字列しか保存できないため事前に文字列と比較する
     const isFromDiagnosisPage =
       sessionStorage.getItem("diagnosis_completed") === "true";
 
