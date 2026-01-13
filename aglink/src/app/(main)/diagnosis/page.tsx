@@ -62,14 +62,19 @@ export default function DiagnosisPageUI() {
   const progressPercent = totalQuestionsCount
     ? (totalAnsweredCount / totalQuestionsCount) * 100
     : 0;
-  
+
   const saveDiagnosisData = () => {
     const finalTypeCode = `${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`;
-    const data = { 
-      userAnswers: currentAnswerValue, 
-      finalType: finalTypeCode 
+    const data = {
+      userAnswers: currentAnswerValue,
+      finalType: finalTypeCode,
     };
+    // 診断項目をsessionStorageに保存してAI診断ページで利用できるようにする
     sessionStorage.setItem("debug_diagnosis_data", JSON.stringify(data));
+
+    // 診断完了のフラグも保存
+    //sessionStorageは文字列鹿保存できないため事前に文字列にする
+    sessionStorage.setItem("diagnosis_completed", "true");
   };
 
   if (error) {
@@ -79,7 +84,6 @@ export default function DiagnosisPageUI() {
   return (
     // ★修正: fixed配置を廃止し、通常のフローレイアウトに戻す
     <div className="min-h-screen bg-background flex flex-col items-center pb-20">
-
       {/* 0. ロゴとタイトルエリア (通常の配置) */}
       {/* 全画面共通ヘッダーの下に自然に配置されます */}
       <div className="w-full max-w-5xl flex flex-col items-center justify-center pt-8 pb-4 px-4">
@@ -108,7 +112,9 @@ export default function DiagnosisPageUI() {
               </span>
               <span className="text-2xl font-extrabold text-foreground">
                 {Math.round(progressPercent)}
-                <span className="text-sm font-medium text-muted-foreground ml-0.5">%</span>
+                <span className="text-sm font-medium text-muted-foreground ml-0.5">
+                  %
+                </span>
               </span>
             </div>
             {/* Remaining Count */}
@@ -117,8 +123,15 @@ export default function DiagnosisPageUI() {
                 残りの質問数
               </p>
               <p className="text-sm font-medium text-foreground">
-                あと <span className="text-xl font-bold text-primary">{remainingTotal}</span> 問
-                <span className="text-xs text-muted-foreground ml-1"> / 全{totalQuestionsCount}問</span>
+                あと{" "}
+                <span className="text-xl font-bold text-primary">
+                  {remainingTotal}
+                </span>{" "}
+                問
+                <span className="text-xs text-muted-foreground ml-1">
+                  {" "}
+                  / 全{totalQuestionsCount}問
+                </span>
               </p>
             </div>
           </div>
@@ -131,7 +144,8 @@ export default function DiagnosisPageUI() {
             />
           </div>
           <p className="text-[10px] md:text-xs text-center text-muted-foreground mt-1">
-            {currentAxis}に関する質問 ({questions && currentAxis ? questions[currentAxis].length : 0}問)
+            {currentAxis}に関する質問 (
+            {questions && currentAxis ? questions[currentAxis].length : 0}問)
           </p>
         </div>
       </div>
@@ -183,9 +197,10 @@ export default function DiagnosisPageUI() {
                             aria-label={`回答: ${value}`}
                             className={`
                               relative rounded-full transition-all duration-300 ease-out flex items-center justify-center flex-shrink-0
-                              ${isSelected
-                                ? "scale-110 md:scale-125 opacity-100 z-10 ring-4 ring-primary ring-offset-2 ring-offset-card shadow-2xl"
-                                : hasAnswer
+                              ${
+                                isSelected
+                                  ? "scale-110 md:scale-125 opacity-100 z-10 ring-4 ring-primary ring-offset-2 ring-offset-card shadow-2xl"
+                                  : hasAnswer
                                   ? "scale-90 opacity-40 grayscale blur-[1px] hover:grayscale-0 hover:opacity-100 hover:scale-100 hover:blur-0"
                                   : "hover:scale-110 opacity-90 hover:opacity-100"
                               }
@@ -202,12 +217,19 @@ export default function DiagnosisPageUI() {
                               fill
                               className={`
                                 object-contain transition-all duration-300
-                                ${isSelected ? "drop-shadow-lg" : "drop-shadow-none"}
+                                ${
+                                  isSelected
+                                    ? "drop-shadow-lg"
+                                    : "drop-shadow-none"
+                                }
                               `}
                             />
                             {isSelected && (
                               <div className="absolute -top-2 -right-2 bg-primary text-white rounded-full p-1 shadow-md animate-in zoom-in duration-200">
-                                <CheckCircle2 className="w-3 h-3" strokeWidth={4} />
+                                <CheckCircle2
+                                  className="w-3 h-3"
+                                  strokeWidth={4}
+                                />
                               </div>
                             )}
                           </button>
@@ -227,7 +249,6 @@ export default function DiagnosisPageUI() {
 
         {/* 3. ナビゲーションボタン */}
         <div className="w-full max-w-4xl flex flex-col mt-4">
-
           {/* 未回答数の案内 */}
           {!isAllSelect && (
             <div className="text-center mb-6 animate-pulse">
@@ -254,7 +275,11 @@ export default function DiagnosisPageUI() {
                 onClick={handleNext}
                 disabled={!isAllSelect}
                 className={`px-8 py-6 h-auto text-lg rounded-full shadow-lg text-white transition-all duration-200 
-                      ${isAllSelect ? "bg-primary hover:bg-primary/90 hover:shadow-xl hover:scale-[1.05]" : "bg-gray-300 cursor-not-allowed opacity-70"}
+                      ${
+                        isAllSelect
+                          ? "bg-primary hover:bg-primary/90 hover:shadow-xl hover:scale-[1.05]"
+                          : "bg-gray-300 cursor-not-allowed opacity-70"
+                      }
                   `}
               >
                 次へ <ArrowRight className="w-5 h-5 ml-2" />
@@ -263,21 +288,25 @@ export default function DiagnosisPageUI() {
               <Button
                 disabled={!isAllSelect}
                 className={`px-8 py-6 h-auto text-lg rounded-full shadow-lg text-white transition-all duration-200 
-                      ${isAllSelect ? "bg-primary hover:bg-primary/90 hover:shadow-xl hover:scale-[1.05]" : "bg-gray-300 cursor-not-allowed opacity-70"}
+                      ${
+                        isAllSelect
+                          ? "bg-primary hover:bg-primary/90 hover:shadow-xl hover:scale-[1.05]"
+                          : "bg-gray-300 cursor-not-allowed opacity-70"
+                      }
                   `}
                 {...(isAllSelect ? { asChild: true } : { onClick: handleNext })}
               >
                 {isAllSelect &&
-                  typeCode.Motivation &&
-                  typeCode.Scale &&
-                  typeCode.Approach &&
-                  typeCode.Stance ? (
+                typeCode.Motivation &&
+                typeCode.Scale &&
+                typeCode.Approach &&
+                typeCode.Stance ? (
                   <Link
-                  href={`/diagnosis/result/${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`}
-                  onClick={saveDiagnosisData} // ★ここに追加！
-                >
-                  結果を見る <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
+                    href={`/diagnosis/result/${typeCode.Motivation}${typeCode.Scale}${typeCode.Approach}${typeCode.Stance}`}
+                    onClick={saveDiagnosisData} // ★ここに追加！
+                  >
+                    結果を見る <ArrowRight className="w-5 h-5 ml-2" />
+                  </Link>
                 ) : (
                   <>
                     結果を見る <ArrowRight className="w-5 h-5 ml-2" />
