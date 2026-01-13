@@ -72,9 +72,14 @@ export default function DiagnosisPageUI() {
     // 診断項目をsessionStorageに保存してAI診断ページで利用できるようにする
     sessionStorage.setItem("debug_diagnosis_data", JSON.stringify(data));
 
-    // 診断完了のフラグも保存
-    //sessionStorageは文字列鹿保存できないため事前に文字列にする
-    sessionStorage.setItem("diagnosis_completed", "true");
+    // 診断完了のフラグをcode情報とタイムスタンプ付きで保存
+    sessionStorage.setItem(
+      "diagnosis_completed",
+      JSON.stringify({
+        code: finalTypeCode,
+        timestamp: Date.now(),
+      })
+    );
   };
 
   if (error) {

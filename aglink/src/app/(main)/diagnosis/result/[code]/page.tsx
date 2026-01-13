@@ -104,11 +104,28 @@ export default function DiagnosisResultPage({
   const hasSaved = useRef(false);
 
   useEffect(() => {
-    //sessionStorageは文字列鹿保存できないため事前に文字列と比較する
-    const isFromDiagnosisPage =
-      sessionStorage.getItem("diagnosis_completed") === "true";
+    const diagnosisData = sessionStorage.getItem("diagnosis_completed");
 
-    if (!code || hasSaved.current || !isFromDiagnosisPage) return;
+    if (!code || hasSaved.current || !diagnosisData) return;
+
+    // セッションデータを検証
+    try {
+      const { code: savedCode, timestamp } = JSON.parse(diagnosisData);
+
+      // codeが一致し、30分以内なら保存
+      const VALID_DURATION = 30 * 60 * 1000; // 30分
+      const isValid =
+        savedCode === code && Date.now() - timestamp <= VALID_DURATION;
+
+      if (!isValid) {
+        sessionStorage.removeItem("diagnosis_completed");
+        return;
+      }
+    } catch {
+      // パースエラーの場合は古い形式なので削除
+      sessionStorage.removeItem("diagnosis_completed");
+      return;
+    }
 
     const save = async () => {
       hasSaved.current = true;
