@@ -29,6 +29,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import { HomeButton } from "@/components/ui/homeButton";
 
 // 診断タイプ定数
 const TYPE_INFO: Record<string, { name: string; summary: string }> = {
@@ -515,14 +516,7 @@ const MypagePage: React.FC = () => {
             </CardContent>
           </Card>
         </section>
-        <div className="mt-8 text-center space-y-4">
-          <Button
-            asChild
-            className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full shadow-lg"
-          >
-            <Link href="/">ホームに戻る</Link>
-          </Button>
-        </div>
+        <HomeButton />
       </div>
     </div>
   );
