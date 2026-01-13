@@ -124,6 +124,7 @@ export default function DiagnosisResultPage({
             sessionStorage.removeItem("diagnosis_completed");
           } else {
             // console.log("ℹ️ 未ログインのため保存をスキップしました");
+            sessionStorage.removeItem("diagnosis_completed");
           }
         } else {
           console.error("❌ 保存エラー:", result.error);
@@ -397,11 +398,14 @@ export default function DiagnosisResultPage({
                 <Button
                   className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-200"
                   asChild
-                  onClick={() => {
-                    alert("未実装です");
-                  }}
+                  
                 >
-                  <Link href="">すべての農地を見る</Link>
+                  <Link 
+                    href="#"
+                    onClick={() => {
+                    alert("未実装です");
+                    }}
+                    >すべての農地を見る</Link>
                 </Button>
               </div>
             </section>
