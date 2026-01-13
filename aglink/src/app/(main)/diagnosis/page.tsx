@@ -73,7 +73,7 @@ export default function DiagnosisPageUI() {
     sessionStorage.setItem("debug_diagnosis_data", JSON.stringify(data));
 
     // 診断完了のフラグも保存
-    //sessionStorageは文字列鹿保存できないため事前に文字列にする
+    // sessionStorageは文字列しか保存できないため事前に文字列にする
     sessionStorage.setItem("diagnosis_completed", "true");
   };
 
