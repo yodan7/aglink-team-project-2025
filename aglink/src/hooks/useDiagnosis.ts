@@ -14,7 +14,7 @@ export const useDiagnosis = (code: AgriTypePair["code"]) => {
 
   useEffect(() => {
     // 無効なコードの場合は処理をスキップ
-    console.log(code);
+    // console.log(code);
 
     if (!code) {
       // codeがまだ渡されていない場合は、ローディング中のまま待機
